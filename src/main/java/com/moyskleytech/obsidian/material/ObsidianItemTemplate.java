@@ -58,7 +58,7 @@ public class ObsidianItemTemplate {
         enchants.putAll(template.enchants);
         name = template.name;
         unbreakable = template.unbreakable;
-        meta=template.meta;
+        meta=template.meta.clone();
     }
 
     public ObsidianItemTemplate lore(Collection<String> lore) {
@@ -88,6 +88,12 @@ public class ObsidianItemTemplate {
     public ObsidianItemTemplate unbreakable(boolean unbreakable) {
         ObsidianItemTemplate ws = new ObsidianItemTemplate(this);
         ws.unbreakable = unbreakable;
+        return ws;
+    }
+
+    public ObsidianItemTemplate meta(ItemMeta meta) {
+        ObsidianItemTemplate ws = new ObsidianItemTemplate(this);
+        ws.meta = meta.clone();
         return ws;
     }
 

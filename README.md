@@ -1,5 +1,6 @@
 # ObsidianMaterial
 
+Maven repository
 ```xml
 <repository>
     <id>obsidianmakerdevelopment</id>
@@ -13,30 +14,75 @@
     <version>1.0.0</version>
 </dependency>
 ```
+To use in gradle
+```gradle
+repositories {
+    maven("https://moyskleytech.com/debian/m2")
+}
+dependencies {
+    implementation("com.moyskleytech:ObsidianMaterial:1.0.0")
+}
+```
 # Usage
-To add a gradient simply use the <GRADIENT> tags
+To get a Material, ObsidianMaterial.valueOf()
 ```java
-IridiumColorAPI.process("<GRADIENT:2C08BA>Cool string with a gradient</GRADIENT:028A97>");
+import com.moyskleytech.obsidian.material.ObsidianMaterial;
+ObsidianMaterial material = ObsidianMaterial.valueOf("RED_BED");
 ```
-![Gradient Text](https://i.imgur.com/M1l5OM9.png)
-
-The number after the rainbow represents the saturation
+To get a Item, ItemParser.deserialize()
 ```java
-IridiumColorAPI.process("<RAINBOW1>THIS IS A REALLY COOL Rainbow</RAINBOW>");
+import com.moyskleytech.obsidian.material.ObsidianItemTemplate;
+import com.moyskleytech.obsidian.material.ItemParser;
+ObsidianItemTemplate template = ItemParser.deserialize("RED_BED");
+//To clone an item
+ObsidianItemTemplate template = new ObsidianItemTemplate({**ItemStack**});
 ```
 
-![Rainbow](https://i.imgur.com/5GhSFo1.png)
 
+To get a Bukkit Material
 ```java
-IridiumColorAPI.process("<RAINBOW100>THIS IS A REALLY COOL Rainbow</RAINBOW>");
+ObsidianMaterial material = ...;
+org.bukkit.Material mat = material.toMaterial();
+//Also available with ItemTemplate
+ObsitianItemTemplate template =...;
+org.bukkit.Material mat = template.toMaterial();
 ```
-![Rainbow](https://i.imgur.com/Rieftuz.png)
+To get a Bukkit ItemStack
 ```java
-IridiumColorAPI.process("<SOLID:FF0080>Cool RGB SUPPORT");
+ObsidianMaterial material = ...;
+org.bukkit.inventory.ItemStack stack = material.toItem();
+//Also available with ItemTemplate
+ObsitianItemTemplate template =...;
+org.bukkit.inventory.ItemStack stack= template.toItem();
 ```
-![RGB Text](https://i.imgur.com/IudqIpb.png)
 
-If your server version is pre 1.16 it will map the color to the nearest supported value(This also works with gradient)
-In the example above, it will map to &5 as this is the closest
+Syntax for Items is still a WIP, however it is expected to support both JSON format and legacy string 
+```java
+"DIAMOND_SWORD_OF_MENDING_5_NAMED_Destroyer of universe"
+```
+```json
+{
+    "name":"Destroyer of universe",
+    "material":"DIAMOND_SWORD",
+    "enchants":
+    { 
+        "MENDING":5
+    }
+}
+```
 
-![Legacy RGB](https://i.imgur.com/8RMmCAX.png)
+Acceptable values:
+ - All `org.bukkit.Material` values
+ - {ENTITY}_SPAWNER, {ENTITY} is any `org.bukkit.EntityType`
+ - {ENCHANT}_BOOK, {ENCHANT} is any `org.bukkit.enchantments.Enchantment`
+ - {ENCHANT}_{LEVEL}_BOOK
+ - {ENCHANT}_{LEVEL}_AND\_{ENCHANT}\_{LEVEL}_BOOK (You can add infinite _AND\_)
+ - {POTION_TYPE}_POTION, {POTION_TYPE} is any `org.bukkit.potion.PotionType`
+ - {POTION_TYPE}_SPLASH_POTION
+ - {POTION_TYPE}_2_POTION
+ - {POTION_TYPE}_2_SPLASH_POTION
+ - EXTENDED_{POTION_TYPE}_POTION
+ - EXTENDED_{POTION_TYPE}_SPLASH_POTION
+ - EXTENDED_{POTION_TYPE}_2_POTION
+ - EXTENDED_{POTION_TYPE}_2_SPLASH_POTION
+ - All `com.cryptomorin.xseries.XMaterial` values
