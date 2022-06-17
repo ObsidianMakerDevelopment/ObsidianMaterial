@@ -13,9 +13,15 @@ import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 
 import com.cryptomorin.xseries.XMaterial;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import com.moyskleytech.obsidian.material.parsers.ObsidianItemTemplateDeserialize;
+import com.moyskleytech.obsidian.material.parsers.ObsidianItemTemplateSerialize;
 
 import lombok.Getter;
 
+@JsonSerialize(using = ObsidianItemTemplateSerialize.class)
+@JsonDeserialize(using = ObsidianItemTemplateDeserialize.class)
 public class ObsidianItemTemplate {
 
     @Getter
@@ -31,6 +37,9 @@ public class ObsidianItemTemplate {
     @Getter
     private ItemMeta meta;
 
+    public ObsidianItemTemplate() {
+        material = ObsidianMaterial.valueOf("STONE");
+    }
     public ObsidianItemTemplate(ObsidianMaterial mat) {
         material = mat;
     }
@@ -79,6 +88,12 @@ public class ObsidianItemTemplate {
         return ws;
     }
 
+    public ObsidianItemTemplate material(ObsidianMaterial mat) {
+        ObsidianItemTemplate ws = new ObsidianItemTemplate(this);
+        ws.material = mat;
+        return ws;
+    }
+
     public ObsidianItemTemplate name(String name) {
         ObsidianItemTemplate ws = new ObsidianItemTemplate(this);
         ws.name = name;
@@ -104,6 +119,11 @@ public class ObsidianItemTemplate {
     public List<String> getLore()
     {
         return new ArrayList<>(lore);
+    }
+
+    public boolean isPure()
+    {
+        return name==null&& lore.size()==0&&enchants.size()==0&&meta==null&&!unbreakable;
     }
 
     public boolean isSimilar(ItemStack item) {
