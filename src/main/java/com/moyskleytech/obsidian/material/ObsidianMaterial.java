@@ -1,5 +1,6 @@
 package com.moyskleytech.obsidian.material;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -14,20 +15,27 @@ import org.bukkit.potion.PotionType;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 
 import com.cryptomorin.xseries.XMaterial;
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.DeserializationContext;
+import com.fasterxml.jackson.databind.KeyDeserializer;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import com.fasterxml.jackson.databind.module.SimpleModule;
 import com.moyskleytech.obsidian.material.implementations.BookMaterial;
 import com.moyskleytech.obsidian.material.implementations.BukkitMaterial;
 import com.moyskleytech.obsidian.material.implementations.PotionMaterial;
 import com.moyskleytech.obsidian.material.implementations.SpawnerMaterial;
 import com.moyskleytech.obsidian.material.parsers.*;
 
+@NoArgsConstructor
 @AllArgsConstructor
 @JsonSerialize(using = ObsidianMaterialSerialize.class)
 @JsonDeserialize(using = ObsidianMaterialDeserialize.class)
-public abstract class ObsidianMaterial {
+public abstract class ObsidianMaterial implements Comparable<ObsidianMaterial> {
     private static Map<String, ObsidianMaterial> materials = new HashMap<>();
 
     @Getter
@@ -132,6 +140,50 @@ public abstract class ObsidianMaterial {
         return toItem().isSimilar(item);
     }
 
+    public static void registerKeyDeserializer(ObjectMapper objectMapper)
+    {
+        SimpleModule simpleModule = new SimpleModule();
+        simpleModule.addKeyDeserializer(ObsidianMaterial.class, new ObsidianMaterialKeyDeserializer());
+        objectMapper.registerModule(simpleModule);
+    }
+    public static class ObsidianMaterialKeyDeserializer extends KeyDeserializer
+    {
+        @Override
+        public Object deserializeKey(final String key, final DeserializationContext ctxt ) throws IOException, JsonProcessingException
+        {
+            return valueOf(key);
+        }
+    }
+
     public abstract Material toMaterial();
     public abstract ItemStack toItem();
+
+
+    @Override
+    protected Object clone() throws CloneNotSupportedException {
+        return this;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (!(obj instanceof ObsidianMaterial))
+            return false;
+
+        return name().equals(((ObsidianMaterial) obj).name());
+    }
+
+    @Override
+    public int hashCode() {
+        return name().hashCode();
+    }
+
+    @Override
+    public String toString() {
+        return name();
+    }
+
+    @Override
+    public int compareTo(ObsidianMaterial arg0) {
+        return name().compareTo(((ObsidianMaterial) arg0).name());
+    }
 }

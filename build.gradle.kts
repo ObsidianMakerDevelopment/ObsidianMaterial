@@ -56,6 +56,7 @@ tasks {
         relocate("org.yaml.snakeyaml", "com.moyskleytech.obsidian.material.dependencies.snakeyaml")
         relocate("com.cryptomorin.xseries", "com.moyskleytech.obsidian.material.dependencies.xseries")
         relocate("com.fasterxml.jackson", "com.moyskleytech.obsidian.material.dependencies.fasterxml")
+        minimize()
     }
 
     compileJava {

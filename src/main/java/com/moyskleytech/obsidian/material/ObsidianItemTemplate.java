@@ -40,6 +40,7 @@ public class ObsidianItemTemplate {
     public ObsidianItemTemplate() {
         material = ObsidianMaterial.valueOf("STONE");
     }
+
     public ObsidianItemTemplate(ObsidianMaterial mat) {
         material = mat;
     }
@@ -54,7 +55,7 @@ public class ObsidianItemTemplate {
             name = itemMeta.getDisplayName();
         if (itemMeta.hasLore())
             lore.addAll(itemMeta.getLore());
-        if (itemMeta.hasEnchants()) 
+        if (itemMeta.hasEnchants())
             enchants.putAll(itemMeta.getEnchants());
         unbreakable = itemMeta.isUnbreakable();
 
@@ -67,7 +68,8 @@ public class ObsidianItemTemplate {
         enchants.putAll(template.enchants);
         name = template.name;
         unbreakable = template.unbreakable;
-        meta=template.meta.clone();
+        if (template.meta != null)
+            meta = template.meta.clone();
     }
 
     public ObsidianItemTemplate lore(Collection<String> lore) {
@@ -112,18 +114,16 @@ public class ObsidianItemTemplate {
         return ws;
     }
 
-    public Map<Enchantment,Integer> getEnchants()
-    {
+    public Map<Enchantment, Integer> getEnchants() {
         return new HashMap<>(enchants);
     }
-    public List<String> getLore()
-    {
+
+    public List<String> getLore() {
         return new ArrayList<>(lore);
     }
 
-    public boolean isPure()
-    {
-        return name==null&& lore.size()==0&&enchants.size()==0&&meta==null&&!unbreakable;
+    public boolean isPure() {
+        return name == null && lore.size() == 0 && enchants.size() == 0 && meta == null && !unbreakable;
     }
 
     public boolean isSimilar(ItemStack item) {
@@ -133,16 +133,16 @@ public class ObsidianItemTemplate {
     public Material toMaterial() {
         return material.toMaterial();
     }
-    public ItemStack build()
-    {
+
+    public ItemStack build() {
         return toItem();
     }
 
     public ItemStack toItem() {
         ItemStack itemStack = material.toItem();
         ItemMeta itemMeta = itemStack.getItemMeta();
-        if(meta!=null)
-            itemMeta=meta;
+        if (meta != null)
+            itemMeta = meta;
         if (itemMeta == null)
             return itemStack;
 

@@ -2,6 +2,8 @@ package com.moyskleytech.obsidian.material.parsers;
 
 import java.io.IOException;
 
+import org.bukkit.Bukkit;
+
 import com.fasterxml.jackson.core.JacksonException;
 import com.fasterxml.jackson.core.JsonParser;
 import com.fasterxml.jackson.databind.DeserializationContext;
@@ -13,6 +15,6 @@ public class ObsidianMaterialDeserialize extends JsonDeserializer<ObsidianMateri
     @Override
     public ObsidianMaterial deserialize(JsonParser arg0, DeserializationContext arg1)
             throws IOException, JacksonException {
-        return MaterialParser.deserialize(arg0.readValueAs(String.class));
+        return MaterialParser.deserialize(arg0.getText());
     }
 }

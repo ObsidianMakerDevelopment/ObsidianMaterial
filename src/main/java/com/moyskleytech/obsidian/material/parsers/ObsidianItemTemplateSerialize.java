@@ -1,8 +1,12 @@
 package com.moyskleytech.obsidian.material.parsers;
 
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
 import java.util.Map.Entry;
 
+import org.bukkit.configuration.serialization.ConfigurationSerializable;
 import org.bukkit.enchantments.Enchantment;
 
 import com.fasterxml.jackson.core.JsonGenerator;
@@ -32,7 +36,7 @@ public class ObsidianItemTemplateSerialize extends JsonSerializer<ObsidianItemTe
             }
             if (template.getMeta()!=null) {
                 gen.writeFieldName("meta");
-                gen.writeObject(template.getMeta());
+                gen.writeObject(template.getMeta().serialize());
             }
             if (template.getEnchants().size() > 0) {
                 gen.writeFieldName("enchants");
@@ -56,5 +60,15 @@ public class ObsidianItemTemplateSerialize extends JsonSerializer<ObsidianItemTe
             gen.writeEndObject();
         }
     }
-
+    public SerializedObject metaSerialize(ConfigurationSerializable meta)
+    {
+        Map<String,Object> map= meta.serialize();
+        List<String> keys = new ArrayList<>(map.keySet());
+        keys.forEach(key->{
+            Object value = map.get(key);
+            if(value instanceof ConfigurationSerializable)
+                map.put(key,metaSerialize((ConfigurationSerializable)value));
+        });
+        return new SerializedObject(meta.getClass().getName(), map);
+    }
 }

@@ -18,7 +18,7 @@ public class ItemParser {
             }
         }
         // Handle as legacy String
-        return null;
+        return new ObsidianItemTemplate(ObsidianMaterial.valueOf(str));
     }
 
     public static String serialize(ObsidianItemTemplate itemTemplate) {
@@ -31,6 +31,6 @@ public class ItemParser {
         } catch (JsonProcessingException e) {
             e.printStackTrace();
         }
-        return null;
+        return MaterialParser.serialize(itemTemplate.getMaterial());
     }
 }
