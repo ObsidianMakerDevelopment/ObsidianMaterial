@@ -54,7 +54,9 @@ public abstract class ObsidianMaterial implements Comparable<ObsidianMaterial> {
         materials.put(im.getKey(), im);
         return im;
     }
-
+    public static final ObsidianMaterial valueOf(Material materialString) {
+        return valueOf(materialString.name());
+    }
     public static final ObsidianMaterial valueOf(String materialString) {
         if (materialString == null)
             return null;

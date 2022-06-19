@@ -18,20 +18,20 @@ public class SpawnerMaterial extends ObsidianMaterial {
     EntityType entity;
 
     private static Optional<Boolean> support = Optional.empty();
-    public static boolean isSupported()
-    {
-        if(support.isPresent())return support.get();
-        try{
+
+    public static boolean isSupported() {
+        if (support.isPresent())
+            return support.get();
+        try {
             Class.forName("org.bukkit.inventory.meta.BlockStateMeta");
             support = Optional.of(true);
-        }
-        catch(ClassNotFoundException classError)
-        {
+        } catch (ClassNotFoundException classError) {
             support = Optional.of(false);
         }
         return support.get();
     }
-    public SpawnerMaterial(EntityType entity,String key) {
+
+    public SpawnerMaterial(EntityType entity, String key) {
         super(key);
         this.entity = entity;
     }
@@ -43,18 +43,27 @@ public class SpawnerMaterial extends ObsidianMaterial {
 
     @Override
     public ItemStack toItem() {
-       ItemStack itemStack = new ItemStack(Material.SPAWNER);
-       ItemMeta itemMeta = itemStack.getItemMeta();
-       if (itemMeta == null)
-           return itemStack;
+        ItemStack itemStack = new ItemStack(Material.SPAWNER);
+        ItemMeta itemMeta = itemStack.getItemMeta();
+        if (itemMeta == null)
+            return itemStack;
 
-       BlockStateMeta blockStateMeta = (BlockStateMeta) itemMeta;
-       CreatureSpawner creatureSpawner = (CreatureSpawner) blockStateMeta.getBlockState();
-       creatureSpawner.setSpawnedType(entity);
-       blockStateMeta.setBlockState(creatureSpawner);
+        BlockStateMeta blockStateMeta = (BlockStateMeta) itemMeta;
+        CreatureSpawner creatureSpawner = (CreatureSpawner) blockStateMeta.getBlockState();
+        creatureSpawner.setSpawnedType(entity);
+        blockStateMeta.setBlockState(creatureSpawner);
 
-       itemStack.setItemMeta(itemMeta);
+        itemStack.setItemMeta(itemMeta);
 
-       return itemStack;
+        return itemStack;
+    }
+
+    public static ObsidianMaterial getMaterial(ItemStack itemStack) {
+        ItemMeta itemMeta = itemStack.getItemMeta();
+        if (itemMeta == null)
+            return ObsidianMaterial.valueOf(itemStack.getType().name());
+        BlockStateMeta blockStateMeta = (BlockStateMeta) itemMeta;
+        CreatureSpawner creatureSpawner = (CreatureSpawner) blockStateMeta.getBlockState();
+        return ObsidianMaterial.valueOf(creatureSpawner.getSpawnedType().name() + "_SPAWNER");
     }
 }

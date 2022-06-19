@@ -15,6 +15,7 @@ import org.bukkit.inventory.meta.ItemMeta;
 import com.cryptomorin.xseries.XMaterial;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import com.moyskleytech.obsidian.material.implementations.SpawnerMaterial;
 import com.moyskleytech.obsidian.material.parsers.ObsidianItemTemplateDeserialize;
 import com.moyskleytech.obsidian.material.parsers.ObsidianItemTemplateSerialize;
 
@@ -46,7 +47,11 @@ public class ObsidianItemTemplate {
     }
 
     public ObsidianItemTemplate(ItemStack mat) {
-        material = ObsidianMaterial.valueOf(XMaterial.matchXMaterial(mat).name());
+        material = ObsidianMaterial.valueOf(mat.getType().name());
+        if(mat.getType() == Material.getMaterial("SPAWNER"))
+        {
+            material = SpawnerMaterial.getMaterial(mat);
+        }
         ItemMeta itemMeta = mat.getItemMeta();
         if (itemMeta == null)
             return;
@@ -109,8 +114,25 @@ public class ObsidianItemTemplate {
     }
 
     public ObsidianItemTemplate meta(ItemMeta meta) {
+
         ObsidianItemTemplate ws = new ObsidianItemTemplate(this);
-        ws.meta = meta.clone();
+        if (meta != null)
+        {
+            ws.meta = meta.clone();
+            if (meta.hasDisplayName())
+                ws.name = meta.getDisplayName();
+            if (meta.hasLore())
+            {
+                ws.lore.clear();
+                ws.lore.addAll(meta.getLore());
+            }
+            if (meta.hasEnchants())
+            {
+                ws.enchants.clear();
+                ws.enchants.putAll(meta.getEnchants());
+            }
+            unbreakable = meta.isUnbreakable();
+        }
         return ws;
     }
 

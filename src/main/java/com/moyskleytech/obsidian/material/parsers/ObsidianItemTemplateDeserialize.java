@@ -11,6 +11,7 @@ import java.util.Map;
 import java.util.concurrent.atomic.AtomicReference;
 
 import org.bukkit.configuration.serialization.ConfigurationSerializable;
+import org.bukkit.configuration.serialization.ConfigurationSerialization;
 import org.bukkit.enchantments.Enchantment;
 import org.bukkit.inventory.meta.ItemMeta;
 
@@ -47,20 +48,16 @@ public class ObsidianItemTemplateDeserialize extends JsonDeserializer<ObsidianIt
             }
             if (node.asToken() == JsonToken.START_OBJECT) {
                 ObjectNode object = (ObjectNode) node;
-                System.out.println("Parsing "+node);
-                System.out.println("-type "+node.getClass().getSimpleName());
-                System.out.println("-fields ");
                 AtomicReference<ObsidianItemTemplate> returnValue = new AtomicReference<>(
                         new ObsidianItemTemplate());
-
                 object.fields().forEachRemaining(entry->{
-                    System.out.println(entry.getKey()+"="+entry.getValue());
                     try {
                         TreeNode valueNode = entry.getValue();
                         if (entry.getKey().equals("meta")) {
                             JsonParser jp = valueNode.traverse();
                             jp.nextToken();
-                            SerializedObject unparsedMeta = jp.readValueAs(SerializedObject.class);
+                            jp.setCodec(input.getCodec());
+                            Map unparsedMeta = jp.readValueAs(Map.class);
                             ItemMeta meta = (ItemMeta) unserializeObject(unparsedMeta);
                             returnValue.set(returnValue.get().meta(meta));
                         } else if (entry.getKey().equals("material")) {
@@ -114,39 +111,15 @@ public class ObsidianItemTemplateDeserialize extends JsonDeserializer<ObsidianIt
         return ItemParser.deserialize("AIR");
     }
 
-    private Object unserializeObject(SerializedObject obj)
+    private Object unserializeObject(Map obj)
     {
         try {
-            if(obj.value instanceof Map<?,?>)
-            {
-                Map<String,Object> map = (Map<String,Object>)obj.value;
-                List<String> keys = new ArrayList<>(map.keySet());
-                keys.forEach(key->{
-                    if(map.get(key) instanceof SerializedObject)
-                        map.put(key,unserializeObject((SerializedObject)map.get(key)));
-                });
-            }
-            Class<?> clazz = Class.forName(obj.className);
-            Method method1 = clazz.getDeclaredMethod("valueOf", Map.class);
-            Method method2 = clazz.getDeclaredMethod("deserialize", Map.class);
-            Constructor<?> method3 = clazz.getDeclaredConstructor(Map.class);
-            if(method1!=null)
-            {
-                return method1.invoke(null, obj.value);
-            }
-            if(method2!=null)
-            {
-                return method2.invoke(null, obj.value);
-            }
-            if(method3!=null)
-            {
-                return method3.newInstance(obj.value);
-            }
-        } catch (ClassNotFoundException | NoSuchMethodException | SecurityException | IllegalAccessException | IllegalArgumentException | InvocationTargetException | InstantiationException e) {
+            return ConfigurationSerialization.deserializeObject((Map<String, ?>)obj);
+        } catch (SecurityException | IllegalArgumentException e) {
             // TODO Auto-generated catch block
             e.printStackTrace();
         }
-        return obj.value;
+        return obj;
     }
     
 }
