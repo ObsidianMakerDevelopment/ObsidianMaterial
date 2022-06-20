@@ -22,39 +22,73 @@ import com.moyskleytech.obsidian.material.parsers.ObsidianItemTemplateSerialize;
 
 import lombok.Getter;
 
+/**
+ * Represents a item template
+ */
 @JsonSerialize(using = ObsidianItemTemplateSerialize.class)
 @JsonDeserialize(using = ObsidianItemTemplateDeserialize.class)
 public class ObsidianItemTemplate {
 
+    /**
+     * The material
+     */
     @Getter
     private ObsidianMaterial material;
 
+    /**
+     * Lines in the lore
+     */
     private List<String> lore = new ArrayList<>();
+    /**
+     * Enchants of the object
+     */
     private Map<Enchantment, Integer> enchants = new HashMap<>();
+    /**
+     * The display name of the object
+     */
     @Getter
     private String name;
+    /**
+     * The unbreakable flag
+     */
     @Getter
     private boolean unbreakable;
-
+    /**
+     * The meta information for advanced items such as spawners and skull
+     */
     @Getter
     private ItemMeta meta;
 
+    /**
+     * Create a base template containing STONE material
+     */
     public ObsidianItemTemplate() {
         material = ObsidianMaterial.valueOf("STONE");
     }
 
     /**
      * Create a material from a legacy string
+     * 
      * @param parse Legacy String
      */
     public ObsidianItemTemplate(String parse) {
-        //MATERIAL[_OF_ENCHANT[_LEVEL]][_NAMED_name]
+        // MATERIAL[_OF_ENCHANT[_LEVEL]][_NAMED_name]
     }
 
+    /**
+     * Create a template from a material
+     * 
+     * @param mat The material of the object
+     */
     public ObsidianItemTemplate(ObsidianMaterial mat) {
         material = mat;
     }
 
+    /**
+     * Clone a ItemStack into a template
+     * 
+     * @param mat The item stack to copy
+     */
     public ObsidianItemTemplate(ItemStack mat) {
         material = ObsidianMaterial.valueOf(mat.getType().name());
         if (mat.getType() == Material.getMaterial("SPAWNER")) {
@@ -78,6 +112,11 @@ public class ObsidianItemTemplate {
         meta = itemMeta.clone();
     }
 
+    /**
+     * Copy constructor
+     * 
+     * @param template the template to make a copy of
+     */
     public ObsidianItemTemplate(ObsidianItemTemplate template) {
         material = template.material;
         lore.addAll(template.lore);
@@ -88,6 +127,12 @@ public class ObsidianItemTemplate {
             meta = template.meta.clone();
     }
 
+    /**
+     * Modify the lore
+     * 
+     * @param lore The lines of lore
+     * @return Returns a copy of the template with the modified value
+     */
     public ObsidianItemTemplate lore(Collection<String> lore) {
         ObsidianItemTemplate ws = new ObsidianItemTemplate(this);
         ws.lore.clear();
@@ -97,6 +142,12 @@ public class ObsidianItemTemplate {
         return ws;
     }
 
+    /**
+     * Modify the enchants
+     * 
+     * @param enchants The required enchants
+     * @return Returns a copy of the template with the modified value
+     */
     public ObsidianItemTemplate enchants(Map<Enchantment, Integer> enchants) {
         ObsidianItemTemplate ws = new ObsidianItemTemplate(this);
         ws.enchants.clear();
@@ -106,24 +157,49 @@ public class ObsidianItemTemplate {
         return ws;
     }
 
+    /**
+     * Modify the material of the template
+     * 
+     * @param mat New material
+     * @return Returns a copy of the template with the modified value
+     */
     public ObsidianItemTemplate material(ObsidianMaterial mat) {
         ObsidianItemTemplate ws = new ObsidianItemTemplate(this);
         ws.material = mat;
         return ws;
     }
 
+    /**
+     * Modify the display name
+     * 
+     * @param name New display name or null to disable it
+     * @return Returns a copy of the template with the modified value
+     */
     public ObsidianItemTemplate name(String name) {
         ObsidianItemTemplate ws = new ObsidianItemTemplate(this);
         ws.name = name;
         return ws;
     }
 
+    /**
+     * Modify the unbreakable state
+     * 
+     * @param unbreakable new Unbreakable value
+     * @return Returns a copy of the template with the modified value
+     */
     public ObsidianItemTemplate unbreakable(boolean unbreakable) {
         ObsidianItemTemplate ws = new ObsidianItemTemplate(this);
         ws.unbreakable = unbreakable;
         return ws;
     }
 
+    /**
+     * Use this for advanced object that cannot be represented only with lore and
+     * enchants
+     * 
+     * @param meta New meta information associated with the object
+     * @return Returns a copy of the template with the modified value
+     */
     public ObsidianItemTemplate meta(ItemMeta meta) {
 
         ObsidianItemTemplate ws = new ObsidianItemTemplate(this);
