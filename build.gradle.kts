@@ -27,11 +27,9 @@ dependencies {
 
     // Enable lombok annotation processing
     annotationProcessor("org.projectlombok:lombok:1.18.22")
-    implementation("com.fasterxml.jackson.core:jackson-databind:2.13.1")
-    implementation("com.fasterxml.jackson.core:jackson-core:2.13.1")
-    implementation("com.fasterxml.jackson.core:jackson-annotations:2.13.1")
-    implementation("com.fasterxml.jackson.dataformat:jackson-dataformat-yaml:2.13.1")
-    implementation("com.fasterxml.jackson.datatype:jackson-datatype-jsr310:2.13.1")
+    compileOnly("com.fasterxml.jackson.core:jackson-databind:2.13.1")
+    compileOnly("com.fasterxml.jackson.core:jackson-core:2.13.1")
+    //implementation("com.fasterxml.jackson.core:jackson-annotations:2.13.1")
 
     // Other dependencies that are not required or already available at runtime
     compileOnly("org.spigotmc:spigot-api:1.13-R0.1-SNAPSHOT")
@@ -51,9 +49,8 @@ tasks {
 
     shadowJar {
         archiveClassifier.set("")
-        relocate("org.yaml.snakeyaml", "com.moyskleytech.obsidian.material.dependencies.snakeyaml")
-        relocate("com.cryptomorin.xseries", "com.moyskleytech.obsidian.material.dependencies.xseries")
-        relocate("com.fasterxml.jackson", "com.moyskleytech.obsidian.material.dependencies.fasterxml")
+        //relocate("com.cryptomorin.xseries", "com.moyskleytech.obsidian.material.dependencies.xseries")
+        //relocate("com.fasterxml.jackson", "com.moyskleytech.obsidian.material.dependencies.fasterxml")
         minimize()
     }
 
