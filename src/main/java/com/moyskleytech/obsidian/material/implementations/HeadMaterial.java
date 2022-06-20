@@ -51,7 +51,8 @@ public class HeadMaterial extends ObsidianMaterial {
         ItemMeta itemMeta = itemStack.getItemMeta();
         if (itemMeta == null)
             return itemStack;
-
+        if (!(itemMeta instanceof SkullMeta))
+            return itemStack;
         SkullMeta pm = (SkullMeta) itemMeta;
         pm.setOwner(owner);
 
@@ -64,8 +65,9 @@ public class HeadMaterial extends ObsidianMaterial {
         ItemMeta itemMeta = itemStack.getItemMeta();
         if (itemMeta == null)
             return ObsidianMaterial.wrap(XMaterial.PLAYER_HEAD);
-
+        if (!(itemMeta instanceof SkullMeta))
+            return ObsidianMaterial.wrap(XMaterial.PLAYER_HEAD);
         SkullMeta pm = (SkullMeta) itemMeta;
-        return ObsidianMaterial.valueOf(pm.getOwner()+"_HEAD");
+        return ObsidianMaterial.valueOf(pm.getOwner() + "_HEAD");
     }
 }

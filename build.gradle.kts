@@ -37,7 +37,9 @@ dependencies {
     testImplementation(platform("org.junit:junit-bom:5.7.0"))
     testImplementation("org.junit.jupiter:junit-jupiter:5.8.2")
     testImplementation("junit:junit:4.12")
-    testImplementation("com.github.seeseemelk:MockBukkit-v1.16:1.0.0")
+    testImplementation("com.github.seeseemelk:MockBukkit-v1.19:2.29.0")
+    testImplementation("com.github.cryptomorin:XSeries:8.8.0")
+    testImplementation("commons-lang:commons-lang:2.4")
     compileOnly("com.github.seeseemelk:MockBukkit-v1.16:1.0.0")
 }
 
@@ -62,6 +64,7 @@ tasks {
 
     test {
         useJUnitPlatform()
+        java.sourceCompatibility = JavaVersion.VERSION_17
     }
 
     compileJava {

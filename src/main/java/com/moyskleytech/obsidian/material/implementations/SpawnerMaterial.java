@@ -3,6 +3,7 @@ package com.moyskleytech.obsidian.material.implementations;
 import java.util.Optional;
 
 import org.bukkit.Material;
+import org.bukkit.block.Block;
 import org.bukkit.block.CreatureSpawner;
 import org.bukkit.entity.EntityType;
 import org.bukkit.inventory.ItemStack;
@@ -47,7 +48,8 @@ public class SpawnerMaterial extends ObsidianMaterial {
         ItemMeta itemMeta = itemStack.getItemMeta();
         if (itemMeta == null)
             return itemStack;
-
+        if (!(itemMeta instanceof BlockStateMeta))
+            return itemStack;
         BlockStateMeta blockStateMeta = (BlockStateMeta) itemMeta;
         CreatureSpawner creatureSpawner = (CreatureSpawner) blockStateMeta.getBlockState();
         creatureSpawner.setSpawnedType(entity);
@@ -61,6 +63,8 @@ public class SpawnerMaterial extends ObsidianMaterial {
     public static ObsidianMaterial getMaterial(ItemStack itemStack) {
         ItemMeta itemMeta = itemStack.getItemMeta();
         if (itemMeta == null)
+            return ObsidianMaterial.valueOf(itemStack.getType().name());
+        if (!(itemMeta instanceof BlockStateMeta))
             return ObsidianMaterial.valueOf(itemStack.getType().name());
         BlockStateMeta blockStateMeta = (BlockStateMeta) itemMeta;
         CreatureSpawner creatureSpawner = (CreatureSpawner) blockStateMeta.getBlockState();

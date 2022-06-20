@@ -97,7 +97,7 @@ public class PotionMaterial extends ObsidianMaterial {
         {
             str = str +"_2";
         }
-        str = str + itemStack.getType().name();
+        str = str + "_"+itemStack.getType().name();
         return ObsidianMaterial.valueOf(str);
     }
 }

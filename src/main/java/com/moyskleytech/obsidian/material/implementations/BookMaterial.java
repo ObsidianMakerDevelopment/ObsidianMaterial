@@ -24,7 +24,7 @@ import lombok.Getter;
 
 public class BookMaterial extends ObsidianMaterial {
     @Getter
-    Map<Enchantment,Integer> enchants = new HashMap<>();
+    Map<Enchantment, Integer> enchants = new HashMap<>();
     Material mat;
 
     private static Optional<Boolean> support = Optional.empty();
@@ -41,7 +41,7 @@ public class BookMaterial extends ObsidianMaterial {
         return support.get();
     }
 
-    public BookMaterial(Map<Enchantment,Integer> effects, String key) {
+    public BookMaterial(Map<Enchantment, Integer> effects, String key) {
         super(key);
         this.enchants.putAll(effects);
     }
@@ -59,6 +59,8 @@ public class BookMaterial extends ObsidianMaterial {
         if (itemMeta == null)
             return book;
 
+        if (!(itemMeta instanceof EnchantmentStorageMeta))
+            return book;
         EnchantmentStorageMeta meta = (EnchantmentStorageMeta) itemMeta;
 
         for (Entry<Enchantment, Integer> enchantement : enchants.entrySet()) {
