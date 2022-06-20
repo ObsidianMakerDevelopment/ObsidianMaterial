@@ -24,7 +24,7 @@ dependencies {
 }
 ```
 # Javadoc
-Javadoc is available at [https://obsidianmakerdevelopment.github.io/ObsidianMaterial/javadoc]
+Javadoc is available at https://obsidianmakerdevelopment.github.io/ObsidianMaterial
 
 # Usage
 To get a Material, ObsidianMaterial.valueOf()
