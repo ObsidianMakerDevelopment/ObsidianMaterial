@@ -23,6 +23,9 @@ dependencies {
     implementation("com.moyskleytech:ObsidianMaterial:1.0.0")
 }
 ```
+# Javadoc
+Javadoc is available at [https://obsidianmakerdevelopment.github.io/ObsidianMaterial/javadoc]
+
 # Usage
 To get a Material, ObsidianMaterial.valueOf()
 ```java
@@ -86,3 +89,4 @@ Acceptable values:
  - EXTENDED_{POTION_TYPE}_2_POTION
  - EXTENDED_{POTION_TYPE}_2_SPLASH_POTION
  - All `com.cryptomorin.xseries.XMaterial` values
+ - {PLAYER_NAME}_HEAD
