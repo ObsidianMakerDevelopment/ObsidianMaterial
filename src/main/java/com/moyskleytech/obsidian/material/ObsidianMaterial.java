@@ -1,12 +1,12 @@
 package com.moyskleytech.obsidian.material;
 
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 
+import org.bukkit.Bukkit;
 import org.bukkit.Material;
 import org.bukkit.enchantments.Enchantment;
 import org.bukkit.entity.EntityType;
@@ -18,17 +18,9 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 import com.cryptomorin.xseries.XMaterial;
-import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.databind.DeserializationContext;
-import com.fasterxml.jackson.databind.KeyDeserializer;
-import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
-import com.fasterxml.jackson.databind.module.SimpleModule;
-import com.moyskleytech.obsidian.material.implementations.BookMaterial;
-import com.moyskleytech.obsidian.material.implementations.BukkitMaterial;
-import com.moyskleytech.obsidian.material.implementations.PotionMaterial;
-import com.moyskleytech.obsidian.material.implementations.SpawnerMaterial;
+import com.moyskleytech.obsidian.material.implementations.*;
 import com.moyskleytech.obsidian.material.parsers.*;
 
 @NoArgsConstructor
@@ -40,6 +32,7 @@ public abstract class ObsidianMaterial implements Comparable<ObsidianMaterial> {
 
     @Getter
     private String key;
+
     public static final ObsidianMaterial remove(String s) {
         ObsidianMaterial im = materials.get(s);
         materials.remove(s);
@@ -54,9 +47,11 @@ public abstract class ObsidianMaterial implements Comparable<ObsidianMaterial> {
         materials.put(im.getKey(), im);
         return im;
     }
+
     public static final ObsidianMaterial valueOf(Material materialString) {
         return valueOf(materialString.name());
     }
+
     public static final ObsidianMaterial valueOf(String materialString) {
         if (materialString == null)
             return null;
@@ -64,13 +59,22 @@ public abstract class ObsidianMaterial implements Comparable<ObsidianMaterial> {
         if (materials.containsKey(key)) {
             return materials.get(key);
         }
-        
+
         materialString = materialString.toUpperCase();
 
         Material mat = Material.getMaterial(materialString);
         if (mat != null) {
             materials.put(key, new BukkitMaterial(mat, key));
             return materials.get(key);
+        }
+        if (materialString.endsWith("_HEAD") && HeadMaterial.isSupported()) {
+            String entityString = materialString.replaceAll("_HEAD", "");
+            try {
+                materials.put(key, new HeadMaterial(key,entityString));
+                return materials.get(key);
+            } catch (IllegalArgumentException noEntityException) {
+                // Just ignore it and try parsing it with XMaterial instead
+            }
         }
         if (materialString.endsWith("_SPAWNER") && SpawnerMaterial.isSupported()) {
             String entityString = materialString.replaceAll("_SPAWNER", "");
@@ -88,7 +92,8 @@ public abstract class ObsidianMaterial implements Comparable<ObsidianMaterial> {
             boolean isSplash = materialString.contains("_SPLASH");
             boolean isExtented = materialString.startsWith("EXTENDED_");
             boolean isTier2 = materialString.contains("_2");
-            String potionString = materialString.replaceAll("_POTION", "").replaceAll("_SPLASH", "").replaceAll("EXTENDED_", "").replaceAll("_2", "");
+            String potionString = materialString.replaceAll("_POTION", "").replaceAll("_SPLASH", "")
+                    .replaceAll("EXTENDED_", "").replaceAll("_2", "");
             try {
                 PotionType t = PotionType.valueOf(potionString);
                 if (t != null) {
@@ -100,12 +105,11 @@ public abstract class ObsidianMaterial implements Comparable<ObsidianMaterial> {
             }
         }
         if (materialString.endsWith("_BOOK") && BookMaterial.isSupported()) {
-            //ARROW_FIRE_AND_CHANNELING_BOOK
+            // ARROW_FIRE_AND_CHANNELING_BOOK
             String bookString = materialString.replaceAll("_BOOK", "");
-            Map<Enchantment,Integer> enchants = new HashMap<>();
-            for(String entry:bookString.split("_AND_"))
-            {
-                int level=1;
+            Map<Enchantment, Integer> enchants = new HashMap<>();
+            for (String entry : bookString.split("_AND_")) {
+                int level = 1;
                 String[] elements = entry.split("_");
                 boolean isNumeric = elements[elements.length - 1].matches("-?\\d+?");
                 if (isNumeric) {
@@ -113,8 +117,7 @@ public abstract class ObsidianMaterial implements Comparable<ObsidianMaterial> {
                     level = Integer.parseInt(elements[elements.length - 1]);
                 }
                 Enchantment e = Enchantment.getByName(entry);
-                if(e!=null)
-                {
+                if (e != null) {
                     enchants.put(e, level);
                 }
             }
@@ -142,24 +145,9 @@ public abstract class ObsidianMaterial implements Comparable<ObsidianMaterial> {
         return toItem().isSimilar(item);
     }
 
-    public static void registerKeyDeserializer(ObjectMapper objectMapper)
-    {
-        SimpleModule simpleModule = new SimpleModule();
-        simpleModule.addKeyDeserializer(ObsidianMaterial.class, new ObsidianMaterialKeyDeserializer());
-        objectMapper.registerModule(simpleModule);
-    }
-    public static class ObsidianMaterialKeyDeserializer extends KeyDeserializer
-    {
-        @Override
-        public Object deserializeKey(final String key, final DeserializationContext ctxt ) throws IOException, JsonProcessingException
-        {
-            return valueOf(key);
-        }
-    }
-
     public abstract Material toMaterial();
-    public abstract ItemStack toItem();
 
+    public abstract ItemStack toItem();
 
     @Override
     protected Object clone() throws CloneNotSupportedException {

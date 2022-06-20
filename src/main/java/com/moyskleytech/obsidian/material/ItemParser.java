@@ -18,19 +18,18 @@ public class ItemParser {
             }
         }
         // Handle as legacy String
-        return new ObsidianItemTemplate(ObsidianMaterial.valueOf(str));
+        return new ObsidianItemTemplate(str);
     }
 
     public static String serialize(ObsidianItemTemplate itemTemplate) {
         if (itemTemplate.isPure())
             return MaterialParser.serialize(itemTemplate.getMaterial());
         ObjectMapper objectMapper = new ObjectMapper();
-
         try {
             return objectMapper.writeValueAsString(itemTemplate);
         } catch (JsonProcessingException e) {
             e.printStackTrace();
         }
-        return MaterialParser.serialize(itemTemplate.getMaterial());
+        return itemTemplate.getMaterial().name();
     }
 }

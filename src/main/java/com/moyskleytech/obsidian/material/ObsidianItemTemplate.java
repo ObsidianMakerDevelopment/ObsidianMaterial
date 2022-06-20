@@ -15,6 +15,7 @@ import org.bukkit.inventory.meta.ItemMeta;
 import com.cryptomorin.xseries.XMaterial;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import com.moyskleytech.obsidian.material.implementations.PotionMaterial;
 import com.moyskleytech.obsidian.material.implementations.SpawnerMaterial;
 import com.moyskleytech.obsidian.material.parsers.ObsidianItemTemplateDeserialize;
 import com.moyskleytech.obsidian.material.parsers.ObsidianItemTemplateSerialize;
@@ -42,15 +43,25 @@ public class ObsidianItemTemplate {
         material = ObsidianMaterial.valueOf("STONE");
     }
 
+    /**
+     * Create a material from a legacy string
+     * @param parse Legacy String
+     */
+    public ObsidianItemTemplate(String parse) {
+        //MATERIAL[_OF_ENCHANT[_LEVEL]][_NAMED_name]
+    }
+
     public ObsidianItemTemplate(ObsidianMaterial mat) {
         material = mat;
     }
 
     public ObsidianItemTemplate(ItemStack mat) {
         material = ObsidianMaterial.valueOf(mat.getType().name());
-        if(mat.getType() == Material.getMaterial("SPAWNER"))
-        {
+        if (mat.getType() == Material.getMaterial("SPAWNER")) {
             material = SpawnerMaterial.getMaterial(mat);
+        }
+        if (mat.getType().name().contains("POTION")) {
+            material = PotionMaterial.getMaterial(mat);
         }
         ItemMeta itemMeta = mat.getItemMeta();
         if (itemMeta == null)
@@ -116,18 +127,15 @@ public class ObsidianItemTemplate {
     public ObsidianItemTemplate meta(ItemMeta meta) {
 
         ObsidianItemTemplate ws = new ObsidianItemTemplate(this);
-        if (meta != null)
-        {
+        if (meta != null) {
             ws.meta = meta.clone();
             if (meta.hasDisplayName())
                 ws.name = meta.getDisplayName();
-            if (meta.hasLore())
-            {
+            if (meta.hasLore()) {
                 ws.lore.clear();
                 ws.lore.addAll(meta.getLore());
             }
-            if (meta.hasEnchants())
-            {
+            if (meta.hasEnchants()) {
                 ws.enchants.clear();
                 ws.enchants.putAll(meta.getEnchants());
             }
@@ -181,4 +189,5 @@ public class ObsidianItemTemplate {
 
         return itemStack;
     }
+
 }

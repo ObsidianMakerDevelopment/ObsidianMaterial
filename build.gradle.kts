@@ -33,6 +33,12 @@ dependencies {
 
     // Other dependencies that are not required or already available at runtime
     compileOnly("org.spigotmc:spigot-api:1.13-R0.1-SNAPSHOT")
+
+    testImplementation(platform("org.junit:junit-bom:5.7.0"))
+    testImplementation("org.junit.jupiter:junit-jupiter:5.8.2")
+    testImplementation("junit:junit:4.12")
+    testImplementation("com.github.seeseemelk:MockBukkit-v1.16:1.0.0")
+    compileOnly("com.github.seeseemelk:MockBukkit-v1.16:1.0.0")
 }
 
 publishing {
@@ -52,6 +58,10 @@ tasks {
         //relocate("com.cryptomorin.xseries", "com.moyskleytech.obsidian.material.dependencies.xseries")
         //relocate("com.fasterxml.jackson", "com.moyskleytech.obsidian.material.dependencies.fasterxml")
         minimize()
+    }
+
+    test {
+        useJUnitPlatform()
     }
 
     compileJava {
