@@ -11,6 +11,9 @@ import com.fasterxml.jackson.databind.JsonDeserializer;
 import com.moyskleytech.obsidian.material.MaterialParser;
 import com.moyskleytech.obsidian.material.ObsidianMaterial;
 
+/**
+ * Jackson JsonDeserializer for ObsidianMaterial
+ */
 public class ObsidianMaterialDeserialize extends JsonDeserializer<ObsidianMaterial> {
     @Override
     public ObsidianMaterial deserialize(JsonParser arg0, DeserializationContext arg1)

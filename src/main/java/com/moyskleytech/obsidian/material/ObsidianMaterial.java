@@ -23,6 +23,11 @@ import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import com.moyskleytech.obsidian.material.implementations.*;
 import com.moyskleytech.obsidian.material.parsers.*;
 
+/**
+ * A future proof Material wrapper for bukkit servers allowing all
+ * BukkitMaterial without recompiling. Fallsback to XSeries.XMaterial on legacy
+ * versions.
+ */
 @NoArgsConstructor
 @AllArgsConstructor
 @JsonSerialize(using = ObsidianMaterialSerialize.class)
@@ -33,25 +38,69 @@ public abstract class ObsidianMaterial implements Comparable<ObsidianMaterial> {
     @Getter
     private String key;
 
+    /**
+     * Allow to remove a custom implementation of ObsidianMaterial from the cache
+     * @param s The key to remove
+     * @return the removed value or null
+     */
     public static final ObsidianMaterial remove(String s) {
         ObsidianMaterial im = materials.get(s);
         materials.remove(s);
         return im;
     }
 
+    /**
+     * Wrap a bukkit Material into a ObsidianMaterial
+     * 
+     * @param mat the bukkit Material to wrap
+     * @return Returns a bukkit Material representing the value, instanceOf
+     *         BukkitMaterial
+     */
+    public static final ObsidianMaterial wrap(Material mat) {
+        return valueOf(mat.name());
+    }
+
+    /**
+     * Wrap a XMaterial into a ObsidianMaterial
+     * 
+     * @param mat the XMaterial object
+     * @return a ObsidianMaterial representing the object could be instance of
+     *         BukkitMaterial or XMaterial
+     */
     public static final ObsidianMaterial wrap(XMaterial mat) {
         return valueOf(mat.name());
     }
 
+    /**
+     * Add a custom material into the cache that could be later used with valueOf,
+     * should be called for all subclasses
+     * 
+     * @param im The new material to register
+     * @return The registered material
+     */
     public static final ObsidianMaterial add(ObsidianMaterial im) {
         materials.put(im.getKey(), im);
         return im;
     }
 
+    /**
+     * Wrap a Material into a ObsidianMaterial, same as wrap(org.bukkit.Material)
+     * 
+     * @param materialString The material to represents
+     * @return The ObsidianMaterial associated with it
+     */
     public static final ObsidianMaterial valueOf(Material materialString) {
         return valueOf(materialString.name());
     }
 
+    /**
+     * Parse a material from a string, currently supports BookMaterial,
+     * HeadMaterial, BukkitMaterials, PotionMaterial, SpawnerMaterial and XMaterial,
+     * custom implementations use .add()
+     * 
+     * @param materialString the string to parse
+     * @return Corresponding material of null if nothing match
+     */
     public static final ObsidianMaterial valueOf(String materialString) {
         if (materialString == null)
             return null;
@@ -70,7 +119,7 @@ public abstract class ObsidianMaterial implements Comparable<ObsidianMaterial> {
         if (materialString.endsWith("_HEAD") && HeadMaterial.isSupported()) {
             String entityString = materialString.replaceAll("_HEAD", "");
             try {
-                materials.put(key, new HeadMaterial(key,entityString));
+                materials.put(key, new HeadMaterial(key, entityString));
                 return materials.get(key);
             } catch (IllegalArgumentException noEntityException) {
                 // Just ignore it and try parsing it with XMaterial instead
@@ -133,20 +182,74 @@ public abstract class ObsidianMaterial implements Comparable<ObsidianMaterial> {
         return null;
     }
 
+    /**
+     * Return the full list of known material, might be incomplete as Materials are
+     * only cached when used
+     * 
+     * @return All the materials in the cache
+     */
     public static List<ObsidianMaterial> values() {
         return new ArrayList<>(materials.values());
     }
 
+    /**
+     * Force all bukkit materials into the cache
+     */
+    public static void registerAllBukkitMaterials() {
+        for (Material mat : Material.values()) {
+            valueOf(mat.name());
+        }
+        for (EntityType entity : EntityType.values()) {
+            valueOf(entity.name() + "_SPAWNER");
+        }
+        for (PotionType potion : PotionType.values()) {
+            valueOf(potion.name() + "_POTION");
+            valueOf("EXTENTED_"+potion.name() + "_POTION");
+            valueOf(potion.name() + "_2_POTION");
+            valueOf("EXTENTED_"+potion.name() + "_2_POTION");
+            valueOf(potion.name() + "_SPLASH_POTION");
+            valueOf("EXTENTED_"+potion.name() + "_SPLASH_POTION");
+            valueOf(potion.name() + "_2_SPLASH_POTION");
+            valueOf("EXTENTED_"+potion.name() + "_2_SPLASH_POTION");
+        }
+        for(XMaterial xmat: XMaterial.values())
+        {
+            valueOf(xmat.name());
+        }
+    }
+
+    /**
+     * Make ObsidianMaterial act like a enum, return the key representing this
+     * unique instance
+     * 
+     * @return the unique key of the material
+     */
     public String name() {
         return key;
     }
 
+    /**
+     * Compare this value with a ItemStack for similarities
+     * 
+     * @param item The item to compare
+     * @return If the itemstack is similar
+     */
     public boolean isSimilar(ItemStack item) {
         return toItem().isSimilar(item);
     }
 
+    /**
+     * Obtain the bukkit material associated with this material
+     * 
+     * @return the enum value associated
+     */
     public abstract Material toMaterial();
 
+    /**
+     * Object a ItemStack of the desired material
+     * 
+     * @return new ItemStack
+     */
     public abstract ItemStack toItem();
 
     @Override

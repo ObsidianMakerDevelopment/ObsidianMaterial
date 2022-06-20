@@ -12,7 +12,9 @@ import org.bukkit.potion.PotionType;
 import com.moyskleytech.obsidian.material.ObsidianMaterial;
 
 import lombok.Getter;
-
+/**
+ * Special implementation of material that defines potion
+ */
 public class PotionMaterial extends ObsidianMaterial {
     @Getter
     PotionType type;
@@ -22,6 +24,11 @@ public class PotionMaterial extends ObsidianMaterial {
     private boolean extended;
     private boolean tier2;
 
+    /**
+     * Validate that the enchant meta data exists on the version of bukkit used
+     * 
+     * @return If Potion materials can be used
+     */
     public static boolean isSupported() {
         if (support.isPresent())
             return support.get();
@@ -34,6 +41,15 @@ public class PotionMaterial extends ObsidianMaterial {
         return support.get();
     }
 
+    /**
+     * Build a potion material
+     * 
+     * @param effects  The potion type
+     * @param key      The key that uniquely define this material
+     * @param extended If the potion has extended duration
+     * @param tier2    If the potion is tier 2
+     * @param splash   If it's a splash potion
+     */
     public PotionMaterial(PotionType effects, String key, boolean extended, boolean tier2, boolean splash) {
         super(key);
         this.type = effects;
@@ -63,6 +79,12 @@ public class PotionMaterial extends ObsidianMaterial {
         return itemStack;
     }
 
+    /**
+     * Obtain the correct Material for a Potion
+     * 
+     * @param itemStack The potion item stack
+     * @return Associated material
+     */
     public static ObsidianMaterial getMaterial(ItemStack itemStack) {
         /*
          * boolean isSplash = materialString.contains("_SPLASH");
@@ -89,15 +111,13 @@ public class PotionMaterial extends ObsidianMaterial {
         // PotionData pd = new PotionData(type,extended,tier2);
         PotionData pd = pm.getBasePotionData();
         String str = pd.getType().toString();
-        if(pd.isExtended())
-        {
-            str = "EXTENTED_"+pd;
+        if (pd.isExtended()) {
+            str = "EXTENTED_" + pd;
         }
-        if(pd.isUpgraded())
-        {
-            str = str +"_2";
+        if (pd.isUpgraded()) {
+            str = str + "_2";
         }
-        str = str + "_"+itemStack.getType().name();
+        str = str + "_" + itemStack.getType().name();
         return ObsidianMaterial.valueOf(str);
     }
 }

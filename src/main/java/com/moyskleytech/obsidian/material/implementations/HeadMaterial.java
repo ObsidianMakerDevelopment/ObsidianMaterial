@@ -15,6 +15,9 @@ import com.moyskleytech.obsidian.material.ObsidianMaterial;
 
 import lombok.Getter;
 
+/**
+ * Special implementation allowing heads to be stored as material
+ */
 public class HeadMaterial extends ObsidianMaterial {
     @Getter
     String owner;
@@ -22,6 +25,11 @@ public class HeadMaterial extends ObsidianMaterial {
 
     private static Optional<Boolean> support = Optional.empty();
 
+    /**
+     * Validate that the enchant meta data exists on the version of bukkit used
+     * 
+     * @return If Head materials can be used
+     */
     public static boolean isSupported() {
         if (support.isPresent())
             return support.get();
@@ -34,6 +42,12 @@ public class HeadMaterial extends ObsidianMaterial {
         return support.get();
     }
 
+    /**
+     * Build a Head material for a specified owner
+     * 
+     * @param key   The unique key
+     * @param owner The owner of the head
+     */
     public HeadMaterial(String key, String owner) {
         super(key);
         mat = XMaterial.PLAYER_HEAD.parseMaterial();
@@ -61,6 +75,12 @@ public class HeadMaterial extends ObsidianMaterial {
         return itemStack;
     }
 
+    /**
+     * return the correct ObsidianMaterial for a itemstack of a head
+     * 
+     * @param itemStack The item stack to serialize
+     * @return The correct instance of ObsidianMaterial for the item stack
+     */
     public static ObsidianMaterial getMaterial(ItemStack itemStack) {
         ItemMeta itemMeta = itemStack.getItemMeta();
         if (itemMeta == null)

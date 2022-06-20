@@ -16,7 +16,9 @@ import com.fasterxml.jackson.databind.JsonSerializer;
 import com.fasterxml.jackson.databind.SerializerProvider;
 import com.moyskleytech.obsidian.material.ItemParser;
 import com.moyskleytech.obsidian.material.ObsidianItemTemplate;
-
+/**
+ * Jackson JsonSerializer for ObsidianItemTemplate
+ */
 public class ObsidianItemTemplateSerialize extends JsonSerializer<ObsidianItemTemplate> {
 
     @Override
@@ -62,7 +64,7 @@ public class ObsidianItemTemplateSerialize extends JsonSerializer<ObsidianItemTe
         }
     }
 
-    public Map<String, Object> metaSerialize(ConfigurationSerializable meta) {
+    private Map<String, Object> metaSerialize(ConfigurationSerializable meta) {
         try {
             Map<String, Object> map = new HashMap<>(meta.serialize());
             String alias = ConfigurationSerialization.getAlias(meta.getClass());

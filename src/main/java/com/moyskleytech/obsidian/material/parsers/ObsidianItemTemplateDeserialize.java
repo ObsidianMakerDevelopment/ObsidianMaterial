@@ -29,9 +29,9 @@ import com.moyskleytech.obsidian.material.ItemParser;
 import com.moyskleytech.obsidian.material.ObsidianItemTemplate;
 import com.moyskleytech.obsidian.material.ObsidianMaterial;
 
-import lombok.AllArgsConstructor;
-import lombok.NoArgsConstructor;
-
+/**
+ * Jackson JsonDeserializer for ObsidianItemTemplate
+ */
 public class ObsidianItemTemplateDeserialize extends JsonDeserializer<ObsidianItemTemplate> {
     @Override
     public ObsidianItemTemplate deserialize(JsonParser input, DeserializationContext arg1)

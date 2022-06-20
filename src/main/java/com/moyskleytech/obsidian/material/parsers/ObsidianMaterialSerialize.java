@@ -10,6 +10,9 @@ import com.fasterxml.jackson.databind.SerializerProvider;
 import com.moyskleytech.obsidian.material.MaterialParser;
 import com.moyskleytech.obsidian.material.ObsidianMaterial;
 
+/**
+ * Jackson JsonSerializer for ObsidianMaterial
+ */
 public class ObsidianMaterialSerialize  extends JsonSerializer<ObsidianMaterial> {
 
     @Override

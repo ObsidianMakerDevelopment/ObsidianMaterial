@@ -14,12 +14,20 @@ import com.moyskleytech.obsidian.material.ObsidianMaterial;
 
 import lombok.Getter;
 
+/**
+ * Special implementation of ObsidianMaterial to allow Spawners with entity types
+ */
 public class SpawnerMaterial extends ObsidianMaterial {
     @Getter
     EntityType entity;
 
     private static Optional<Boolean> support = Optional.empty();
 
+    /**
+     * Validate that the enchant meta data exists on the version of bukkit used
+     * 
+     * @return If Spawner materials can be used
+     */
     public static boolean isSupported() {
         if (support.isPresent())
             return support.get();
@@ -32,6 +40,12 @@ public class SpawnerMaterial extends ObsidianMaterial {
         return support.get();
     }
 
+    /**
+     * Build a Spawner material for a specified entity
+     * 
+     * @param entity The entity to spawn
+     * @param key    The key representing the spawner
+     */
     public SpawnerMaterial(EntityType entity, String key) {
         super(key);
         this.entity = entity;
@@ -60,6 +74,12 @@ public class SpawnerMaterial extends ObsidianMaterial {
         return itemStack;
     }
 
+    /**
+     * Object the right spawner material from a spawner itemstack
+     * 
+     * @param itemStack A item stack containing a spawner
+     * @return The correct Material for it
+     */
     public static ObsidianMaterial getMaterial(ItemStack itemStack) {
         ItemMeta itemMeta = itemStack.getItemMeta();
         if (itemMeta == null)

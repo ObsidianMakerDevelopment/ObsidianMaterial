@@ -220,30 +220,61 @@ public class ObsidianItemTemplate {
         return ws;
     }
 
+    /**
+     * Get the enchants associated with the template
+     * 
+     * @return The full list of enchants
+     */
     public Map<Enchantment, Integer> getEnchants() {
         return new HashMap<>(enchants);
     }
 
+    /**
+     * Get the lines of lore for the item template
+     * @return The lines in the lore
+     */
     public List<String> getLore() {
         return new ArrayList<>(lore);
     }
 
+    /**
+     * Return if the item template can be represented by the material only
+     * @return Return if the item template can be represented by the material only
+     */
     public boolean isPure() {
         return name == null && lore.size() == 0 && enchants.size() == 0 && meta == null && !unbreakable;
     }
 
+    /**
+     * Compare the item template with a item stack for similarity
+     * 
+     * @param item The item to compared againsts
+     * @return If the item is similar
+     */
     public boolean isSimilar(ItemStack item) {
         return toItem().isSimilar(item);
     }
 
+    /**
+     * Get the material associated with the template
+     * @return The bukkit material of the object
+     */
     public Material toMaterial() {
         return material.toMaterial();
     }
 
+    /**
+     * Build the material into a itemstack
+     * @return A item stack
+     */
     public ItemStack build() {
         return toItem();
     }
 
+    /**
+     * Build the material into a itemstack
+     * @return A item stack
+     */
     public ItemStack toItem() {
         ItemStack itemStack = material.toItem();
         ItemMeta itemMeta = itemStack.getItemMeta();

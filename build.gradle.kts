@@ -49,6 +49,13 @@ publishing {
     }
 }
 
+tasks.withType<Jar> {
+    from(sourceSets["test"].allSource)
+    {
+        from(tasks["javadoc"]).into("/javadoc")
+    }
+}
+
 tasks {
     jar {
         dependsOn("shadowJar")

@@ -7,10 +7,18 @@ import com.moyskleytech.obsidian.material.ObsidianMaterial;
 
 import lombok.Getter;
 
+/**
+ * Special implementation that support all present and future bukkit Material values
+ */
 public class BukkitMaterial extends ObsidianMaterial {
     @Getter
     Material mat;
 
+    /**
+     * Build a ObsidianMaterial around a bukkit material
+     * @param mat The bukkit Material to encapsulate
+     * @param key The unique key
+     */
     public BukkitMaterial(Material mat,String key) {
         super(key);
         this.mat = mat;
