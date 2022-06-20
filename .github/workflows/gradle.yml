@@ -29,3 +29,8 @@ jobs:
       with:
         name: "ObsidianMaterial"
         path: "build/libs/ObsidianMaterial-*.jar"
+    - name: Deploy 🚀
+      uses: JamesIves/github-pages-deploy-action@v4.2.3
+      with:
+        branch: docs # The branch the action should deploy to.
+        folder: build/docs # The folder the action should deploy.
