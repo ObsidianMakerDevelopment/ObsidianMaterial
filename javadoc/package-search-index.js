@@ -1,0 +1,1 @@
+packageSearchIndex = [{"l":"All Packages","u":"allpackages-index.html"},{"l":"com.moyskleytech.obsidian.material"},{"l":"com.moyskleytech.obsidian.material.implementations"},{"l":"com.moyskleytech.obsidian.material.parsers"}];updateSearchResults();
