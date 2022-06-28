@@ -27,6 +27,7 @@ import com.moyskleytech.obsidian.material.implementations.adapters.BookAdapter;
 import com.moyskleytech.obsidian.material.implementations.adapters.BukkitAdapter;
 import com.moyskleytech.obsidian.material.implementations.adapters.HeadAdapter;
 import com.moyskleytech.obsidian.material.implementations.adapters.PotionAdapter;
+import com.moyskleytech.obsidian.material.implementations.adapters.SkriptAdapter;
 import com.moyskleytech.obsidian.material.implementations.adapters.SpawnerAdapter;
 import com.moyskleytech.obsidian.material.implementations.adapters.XMaterialAdapter;
 import com.moyskleytech.obsidian.material.parsers.*;
@@ -53,6 +54,7 @@ public abstract class ObsidianMaterial implements Comparable<ObsidianMaterial> {
         registerAdapter(PotionAdapter.class);
         registerAdapter(SpawnerAdapter.class);
         registerAdapter(XMaterialAdapter.class);
+        registerAdapter(SkriptAdapter.class);
     }
 
     /**

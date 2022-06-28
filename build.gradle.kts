@@ -14,6 +14,7 @@ repositories {
     maven("https://repo.rosewooddev.io/repository/public/")
     maven("https://papermc.io/repo/repository/maven-public/")
     maven("https://hub.spigotmc.org/nexus/content/repositories/snapshots/")
+    maven("https://repo.skriptlang.org/releases")
     mavenCentral()
 }
 
@@ -25,13 +26,10 @@ dependencies {
     // Other dependencies that are not required or already available at runtime
     compileOnly("org.projectlombok:lombok:1.18.22")
 
-    // Enable lombok annotation processing
     annotationProcessor("org.projectlombok:lombok:1.18.22")
     compileOnly("com.fasterxml.jackson.core:jackson-databind:2.13.1")
     compileOnly("com.fasterxml.jackson.core:jackson-core:2.13.1")
-    //implementation("com.fasterxml.jackson.core:jackson-annotations:2.13.1")
-
-    // Other dependencies that are not required or already available at runtime
+    compileOnly("com.github.SkriptLang:Skript:2.6.1")
     compileOnly("org.spigotmc:spigot-api:1.13-R0.1-SNAPSHOT")
 
     testImplementation(platform("org.junit:junit-bom:5.7.0"))
@@ -41,7 +39,6 @@ dependencies {
     //testImplementation("com.github.cryptomorin:XSeries:8.8.0")
     //testImplementation("com.fasterxml.jackson.core:jackson-databind:2.13.1")
     //testImplementation("com.fasterxml.jackson.core:jackson-core:2.13.1")
-    
     testImplementation("commons-lang:commons-lang:2.4")
     compileOnly("com.github.seeseemelk:MockBukkit-v1.16:1.0.0")
 }
