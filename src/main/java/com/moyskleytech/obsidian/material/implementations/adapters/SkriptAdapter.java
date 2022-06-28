@@ -13,11 +13,15 @@ public class SkriptAdapter implements Adapter {
 
     @Override
     public Optional<ObsidianMaterial> tryParse(String materialString) {
-        if (Bukkit.getPluginManager().isPluginEnabled("Skript")) {
-            return Optional.of(ObsidianMaterial.wrap(ch.njol.skript.aliases.Aliases.parseItemType(materialString).getRandom().getType()));
+        try {
+            if (Bukkit.getPluginManager().isPluginEnabled("Skript")) {
+                return Optional.of(ObsidianMaterial
+                        .wrap(ch.njol.skript.aliases.Aliases.parseItemType(materialString).getRandom().getType()));
+            }
+        } catch (Throwable t) {
         }
-        
+
         return Optional.empty();
     }
-    
+
 }
