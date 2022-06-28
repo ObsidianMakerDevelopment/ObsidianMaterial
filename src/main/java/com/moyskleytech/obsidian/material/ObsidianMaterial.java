@@ -47,19 +47,27 @@ public abstract class ObsidianMaterial implements Comparable<ObsidianMaterial> {
     private String key;
 
     static {
-        adapters.add(new BukkitAdapter());
-        if (BookMaterial.isSupported())
-            adapters.add(new BookAdapter());
-        if (HeadMaterial.isSupported())
-            adapters.add(new HeadAdapter());
-        if (PotionMaterial.isSupported())
-            adapters.add(new PotionAdapter());
-        if (SpawnerMaterial.isSupported())
-            adapters.add(new SpawnerAdapter());
-        if (com.moyskleytech.obsidian.material.implementations.XMaterial.isSupported())
-            adapters.add(new XMaterialAdapter());
+        registerAdapter(BukkitAdapter.class);
+        registerAdapter(BookAdapter.class);
+        registerAdapter(HeadAdapter.class);
+        registerAdapter(PotionAdapter.class);
+        registerAdapter(SpawnerAdapter.class);
+        registerAdapter(XMaterialAdapter.class);
     }
 
+    /**
+     * Class for registering adapters for parsing
+     * @param clazz The class of the adapter, will auto call the parameterless constructor
+     */
+    public static void registerAdapter(Class<? extends Adapter> clazz)
+    {
+        try {
+            adapters.add(clazz.getDeclaredConstructor().newInstance());
+        } catch (Throwable ignored) {
+            //TODO: handle exception
+            System.err.println("Could not register "+clazz.getSimpleName());
+        }
+    }
     /**
      * Allow to remove a custom implementation of ObsidianMaterial from the cache
      * 

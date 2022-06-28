@@ -39,6 +39,9 @@ dependencies {
     testImplementation("junit:junit:4.12")
     testImplementation("com.github.seeseemelk:MockBukkit-v1.16:1.0.0")
     //testImplementation("com.github.cryptomorin:XSeries:8.8.0")
+    //testImplementation("com.fasterxml.jackson.core:jackson-databind:2.13.1")
+    //testImplementation("com.fasterxml.jackson.core:jackson-core:2.13.1")
+    
     testImplementation("commons-lang:commons-lang:2.4")
     compileOnly("com.github.seeseemelk:MockBukkit-v1.16:1.0.0")
 }

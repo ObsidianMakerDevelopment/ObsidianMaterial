@@ -11,6 +11,13 @@ import com.moyskleytech.obsidian.material.implementations.PotionMaterial;
  * Adapter for potions
  */
 public class PotionAdapter implements Adapter {
+  /**
+     * Create a adapter for parsing
+     */
+    public PotionAdapter() {
+        if (!PotionMaterial.isSupported())
+            throw new UnsupportedOperationException("PotionMaterial isn't available on this server");
+    }
 
     @Override
     public Optional<ObsidianMaterial> tryParse(String materialString) {

@@ -9,6 +9,15 @@ import com.moyskleytech.obsidian.material.implementations.HeadMaterial;
  * Adapter for heads
  */
 public class HeadAdapter implements Adapter {
+
+      /**
+     * Create a adapter for parsing
+     */
+    public HeadAdapter() {
+        if (!HeadMaterial.isSupported())
+            throw new UnsupportedOperationException("HeadMaterial isn't available on this server");
+    }
+
     @Override
     public Optional<ObsidianMaterial> tryParse(String materialString) {
         if (materialString.endsWith("_HEAD") && !materialString.equals("PLAYER_HEAD") && HeadMaterial.isSupported()) {

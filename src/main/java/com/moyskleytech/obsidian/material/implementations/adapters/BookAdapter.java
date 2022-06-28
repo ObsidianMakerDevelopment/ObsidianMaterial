@@ -14,6 +14,14 @@ import com.moyskleytech.obsidian.material.implementations.BookMaterial;
  */
 public class BookAdapter implements Adapter {
 
+    /**
+     * Create a adapter for parsing
+     */
+    public BookAdapter() {
+        if (!BookMaterial.isSupported())
+            throw new UnsupportedOperationException("BookMaterial isn't available on this server");
+    }
+
     @Override
     public Optional<ObsidianMaterial> tryParse(String materialString) {
         materialString = materialString.toUpperCase();
@@ -30,7 +38,12 @@ public class BookAdapter implements Adapter {
                     entry = entry.substring(0, entry.lastIndexOf("_"));
                     level = Integer.parseInt(elements[elements.length - 1]);
                 }
-                Enchantment e = Enchantment.getByName(entry);
+
+                Enchantment e = null;
+                for (Enchantment ect : Enchantment.values()) {
+                    if (entry.equalsIgnoreCase(ect.getName()))
+                        e = ect;
+                }
                 if (e != null) {
                     enchants.put(e, level);
                 }

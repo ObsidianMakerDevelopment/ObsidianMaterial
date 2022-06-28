@@ -15,6 +15,8 @@ import org.bukkit.inventory.meta.ItemMeta;
 import com.cryptomorin.xseries.XMaterial;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import com.moyskleytech.obsidian.material.ItemParser.Part;
+import com.moyskleytech.obsidian.material.ItemParser.Part.PartType;
 import com.moyskleytech.obsidian.material.implementations.PotionMaterial;
 import com.moyskleytech.obsidian.material.implementations.SpawnerMaterial;
 import com.moyskleytech.obsidian.material.parsers.ObsidianItemTemplateDeserialize;
@@ -72,6 +74,41 @@ public class ObsidianItemTemplate {
      * @param parse Legacy String
      */
     public ObsidianItemTemplate(String parse) {
+        List<Part> parts = ItemParser.toParts(parse);
+        for(Part p:parts)
+        {
+            if(p.type == PartType.MATERIAL)
+            {
+                material = ObsidianMaterial.valueOf(p.value);
+            }
+            if(p.type == PartType.NAME)
+            {
+                name = p.value;
+            }
+            if(p.type == PartType.OF)
+            {
+                String entry = p.value;
+
+                int level=1;
+                String[] elements = entry.split("_");
+                boolean isNumeric = elements[elements.length - 1].matches("-?\\d+?");
+                if (isNumeric) {
+                    entry = entry.substring(0, entry.lastIndexOf("_"));
+                    level = Integer.parseInt(elements[elements.length - 1]);
+                }
+                Enchantment e = null;
+                for(Enchantment ect:Enchantment.values())
+                {
+                    if(entry.equalsIgnoreCase(ect.getName()))
+                        e=ect;
+                }
+
+                if (e != null) {
+                    enchants.put(e, level);
+                }
+            }
+
+        }
         // MATERIAL[_OF_ENCHANT[_LEVEL]][_NAMED_name]
     }
 
@@ -295,6 +332,21 @@ public class ObsidianItemTemplate {
         itemStack.setItemMeta(itemMeta);
 
         return itemStack;
+    }
+    /**
+     * Compare 2 item template for similarity
+     * @param oit2 The other item template
+     * @return If they are similar
+     */
+
+    public boolean isSimilar(ObsidianItemTemplate oit2) {
+        return toString().equals(oit2.toString());
+    }
+
+    @Override
+    public String toString() {
+        return "ObsidianItemTemplate [enchants=" + enchants + ", lore=" + lore + ", material=" + material + ", meta="
+                + meta + ", name=" + name + ", unbreakable=" + unbreakable + "]";
     }
 
 }

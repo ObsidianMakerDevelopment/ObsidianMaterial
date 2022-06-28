@@ -3,12 +3,14 @@ package com.moyskleytech.obsidian.material;
 import java.util.concurrent.atomic.AtomicInteger;
 
 import org.bukkit.Material;
+import org.bukkit.enchantments.Enchantment;
 import org.bukkit.potion.PotionEffectType;
 import org.bukkit.potion.PotionType;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+import com.moyskleytech.obsidian.material.ItemParser.Part;
 import com.moyskleytech.obsidian.material.implementations.PotionMaterial;
 import com.moyskleytech.obsidian.material.implementations.SpawnerMaterial;
 
@@ -18,6 +20,7 @@ import be.seeseemelk.mockbukkit.ServerMock;
 
 import java.util.Comparator;
 import java.util.List;
+import java.util.Map;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -85,6 +88,30 @@ public class MaterialTests {
 
     }
 
+    @Test
+    public void explode()
+    {
+        List<Part> res = ItemParser.toParts("DIAMOND_SWORD_OF_MENDING_5_NAMED_Destroyer of universe");
+        System.err.println(res.toString());
+        assertEquals(3, res.size());
+        assertEquals("DIAMOND_SWORD", res.get(0).value);
+        assertEquals("MENDING_5", res.get(1).value);
+        assertEquals("Destroyer of universe", res.get(2).value);
+    }
+
+    @Test
+    public void legacyItemParser()
+    {
+        ObsidianItemTemplate oit = new ObsidianItemTemplate("DIAMOND_SWORD_OF_MENDING_5_NAMED_Destroyer of universe");
+        
+        ObsidianItemTemplate oit2 = new ObsidianItemTemplate(ObsidianMaterial.valueOf("DIAMOND_SWORD"))
+        .name("Destroyer of universe")
+        .enchants(Map.of(Enchantment.MENDING,5));
+
+        assertEquals(oit2.toString(),oit.toString());
+        assert(oit.isSimilar(oit2));
+        
+    }
     @Test
     public void items() {
         ObsidianItemTemplate template = new ObsidianItemTemplate(ObsidianMaterial.valueOf("STONE")).name("The rock");

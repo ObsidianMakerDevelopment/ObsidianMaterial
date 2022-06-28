@@ -11,6 +11,13 @@ import com.moyskleytech.obsidian.material.implementations.SpawnerMaterial;
  * Adapter for spawners
  */
 public class SpawnerAdapter implements Adapter {
+  /**
+     * Create a adapter for parsing
+     */
+    public SpawnerAdapter() {
+        if (!SpawnerMaterial.isSupported())
+            throw new UnsupportedOperationException("SpawnerMaterial isn't available on this server");
+    }
 
     @Override
     public Optional<ObsidianMaterial> tryParse(String materialString) {
