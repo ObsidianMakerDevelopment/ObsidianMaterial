@@ -77,17 +77,17 @@ public class ObsidianItemTemplate {
         List<Part> parts = ItemParser.toParts(parse);
         for(Part p:parts)
         {
-            if(p.type == PartType.MATERIAL)
+            if(p.getType() == PartType.MATERIAL)
             {
-                material = ObsidianMaterial.valueOf(p.value);
+                material = ObsidianMaterial.valueOf(p.getValue());
             }
-            if(p.type == PartType.NAME)
+            if(p.getType() == PartType.NAME)
             {
-                name = p.value;
+                name = p.getValue();
             }
-            if(p.type == PartType.OF)
+            if(p.getType() == PartType.OF)
             {
-                String entry = p.value;
+                String entry = p.getValue();
 
                 int level=1;
                 String[] elements = entry.split("_");

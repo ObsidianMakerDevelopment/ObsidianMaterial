@@ -92,18 +92,31 @@ public class MaterialTests {
     @Test
     public void explode()
     {
-        List<Part> res = ItemParser.toParts("DIAMOND_SWORD_OF_MENDING_5_NAMED_Destroyer of universe");
+        List<Part> res = ItemParser.toParts("DIAMOND_SWORD_OF_MENDING_5_NAMED_Destroyer \\of universe");
         System.err.println(res.toString());
         assertEquals(3, res.size());
-        assertEquals("DIAMOND_SWORD", res.get(0).value);
-        assertEquals("MENDING_5", res.get(1).value);
-        assertEquals("Destroyer of universe", res.get(2).value);
+        assertEquals("DIAMOND_SWORD", res.get(0).getValue());
+        assertEquals("MENDING_5", res.get(1).getValue());
+        assertEquals("Destroyer of universe", res.get(2).getValue());
     }
 
     @Test
     public void legacyItemParser()
     {
-        ObsidianItemTemplate oit = new ObsidianItemTemplate("DIAMOND_SWORD_OF_MENDING_5_NAMED_Destroyer of universe");
+        ObsidianItemTemplate oit = new ObsidianItemTemplate("DIAMOND_SWORD_OF_MENDING_5_NAMED_Destroyer \\of universe");
+        
+        ObsidianItemTemplate oit2 = new ObsidianItemTemplate(ObsidianMaterial.valueOf("DIAMOND_SWORD"))
+        .name("Destroyer of universe")
+        .enchants(Map.of(Enchantment.MENDING,5));
+
+        assertEquals(oit2.toString(),oit.toString());
+        assert(oit.isSimilar(oit2));
+        
+    }
+    @Test
+    public void legacyItemParser2()
+    {
+        ObsidianItemTemplate oit = new ObsidianItemTemplate("DIAMOND_SWORD of MENDING_5 named Destroyer \\of universe");
         
         ObsidianItemTemplate oit2 = new ObsidianItemTemplate(ObsidianMaterial.valueOf("DIAMOND_SWORD"))
         .name("Destroyer of universe")

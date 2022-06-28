@@ -10,6 +10,9 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.moyskleytech.obsidian.material.ItemParser.Part.PartType;
 
+import lombok.Getter;
+import lombok.Setter;
+
 /**
  * Requires Jackson FasterXML
  */
@@ -35,6 +38,16 @@ public class ItemParser {
         return new ObsidianItemTemplate(str);
     }
 
+    private static int index(String source, String search, int begin) {
+        return Math.max(
+                source.toUpperCase().indexOf(search.toUpperCase(), begin),
+                source.toLowerCase().indexOf(search.toLowerCase().replaceAll("_", " "), begin));
+    }
+
+    private static int index(String source, String search) {
+        return index(source, search, 0);
+    }
+
     /**
      * Convert string to item parts
      * 
@@ -48,8 +61,8 @@ public class ItemParser {
         materialPart.type = Part.PartType.MATERIAL;
         ret.add(materialPart);
 
-        int indexOf = s.indexOf("_OF_");
-        int indexName = s.indexOf("_NAMED_");
+        int indexOf = index(s, "_OF_");
+        int indexName = index(s, "_NAMED_");
 
         int nextPartIndex = -1;
         Part.PartType nextType = null;
@@ -66,14 +79,14 @@ public class ItemParser {
         }
 
         if (nextPartIndex == -1)
-            materialPart.value = s;
+            materialPart.setValue(s);
         else
-            materialPart.value = s.substring(0, nextPartIndex);
+            materialPart.setValue(s.substring(0, nextPartIndex));
 
         int startsIndex = nextPartIndex;
         while (nextPartIndex != -1) {
-            indexOf = s.indexOf("_OF_", startsIndex + 1);
-            indexName = s.indexOf("_NAMED_", startsIndex + 1);
+            indexOf = index(s, "_OF_", startsIndex + 1);
+            indexName = index(s, "_NAMED_", startsIndex + 1);
 
             Part workPart = new Part();
             workPart.type = nextType;
@@ -91,9 +104,9 @@ public class ItemParser {
                 nextLenOfType = 7;
             }
             if (nextPartIndex == -1)
-                workPart.value = s.substring(startsIndex + lenOfType);
+                workPart.setValue(s.substring(startsIndex + lenOfType));
             else
-                workPart.value = s.substring(startsIndex + lenOfType, nextPartIndex);
+                workPart.setValue(s.substring(startsIndex + lenOfType, nextPartIndex));
             lenOfType = nextLenOfType;
             startsIndex = nextPartIndex;
         }
@@ -107,8 +120,15 @@ public class ItemParser {
             NAME
         }
 
-        public PartType type;
-        public String value;
+        @Getter
+        @Setter
+        private PartType type;
+        @Getter
+        private String value;
+
+        public void setValue(String value){
+            this.value = value.replaceAll("\\\\of", "of");
+        }
 
         @Override
         public String toString() {

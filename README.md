@@ -67,7 +67,7 @@ org.bukkit.inventory.ItemStack stack= template.toItem();
 
 Syntax for Items is still a WIP, however it is expected to support both JSON format and legacy string 
 ```java
-"DIAMOND_SWORD_OF_MENDING_5_NAMED_Destroyer of universe"
+"DIAMOND_SWORD_OF_MENDING_5_NAMED_Destroyer \\of universe"
 ```
 ```json
 {
