@@ -22,6 +22,12 @@ repositories {
 dependencies {
     implementation("com.moyskleytech:ObsidianMaterial:1.0.0")
 }
+//Some features require XSeries and FasterXML, such features are marked in Javadoc
+dependencies {
+    implementation("com.github.cryptomorin:XSeries:8.8.0")
+    implementation("com.fasterxml.jackson.core:jackson-databind:2.13.1")
+    implementation("com.fasterxml.jackson.core:jackson-core:2.13.1")
+}
 ```
 # Javadoc
 Javadoc is available at https://obsidianmakerdevelopment.github.io/ObsidianMaterial

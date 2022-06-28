@@ -11,7 +11,27 @@ import lombok.Getter;
  * A special wrapper around XSeries's XMaterial that will only be used on legacy servers where some Materials are named differently in org.bukkit.Material
  */
 public class XMaterial extends ObsidianMaterial {
-    
+
+    /**
+     * Check if XMaterial is functionnal
+     * @return  if XMaterial is functionnal
+     */
+    public static boolean isSupported()
+    {
+        try {
+            test();
+            return true;
+        } catch (Throwable e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+            return false;
+        }
+    }
+    private static void test()
+    {
+        com.cryptomorin.xseries.XMaterial mat= com.cryptomorin.xseries.XMaterial.ACACIA_BOAT;
+        mat.toString();
+    }
     @Getter
     private com.cryptomorin.xseries.XMaterial mat;
 

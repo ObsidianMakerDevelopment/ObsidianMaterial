@@ -20,7 +20,7 @@ repositories {
 dependencies {
     // Dependencies that we want to shade in
     implementation("org.jetbrains:annotations:23.0.0")
-    implementation("com.github.cryptomorin:XSeries:8.8.0")
+    compileOnly("com.github.cryptomorin:XSeries:8.8.0")
 
     // Other dependencies that are not required or already available at runtime
     compileOnly("org.projectlombok:lombok:1.18.22")
@@ -38,7 +38,7 @@ dependencies {
     testImplementation("org.junit.jupiter:junit-jupiter:5.8.2")
     testImplementation("junit:junit:4.12")
     testImplementation("com.github.seeseemelk:MockBukkit-v1.16:1.0.0")
-    testImplementation("com.github.cryptomorin:XSeries:8.8.0")
+    //testImplementation("com.github.cryptomorin:XSeries:8.8.0")
     testImplementation("commons-lang:commons-lang:2.4")
     compileOnly("com.github.seeseemelk:MockBukkit-v1.16:1.0.0")
 }

@@ -50,7 +50,7 @@ public class HeadMaterial extends ObsidianMaterial {
      */
     public HeadMaterial(String key, String owner) {
         super(key);
-        mat = XMaterial.PLAYER_HEAD.parseMaterial();
+        mat = ObsidianMaterial.valueOf("PLAYER_HEAD").toMaterial();
         this.owner = owner;
     }
 
@@ -84,9 +84,9 @@ public class HeadMaterial extends ObsidianMaterial {
     public static ObsidianMaterial getMaterial(ItemStack itemStack) {
         ItemMeta itemMeta = itemStack.getItemMeta();
         if (itemMeta == null)
-            return ObsidianMaterial.wrap(XMaterial.PLAYER_HEAD);
+            return ObsidianMaterial.valueOf("PLAYER_HEAD");
         if (!(itemMeta instanceof SkullMeta))
-            return ObsidianMaterial.wrap(XMaterial.PLAYER_HEAD);
+            return ObsidianMaterial.valueOf("PLAYER_HEAD");
         SkullMeta pm = (SkullMeta) itemMeta;
         return ObsidianMaterial.valueOf(pm.getOwner() + "_HEAD");
     }

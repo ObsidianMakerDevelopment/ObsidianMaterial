@@ -61,6 +61,16 @@ public class MaterialTests {
     }
 
     @Test
+    public void head() {
+        assertEquals("PLAYER_HEAD",
+                (ObsidianMaterial.valueOf("PLAYER_HEAD").toItem().getType()).name());
+        assertEquals("PLAYER_HEAD",
+                (ObsidianMaterial.valueOf("Obsidian_HEAD").toItem().getType()).name());
+        assertEquals("PLAYER_HEAD",
+                (ObsidianMaterial.valueOf("takstijn_HEAD").toItem().getType()).name());
+    }
+
+    @Test
     public void potions() {
         // Mock bukkit doesn't implement ItemMeta Correctly cannot test those
         assertEquals(PotionType.AWKWARD + "_POTION", PotionMaterial

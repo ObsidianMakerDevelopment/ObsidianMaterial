@@ -1,5 +1,6 @@
 package com.moyskleytech.obsidian.material;
 
+import java.lang.StackWalker.Option;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -21,6 +22,13 @@ import com.cryptomorin.xseries.XMaterial;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import com.moyskleytech.obsidian.material.implementations.*;
+import com.moyskleytech.obsidian.material.implementations.adapters.Adapter;
+import com.moyskleytech.obsidian.material.implementations.adapters.BookAdapter;
+import com.moyskleytech.obsidian.material.implementations.adapters.BukkitAdapter;
+import com.moyskleytech.obsidian.material.implementations.adapters.HeadAdapter;
+import com.moyskleytech.obsidian.material.implementations.adapters.PotionAdapter;
+import com.moyskleytech.obsidian.material.implementations.adapters.SpawnerAdapter;
+import com.moyskleytech.obsidian.material.implementations.adapters.XMaterialAdapter;
 import com.moyskleytech.obsidian.material.parsers.*;
 
 /**
@@ -34,12 +42,27 @@ import com.moyskleytech.obsidian.material.parsers.*;
 @JsonDeserialize(using = ObsidianMaterialDeserialize.class)
 public abstract class ObsidianMaterial implements Comparable<ObsidianMaterial> {
     private static Map<String, ObsidianMaterial> materials = new HashMap<>();
-
+    private static List<Adapter> adapters = new ArrayList<>();
     @Getter
     private String key;
 
+    static {
+        adapters.add(new BukkitAdapter());
+        if (BookMaterial.isSupported())
+            adapters.add(new BookAdapter());
+        if (HeadMaterial.isSupported())
+            adapters.add(new HeadAdapter());
+        if (PotionMaterial.isSupported())
+            adapters.add(new PotionAdapter());
+        if (SpawnerMaterial.isSupported())
+            adapters.add(new SpawnerAdapter());
+        if (com.moyskleytech.obsidian.material.implementations.XMaterial.isSupported())
+            adapters.add(new XMaterialAdapter());
+    }
+
     /**
      * Allow to remove a custom implementation of ObsidianMaterial from the cache
+     * 
      * @param s The key to remove
      * @return the removed value or null
      */
@@ -104,81 +127,18 @@ public abstract class ObsidianMaterial implements Comparable<ObsidianMaterial> {
     public static final ObsidianMaterial valueOf(String materialString) {
         if (materialString == null)
             return null;
-        String key = materialString;
-        if (materials.containsKey(key)) {
-            return materials.get(key);
+        if (materials.containsKey(materialString)) {
+            return materials.get(materialString);
         }
 
-        materialString = materialString.toUpperCase();
-
-        Material mat = Material.getMaterial(materialString);
-        if (mat != null) {
-            materials.put(key, new BukkitMaterial(mat, key));
-            return materials.get(key);
-        }
-        if (materialString.endsWith("_HEAD") && HeadMaterial.isSupported()) {
-            String entityString = materialString.replaceAll("_HEAD", "");
-            try {
-                materials.put(key, new HeadMaterial(key, entityString));
-                return materials.get(key);
-            } catch (IllegalArgumentException noEntityException) {
-                // Just ignore it and try parsing it with XMaterial instead
+        for (Adapter adap : adapters) {
+            Optional<ObsidianMaterial> mat = adap.tryParse(materialString);
+            if (mat.isPresent()) {
+                materials.put(materialString, mat.get());
+                return materials.get(materialString);
             }
         }
-        if (materialString.endsWith("_SPAWNER") && SpawnerMaterial.isSupported()) {
-            String entityString = materialString.replaceAll("_SPAWNER", "");
-            try {
-                EntityType t = EntityType.valueOf(entityString);
-                if (t != null) {
-                    materials.put(key, new SpawnerMaterial(t, key));
-                    return materials.get(key);
-                }
-            } catch (IllegalArgumentException noEntityException) {
-                // Just ignore it and try parsing it with XMaterial instead
-            }
-        }
-        if (materialString.endsWith("_POTION") && PotionMaterial.isSupported()) {
-            boolean isSplash = materialString.contains("_SPLASH");
-            boolean isExtented = materialString.startsWith("EXTENDED_");
-            boolean isTier2 = materialString.contains("_2");
-            String potionString = materialString.replaceAll("_POTION", "").replaceAll("_SPLASH", "")
-                    .replaceAll("EXTENDED_", "").replaceAll("_2", "");
-            try {
-                PotionType t = PotionType.valueOf(potionString);
-                if (t != null) {
-                    materials.put(key, new PotionMaterial(t, key, isExtented, isTier2, isSplash));
-                    return materials.get(key);
-                }
-            } catch (IllegalArgumentException noPotionException) {
-                // Just ignore it and try parsing it with XMaterial instead
-            }
-        }
-        if (materialString.endsWith("_BOOK") && BookMaterial.isSupported()) {
-            // ARROW_FIRE_AND_CHANNELING_BOOK
-            String bookString = materialString.replaceAll("_BOOK", "");
-            Map<Enchantment, Integer> enchants = new HashMap<>();
-            for (String entry : bookString.split("_AND_")) {
-                int level = 1;
-                String[] elements = entry.split("_");
-                boolean isNumeric = elements[elements.length - 1].matches("-?\\d+?");
-                if (isNumeric) {
-                    entry = entry.substring(0, entry.lastIndexOf("_"));
-                    level = Integer.parseInt(elements[elements.length - 1]);
-                }
-                Enchantment e = Enchantment.getByName(entry);
-                if (e != null) {
-                    enchants.put(e, level);
-                }
-            }
-            materials.put(key, new BookMaterial(enchants, key));
-            return materials.get(key);
-        }
-        Optional<XMaterial> xMaterial = XMaterial.matchXMaterial(materialString);
-        if (xMaterial.isPresent()) {
-            materials.put(key, new com.moyskleytech.obsidian.material.implementations.XMaterial(xMaterial.get(), key));
-            return materials.get(key);
-        }
-
+      
         return null;
     }
 
@@ -204,17 +164,13 @@ public abstract class ObsidianMaterial implements Comparable<ObsidianMaterial> {
         }
         for (PotionType potion : PotionType.values()) {
             valueOf(potion.name() + "_POTION");
-            valueOf("EXTENTED_"+potion.name() + "_POTION");
+            valueOf("EXTENTED_" + potion.name() + "_POTION");
             valueOf(potion.name() + "_2_POTION");
-            valueOf("EXTENTED_"+potion.name() + "_2_POTION");
+            valueOf("EXTENTED_" + potion.name() + "_2_POTION");
             valueOf(potion.name() + "_SPLASH_POTION");
-            valueOf("EXTENTED_"+potion.name() + "_SPLASH_POTION");
+            valueOf("EXTENTED_" + potion.name() + "_SPLASH_POTION");
             valueOf(potion.name() + "_2_SPLASH_POTION");
-            valueOf("EXTENTED_"+potion.name() + "_2_SPLASH_POTION");
-        }
-        for(XMaterial xmat: XMaterial.values())
-        {
-            valueOf(xmat.name());
+            valueOf("EXTENTED_" + potion.name() + "_2_SPLASH_POTION");
         }
     }
 
