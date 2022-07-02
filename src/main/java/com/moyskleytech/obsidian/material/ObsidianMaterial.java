@@ -26,8 +26,11 @@ import com.moyskleytech.obsidian.material.implementations.adapters.Adapter;
 import com.moyskleytech.obsidian.material.implementations.adapters.BookAdapter;
 import com.moyskleytech.obsidian.material.implementations.adapters.BukkitAdapter;
 import com.moyskleytech.obsidian.material.implementations.adapters.HeadAdapter;
+import com.moyskleytech.obsidian.material.implementations.adapters.ItemsAdderAdapter;
+import com.moyskleytech.obsidian.material.implementations.adapters.OraxenAdapter;
 import com.moyskleytech.obsidian.material.implementations.adapters.PotionAdapter;
 import com.moyskleytech.obsidian.material.implementations.adapters.SkriptAdapter;
+import com.moyskleytech.obsidian.material.implementations.adapters.SlimeFunAdapter;
 import com.moyskleytech.obsidian.material.implementations.adapters.SpawnerAdapter;
 import com.moyskleytech.obsidian.material.implementations.adapters.XMaterialAdapter;
 import com.moyskleytech.obsidian.material.parsers.*;
@@ -55,21 +58,26 @@ public abstract class ObsidianMaterial implements Comparable<ObsidianMaterial> {
         registerAdapter(SpawnerAdapter.class);
         registerAdapter(XMaterialAdapter.class);
         registerAdapter(SkriptAdapter.class);
+        registerAdapter(OraxenAdapter.class);
+        registerAdapter(ItemsAdderAdapter.class);
+        registerAdapter(SlimeFunAdapter.class);
     }
 
     /**
      * Class for registering adapters for parsing
-     * @param clazz The class of the adapter, will auto call the parameterless constructor
+     * 
+     * @param clazz The class of the adapter, will auto call the parameterless
+     *              constructor
      */
-    public static void registerAdapter(Class<? extends Adapter> clazz)
-    {
+    public static void registerAdapter(Class<? extends Adapter> clazz) {
         try {
             adapters.add(clazz.getDeclaredConstructor().newInstance());
         } catch (Throwable ignored) {
-            //TODO: handle exception
-            System.err.println("Could not register "+clazz.getSimpleName());
+            // TODO: handle exception
+            System.err.println("Could not register " + clazz.getSimpleName());
         }
     }
+
     /**
      * Allow to remove a custom implementation of ObsidianMaterial from the cache
      * 
@@ -142,13 +150,17 @@ public abstract class ObsidianMaterial implements Comparable<ObsidianMaterial> {
         }
 
         for (Adapter adap : adapters) {
-            Optional<ObsidianMaterial> mat = adap.tryParse(materialString);
-            if (mat.isPresent()) {
-                materials.put(materialString, mat.get());
-                return materials.get(materialString);
+            try {
+                Optional<ObsidianMaterial> mat = adap.tryParse(materialString);
+                if (mat.isPresent()) {
+                    materials.put(materialString, mat.get());
+                    return materials.get(materialString);
+                }
+            } catch (Throwable t) {
+
             }
         }
-      
+
         return null;
     }
 

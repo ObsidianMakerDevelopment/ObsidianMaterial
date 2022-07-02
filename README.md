@@ -29,6 +29,13 @@ dependencies {
     implementation("com.fasterxml.jackson.core:jackson-core:2.13.1")
 }
 ```
+# Hooks
+The library hooks into some Minecraft plugin if present, as such your plugin should SoftDepends on them
+- Skript
+- Oraxen
+- ItemsAdder
+- Slimefun
+
 # Javadoc
 Javadoc is available at https://obsidianmakerdevelopment.github.io/ObsidianMaterial
 

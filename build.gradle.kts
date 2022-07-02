@@ -15,6 +15,7 @@ repositories {
     maven("https://papermc.io/repo/repository/maven-public/")
     maven("https://hub.spigotmc.org/nexus/content/repositories/snapshots/")
     maven("https://repo.skriptlang.org/releases")
+    maven("https://jitpack.io")
     mavenCentral()
 }
 
@@ -31,6 +32,9 @@ dependencies {
     compileOnly("com.fasterxml.jackson.core:jackson-core:2.13.1")
     compileOnly("com.github.SkriptLang:Skript:2.6.1")
     compileOnly("org.spigotmc:spigot-api:1.13-R0.1-SNAPSHOT")
+    compileOnly("com.github.oraxen:oraxen:-SNAPSHOT")
+    compileOnly("com.github.LoneDev6:api-itemsadder:3.0.0")
+    compileOnly("com.github.slimefun:Slimefun4:RC-27")
 
     testImplementation(platform("org.junit:junit-bom:5.7.0"))
     testImplementation("org.junit.jupiter:junit-jupiter:5.8.2")
