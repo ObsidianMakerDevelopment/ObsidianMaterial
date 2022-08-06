@@ -63,7 +63,7 @@ tasks.withType<Jar> {
 tasks {
     jar {
         dependsOn("shadowJar")
-        enabled = false
+        enabled = true
     }
 
     shadowJar {
