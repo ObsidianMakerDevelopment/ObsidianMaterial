@@ -109,3 +109,29 @@ Acceptable values:
  - EXTENDED_{POTION_TYPE}_2_SPLASH_POTION
  - All `com.cryptomorin.xseries.XMaterial` values
  - {PLAYER_NAME}_HEAD
+
+ # More blocks provider?
+
+ ObsidianMaterial support adding more items and block provider by registering a hook.
+
+ ```java 
+ ObsidianMaterial.registerAdapter(Your adapter);
+ ```
+
+ You simply to have to comply to our very easy interface
+ ```java 
+ package com.moyskleytech.obsidian.material.implementations.adapters;
+
+/**
+ * Adapter class for parsing, do not implement
+ */
+public interface Adapter {
+    /**
+     * Try parsing a string as material using the specified adapter
+     * @param materialString The String to parse
+     * @return Maybe the material
+     */
+    Optional<ObsidianMaterial> tryParse(String materialString);
+    Optional<ObsidianMaterial> tryMatch(ItemStack stack);
+}
+```
