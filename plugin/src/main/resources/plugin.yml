@@ -1,0 +1,11 @@
+main: com.moyskleytech.obsidian.material.App
+name: ObsidianMaterial
+version: 1.0.1-SNAPSHOT
+author: boiscljo
+description: Vault like for blocks and items
+api-version: 1.13
+softdepends:
+ - Skript
+ - Oraxen
+ - ItemsAdder
+ - Slimefun

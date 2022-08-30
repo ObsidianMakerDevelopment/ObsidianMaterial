@@ -9,4 +9,8 @@
  */
 
 rootProject.name = "ObsidianMaterial"
-include("lib")
+
+include ("ObsidianMaterialAPI")
+project(":ObsidianMaterialAPI").projectDir = file("api")
+include ("ObsidianMaterial")
+project(":ObsidianMaterial").projectDir = file("plugin")
