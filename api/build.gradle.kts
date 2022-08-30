@@ -5,7 +5,7 @@ plugins {
 }
 
 group = "com.moyskleytech"
-version = "1.0.1-SNAPSHOT"
+version = "1.0.1"
 description = "ObsidianMaterial"
 java.sourceCompatibility = JavaVersion.VERSION_1_8
 

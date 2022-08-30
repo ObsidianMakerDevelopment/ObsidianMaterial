@@ -127,30 +127,27 @@ public class ObsidianItemTemplate {
      * @param mat The item stack to copy
      */
     public ObsidianItemTemplate(ItemStack mat) {
-        material = ObsidianMaterial.valueOf(mat.getType().name());
-        if (mat.getType() == Material.getMaterial("SPAWNER")) {
-            material = SpawnerMaterial.getMaterial(mat);
-        }
-        if (mat.getType().name().contains("POTION")) {
-            material = PotionMaterial.getMaterial(mat);
-        }
+        material = ObsidianMaterial.match(mat);
+        
+        durability = mat.getDurability();
         ItemMeta itemMeta = mat.getItemMeta();
         if (itemMeta == null)
             return;
-
+        if (itemMeta.serialize().size() == 1 && itemMeta.serialize().get("meta-type").equals("UNSPECIFIC"))
+            return;
+        if (material instanceof SpawnerMaterial)
+            return;
         if (itemMeta.hasDisplayName())
             name = itemMeta.getDisplayName();
         if (itemMeta.hasLore())
             lore.addAll(itemMeta.getLore());
         if (itemMeta.hasEnchants())
             enchants.putAll(itemMeta.getEnchants());
-        durability = mat.getDurability();
         try {
             unbreakable = itemMeta.isUnbreakable();
         } catch (Throwable t) {
 
         }
-
         meta = itemMeta.clone();
     }
 
@@ -200,7 +197,7 @@ public class ObsidianItemTemplate {
         return ws;
     }
 
-     /**
+    /**
      * Modify the material of the template
      * 
      * @param mat New material
@@ -211,7 +208,6 @@ public class ObsidianItemTemplate {
         ws.durability = mat;
         return ws;
     }
-
 
     /**
      * Modify the material of the template
@@ -260,6 +256,14 @@ public class ObsidianItemTemplate {
 
         ObsidianItemTemplate ws = new ObsidianItemTemplate(this);
         if (meta != null) {
+            if (meta.serialize().size() == 1 && !"UNSPECIFIC".equals(meta.serialize().get("meta-type"))) {
+                return ws;
+            }
+            if (material instanceof SpawnerMaterial)
+                return ws;
+            ItemStack another = new ItemStack(ws.material.toMaterial());
+            if (meta.equals(another.getItemMeta()))
+                return ws;
             ws.meta = meta.clone();
             if (meta.hasDisplayName())
                 ws.name = meta.getDisplayName();
@@ -360,7 +364,7 @@ public class ObsidianItemTemplate {
         } catch (Throwable t) {
 
         }
-        if(durability!=0)
+        if (durability != 0)
             itemStack.setDurability(durability);
 
         itemStack.setItemMeta(itemMeta);

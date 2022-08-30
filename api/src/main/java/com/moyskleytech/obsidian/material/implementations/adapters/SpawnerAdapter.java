@@ -41,7 +41,7 @@ public class SpawnerAdapter implements Adapter {
     @Override
     public Optional<ObsidianMaterial> tryMatch(ItemStack stack) {
         try {
-            if (stack.getType().toString().equals("SPAWNER")) {
+            if (stack.getType().toString().contains("SPAWNER")) {
                 return Optional.of(SpawnerMaterial.getMaterial(stack));
             }
             return Optional.empty();

@@ -16,6 +16,7 @@ import com.fasterxml.jackson.databind.JsonSerializer;
 import com.fasterxml.jackson.databind.SerializerProvider;
 import com.moyskleytech.obsidian.material.ItemParser;
 import com.moyskleytech.obsidian.material.ObsidianItemTemplate;
+import com.moyskleytech.obsidian.material.implementations.SpawnerMaterial;
 
 /**
  * Jackson JsonSerializer for ObsidianItemTemplate
@@ -35,7 +36,7 @@ public class ObsidianItemTemplateSerialize extends JsonSerializer<ObsidianItemTe
                 gen.writeFieldName("name");
                 gen.writeObject(template.getName());
             }
-            if (template.getDurability()!=0) {
+            if (template.getDurability() != 0) {
                 gen.writeFieldName("durability");
                 gen.writeObject(template.getDurability());
             }
@@ -44,8 +45,13 @@ public class ObsidianItemTemplateSerialize extends JsonSerializer<ObsidianItemTe
                 gen.writeObject(template.isUnbreakable());
             }
             if (template.getMeta() != null) {
-                gen.writeFieldName("meta");
-                gen.writeObject(metaSerialize(template.getMeta()));
+                Map<String, Object> s = metaSerialize(template.getMeta());
+                if (!(template.getMaterial() instanceof SpawnerMaterial) &&
+                        s.size() >= 2 &&
+                        !"UNSPECIFIC".equals(s.get("meta-type"))) {
+                    gen.writeFieldName("meta");
+                    gen.writeObject(s);
+                }
             }
             if (template.getEnchants().size() > 0) {
                 gen.writeFieldName("enchants");

@@ -2,6 +2,7 @@ package com.moyskleytech.obsidian.material;
 
 import java.lang.StackWalker.Option;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -51,11 +52,11 @@ public abstract class ObsidianMaterial implements Comparable<ObsidianMaterial> {
     private String key;
 
     static {
-        registerAdapter(BukkitAdapter.class);
         registerAdapter(BookAdapter.class);
         registerAdapter(HeadAdapter.class);
         registerAdapter(PotionAdapter.class);
         registerAdapter(SpawnerAdapter.class);
+        registerAdapter(BukkitAdapter.class);
         registerAdapter(XMaterialAdapter.class);
         registerAdapter(SkriptAdapter.class);
         registerAdapter(OraxenAdapter.class);
@@ -158,6 +159,31 @@ public abstract class ObsidianMaterial implements Comparable<ObsidianMaterial> {
                 }
             } catch (Throwable t) {
 
+            }
+        }
+
+        return null;
+    }
+
+    /**
+     * Parse a material from a string, currently supports BookMaterial,
+     * HeadMaterial, BukkitMaterials, PotionMaterial, SpawnerMaterial and XMaterial,
+     * custom implementations use .add()
+     * 
+     * @param materialString the string to parse
+     * @return Corresponding material of null if nothing match
+     */
+    public static final ObsidianMaterial match(ItemStack materialString) {
+        if (materialString == null)
+            return null;
+        List<Adapter> m = new ArrayList<>(adapters);
+        for (Adapter adap : m) {
+            try {
+                Optional<ObsidianMaterial> mat = adap.tryMatch(materialString);
+                if (mat.isPresent())
+                    return mat.get();
+            } catch (Throwable t) {
+                
             }
         }
 
