@@ -15,7 +15,8 @@ import com.moyskleytech.obsidian.material.ObsidianMaterial;
 import lombok.Getter;
 
 /**
- * Special implementation of ObsidianMaterial to allow Spawners with entity types
+ * Special implementation of ObsidianMaterial to allow Spawners with entity
+ * types
  */
 public class SpawnerMaterial extends ObsidianMaterial {
     @Getter
@@ -66,7 +67,12 @@ public class SpawnerMaterial extends ObsidianMaterial {
             return itemStack;
         BlockStateMeta blockStateMeta = (BlockStateMeta) itemMeta;
         CreatureSpawner creatureSpawner = (CreatureSpawner) blockStateMeta.getBlockState();
-        creatureSpawner.setSpawnedType(entity);
+        try {
+            creatureSpawner.setSpawnedType(entity);
+            } catch (Throwable t) {
+
+        }
+        blockStateMeta.setDisplayName(creatureSpawner.getSpawnedType()+" Spawner");
         blockStateMeta.setBlockState(creatureSpawner);
 
         itemStack.setItemMeta(itemMeta);

@@ -5,7 +5,7 @@ plugins {
 }
 
 group = "com.moyskleytech"
-version = "1.0.1"
+version = "1.0.2"
 description = "ObsidianMaterial"
 java.sourceCompatibility = JavaVersion.VERSION_1_8
 
@@ -34,6 +34,7 @@ dependencies {
     implementation("com.fasterxml.jackson.core:jackson-annotations:2.13.1")
     implementation("com.fasterxml.jackson.dataformat:jackson-dataformat-yaml:2.13.1")
     implementation("com.fasterxml.jackson.datatype:jackson-datatype-jsr310:2.13.1")
+    implementation("org.yaml:snakeyaml:1.29")
     compileOnly("com.github.SkriptLang:Skript:2.6.1")
     compileOnly("org.spigotmc:spigot-api:1.13-R0.1-SNAPSHOT")
     compileOnly("com.github.oraxen:oraxen:-SNAPSHOT")
@@ -74,6 +75,7 @@ tasks {
         archiveClassifier.set("")
         relocate("com.cryptomorin.xseries", "com.moyskleytech.obsidian.material.dependencies.xseries")
         relocate("com.fasterxml.jackson", "com.moyskleytech.obsidian.material.dependencies.fasterxml")
+        relocate("org.yaml.snakeyaml", "com.moyskleytech.obsitian.matetial.dependencies.snakeyaml")
         //minimize()
     }
 

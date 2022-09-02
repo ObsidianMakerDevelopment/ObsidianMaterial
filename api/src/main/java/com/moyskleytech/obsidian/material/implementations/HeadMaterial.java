@@ -61,7 +61,7 @@ public class HeadMaterial extends ObsidianMaterial {
 
     @Override
     public ItemStack toItem() {
-        ItemStack itemStack = new ItemStack(mat);
+        ItemStack itemStack = new ItemStack(Material.PLAYER_HEAD);
         ItemMeta itemMeta = itemStack.getItemMeta();
         if (itemMeta == null)
             return itemStack;

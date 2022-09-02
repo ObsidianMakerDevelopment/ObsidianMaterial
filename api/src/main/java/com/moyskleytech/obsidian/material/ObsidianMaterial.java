@@ -53,10 +53,10 @@ public abstract class ObsidianMaterial implements Comparable<ObsidianMaterial> {
 
     static {
         registerAdapter(BookAdapter.class);
-        registerAdapter(HeadAdapter.class);
         registerAdapter(PotionAdapter.class);
         registerAdapter(SpawnerAdapter.class);
         registerAdapter(BukkitAdapter.class);
+        registerAdapter(HeadAdapter.class);
         registerAdapter(XMaterialAdapter.class);
         registerAdapter(SkriptAdapter.class);
         registerAdapter(OraxenAdapter.class);

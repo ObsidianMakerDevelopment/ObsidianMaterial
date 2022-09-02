@@ -95,7 +95,9 @@ public class ObsidianItemTemplateDeserialize extends JsonDeserializer<ObsidianIt
                             for (JsonNode jsonNode : arrayNode) {
                                 lore.add(jsonNode.asText());
                             }
-                            returnValue.get().lore(lore);
+                            returnValue.set(returnValue.get().lore(lore));
+                        }else if (entry.getKey().equals("lore")){
+                            System.out.println(valueNode.toString());
                         } else if (entry.getKey().equals("name")) {
                             JsonParser jp = valueNode.traverse();
                             jp.nextToken();

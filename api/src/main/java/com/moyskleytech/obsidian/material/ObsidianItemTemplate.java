@@ -128,8 +128,8 @@ public class ObsidianItemTemplate {
      */
     public ObsidianItemTemplate(ItemStack mat) {
         material = ObsidianMaterial.match(mat);
-        
         durability = mat.getDurability();
+
         ItemMeta itemMeta = mat.getItemMeta();
         if (itemMeta == null)
             return;
@@ -308,7 +308,7 @@ public class ObsidianItemTemplate {
      * @return Return if the item template can be represented by the material only
      */
     public boolean isPure() {
-        return name == null && lore.size() == 0 && enchants.size() == 0 && meta == null && !unbreakable;
+        return name == null && lore.size() == 0 && enchants.size() == 0 && meta == null && !unbreakable && durability==0;
     }
 
     /**
