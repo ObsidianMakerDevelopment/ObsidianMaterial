@@ -32,5 +32,4 @@ public class OraxenMaterial extends ObsidianMaterial {
     public ItemStack toItem() {
         return oraxenItem.build();
     }
-    
 }

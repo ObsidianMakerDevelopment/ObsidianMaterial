@@ -59,4 +59,8 @@ public class SkriptMaterial extends ObsidianMaterial {
     public ItemStack toItem() {
         return type.getRandom();
     }
+
+    public boolean isSimilar(ItemStack item) {
+       return type.isOfType(item);
+    }
 }
