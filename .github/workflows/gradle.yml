@@ -27,8 +27,13 @@ jobs:
     - name: Upload artifacts
       uses: "actions/upload-artifact@v2.2.3"
       with:
+        name: "ObsidianMaterialAPI"
+        path: "api/build/libs/ObsidianMaterialAPI-*.jar"
+    - name: Upload artifacts
+      uses: "actions/upload-artifact@v2.2.3"
+      with:
         name: "ObsidianMaterial"
-        path: "build/libs/ObsidianMaterial-*.jar"
+        path: "plugin/build/libs/ObsidianMaterial-*.jar"
     - name: Deploy 🚀
       uses: JamesIves/github-pages-deploy-action@v4.2.3
       with:
