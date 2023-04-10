@@ -11,7 +11,7 @@
 <link rel="stylesheet" type="text/css" href="script-dir/jquery-ui.min.css" title="Style">
 <link rel="stylesheet" type="text/css" href="jquery-ui.overrides.css" title="Style">
 <script type="text/javascript" src="script.js"></script>
-<script type="text/javascript" src="script-dir/jquery-3.5.1.min.js"></script>
+<script type="text/javascript" src="script-dir/jquery-3.6.0.min.js"></script>
 <script type="text/javascript" src="script-dir/jquery-ui.min.js"></script>
 </head>
 <body class="index-page">
@@ -170,6 +170,10 @@ loadScripts(document, 'script');</script>
 <dd>
 <div class="block">Object the right spawner material from a spawner itemstack</div>
 </dd>
+<dt><a href="com/moyskleytech/obsidian/material/implementations/HeadMaterial.html#getOwner()" class="member-name-link">getOwner()</a> - Method in class com.moyskleytech.obsidian.material.implementations.<a href="com/moyskleytech/obsidian/material/implementations/HeadMaterial.html" title="class in com.moyskleytech.obsidian.material.implementations">HeadMaterial</a></dt>
+<dd>&nbsp;</dd>
+<dt><a href="com/moyskleytech/obsidian/material/implementations/HeadMaterial.html#getPlayer()" class="member-name-link">getPlayer()</a> - Method in class com.moyskleytech.obsidian.material.implementations.<a href="com/moyskleytech/obsidian/material/implementations/HeadMaterial.html" title="class in com.moyskleytech.obsidian.material.implementations">HeadMaterial</a></dt>
+<dd>&nbsp;</dd>
 </dl>
 <h2 class="title" id="I:H">H</h2>
 <dl class="index">
@@ -188,6 +192,10 @@ loadScripts(document, 'script');</script>
 <div class="block">Special implementation allowing heads to be stored as material</div>
 </dd>
 <dt><a href="com/moyskleytech/obsidian/material/implementations/HeadMaterial.html#%3Cinit%3E(java.lang.String,java.lang.String)" class="member-name-link">HeadMaterial(String, String)</a> - Constructor for class com.moyskleytech.obsidian.material.implementations.<a href="com/moyskleytech/obsidian/material/implementations/HeadMaterial.html" title="class in com.moyskleytech.obsidian.material.implementations">HeadMaterial</a></dt>
+<dd>
+<div class="block">Build a Head material for a specified owner</div>
+</dd>
+<dt><a href="com/moyskleytech/obsidian/material/implementations/HeadMaterial.html#%3Cinit%3E(java.lang.String,org.bukkit.OfflinePlayer)" class="member-name-link">HeadMaterial(String, OfflinePlayer)</a> - Constructor for class com.moyskleytech.obsidian.material.implementations.<a href="com/moyskleytech/obsidian/material/implementations/HeadMaterial.html" title="class in com.moyskleytech.obsidian.material.implementations">HeadMaterial</a></dt>
 <dd>
 <div class="block">Build a Head material for a specified owner</div>
 </dd>
@@ -374,22 +382,6 @@ loadScripts(document, 'script');</script>
 </dd>
 <dt><a href="com/moyskleytech/obsidian/material/parsers/ObsidianMaterialSerialize.html#%3Cinit%3E()" class="member-name-link">ObsidianMaterialSerialize()</a> - Constructor for class com.moyskleytech.obsidian.material.parsers.<a href="com/moyskleytech/obsidian/material/parsers/ObsidianMaterialSerialize.html" title="class in com.moyskleytech.obsidian.material.parsers">ObsidianMaterialSerialize</a></dt>
 <dd>&nbsp;</dd>
-<dt><a href="com/moyskleytech/obsidian/material/implementations/adapters/OraxenAdapter.html" class="type-name-link" title="class in com.moyskleytech.obsidian.material.implementations.adapters">OraxenAdapter</a> - Class in <a href="com/moyskleytech/obsidian/material/implementations/adapters/package-summary.html">com.moyskleytech.obsidian.material.implementations.adapters</a></dt>
-<dd>
-<div class="block">Adapter for OraxenAPI</div>
-</dd>
-<dt><a href="com/moyskleytech/obsidian/material/implementations/adapters/OraxenAdapter.html#%3Cinit%3E()" class="member-name-link">OraxenAdapter()</a> - Constructor for class com.moyskleytech.obsidian.material.implementations.adapters.<a href="com/moyskleytech/obsidian/material/implementations/adapters/OraxenAdapter.html" title="class in com.moyskleytech.obsidian.material.implementations.adapters">OraxenAdapter</a></dt>
-<dd>
-<div class="block">Required constructor that throws if Oraxen is missing</div>
-</dd>
-<dt><a href="com/moyskleytech/obsidian/material/implementations/OraxenMaterial.html" class="type-name-link" title="class in com.moyskleytech.obsidian.material.implementations">OraxenMaterial</a> - Class in <a href="com/moyskleytech/obsidian/material/implementations/package-summary.html">com.moyskleytech.obsidian.material.implementations</a></dt>
-<dd>
-<div class="block">Oraxen support material</div>
-</dd>
-<dt><a href="com/moyskleytech/obsidian/material/implementations/OraxenMaterial.html#%3Cinit%3E(io.th0rgal.oraxen.items.ItemBuilder)" class="member-name-link">OraxenMaterial(ItemBuilder)</a> - Constructor for class com.moyskleytech.obsidian.material.implementations.<a href="com/moyskleytech/obsidian/material/implementations/OraxenMaterial.html" title="class in com.moyskleytech.obsidian.material.implementations">OraxenMaterial</a></dt>
-<dd>
-<div class="block">Build a oraxen support material</div>
-</dd>
 </dl>
 <h2 class="title" id="I:P">P</h2>
 <dl class="index">
@@ -502,8 +494,6 @@ loadScripts(document, 'script');</script>
 <dd>&nbsp;</dd>
 <dt><a href="com/moyskleytech/obsidian/material/implementations/ItemsAdderMaterial.html#toItem()" class="member-name-link">toItem()</a> - Method in class com.moyskleytech.obsidian.material.implementations.<a href="com/moyskleytech/obsidian/material/implementations/ItemsAdderMaterial.html" title="class in com.moyskleytech.obsidian.material.implementations">ItemsAdderMaterial</a></dt>
 <dd>&nbsp;</dd>
-<dt><a href="com/moyskleytech/obsidian/material/implementations/OraxenMaterial.html#toItem()" class="member-name-link">toItem()</a> - Method in class com.moyskleytech.obsidian.material.implementations.<a href="com/moyskleytech/obsidian/material/implementations/OraxenMaterial.html" title="class in com.moyskleytech.obsidian.material.implementations">OraxenMaterial</a></dt>
-<dd>&nbsp;</dd>
 <dt><a href="com/moyskleytech/obsidian/material/implementations/PotionMaterial.html#toItem()" class="member-name-link">toItem()</a> - Method in class com.moyskleytech.obsidian.material.implementations.<a href="com/moyskleytech/obsidian/material/implementations/PotionMaterial.html" title="class in com.moyskleytech.obsidian.material.implementations">PotionMaterial</a></dt>
 <dd>&nbsp;</dd>
 <dt><a href="com/moyskleytech/obsidian/material/implementations/SkriptMaterial.html#toItem()" class="member-name-link">toItem()</a> - Method in class com.moyskleytech.obsidian.material.implementations.<a href="com/moyskleytech/obsidian/material/implementations/SkriptMaterial.html" title="class in com.moyskleytech.obsidian.material.implementations">SkriptMaterial</a></dt>
@@ -529,8 +519,6 @@ loadScripts(document, 'script');</script>
 <dt><a href="com/moyskleytech/obsidian/material/implementations/HeadMaterial.html#toMaterial()" class="member-name-link">toMaterial()</a> - Method in class com.moyskleytech.obsidian.material.implementations.<a href="com/moyskleytech/obsidian/material/implementations/HeadMaterial.html" title="class in com.moyskleytech.obsidian.material.implementations">HeadMaterial</a></dt>
 <dd>&nbsp;</dd>
 <dt><a href="com/moyskleytech/obsidian/material/implementations/ItemsAdderMaterial.html#toMaterial()" class="member-name-link">toMaterial()</a> - Method in class com.moyskleytech.obsidian.material.implementations.<a href="com/moyskleytech/obsidian/material/implementations/ItemsAdderMaterial.html" title="class in com.moyskleytech.obsidian.material.implementations">ItemsAdderMaterial</a></dt>
-<dd>&nbsp;</dd>
-<dt><a href="com/moyskleytech/obsidian/material/implementations/OraxenMaterial.html#toMaterial()" class="member-name-link">toMaterial()</a> - Method in class com.moyskleytech.obsidian.material.implementations.<a href="com/moyskleytech/obsidian/material/implementations/OraxenMaterial.html" title="class in com.moyskleytech.obsidian.material.implementations">OraxenMaterial</a></dt>
 <dd>&nbsp;</dd>
 <dt><a href="com/moyskleytech/obsidian/material/implementations/PotionMaterial.html#toMaterial()" class="member-name-link">toMaterial()</a> - Method in class com.moyskleytech.obsidian.material.implementations.<a href="com/moyskleytech/obsidian/material/implementations/PotionMaterial.html" title="class in com.moyskleytech.obsidian.material.implementations">PotionMaterial</a></dt>
 <dd>&nbsp;</dd>
@@ -568,8 +556,6 @@ loadScripts(document, 'script');</script>
 <dd>&nbsp;</dd>
 <dt><a href="com/moyskleytech/obsidian/material/implementations/adapters/ItemsAdderAdapter.html#tryMatch(org.bukkit.inventory.ItemStack)" class="member-name-link">tryMatch(ItemStack)</a> - Method in class com.moyskleytech.obsidian.material.implementations.adapters.<a href="com/moyskleytech/obsidian/material/implementations/adapters/ItemsAdderAdapter.html" title="class in com.moyskleytech.obsidian.material.implementations.adapters">ItemsAdderAdapter</a></dt>
 <dd>&nbsp;</dd>
-<dt><a href="com/moyskleytech/obsidian/material/implementations/adapters/OraxenAdapter.html#tryMatch(org.bukkit.inventory.ItemStack)" class="member-name-link">tryMatch(ItemStack)</a> - Method in class com.moyskleytech.obsidian.material.implementations.adapters.<a href="com/moyskleytech/obsidian/material/implementations/adapters/OraxenAdapter.html" title="class in com.moyskleytech.obsidian.material.implementations.adapters">OraxenAdapter</a></dt>
-<dd>&nbsp;</dd>
 <dt><a href="com/moyskleytech/obsidian/material/implementations/adapters/PotionAdapter.html#tryMatch(org.bukkit.inventory.ItemStack)" class="member-name-link">tryMatch(ItemStack)</a> - Method in class com.moyskleytech.obsidian.material.implementations.adapters.<a href="com/moyskleytech/obsidian/material/implementations/adapters/PotionAdapter.html" title="class in com.moyskleytech.obsidian.material.implementations.adapters">PotionAdapter</a></dt>
 <dd>&nbsp;</dd>
 <dt><a href="com/moyskleytech/obsidian/material/implementations/adapters/SkriptAdapter.html#tryMatch(org.bukkit.inventory.ItemStack)" class="member-name-link">tryMatch(ItemStack)</a> - Method in class com.moyskleytech.obsidian.material.implementations.adapters.<a href="com/moyskleytech/obsidian/material/implementations/adapters/SkriptAdapter.html" title="class in com.moyskleytech.obsidian.material.implementations.adapters">SkriptAdapter</a></dt>
@@ -591,8 +577,6 @@ loadScripts(document, 'script');</script>
 <dt><a href="com/moyskleytech/obsidian/material/implementations/adapters/HeadAdapter.html#tryParse(java.lang.String)" class="member-name-link">tryParse(String)</a> - Method in class com.moyskleytech.obsidian.material.implementations.adapters.<a href="com/moyskleytech/obsidian/material/implementations/adapters/HeadAdapter.html" title="class in com.moyskleytech.obsidian.material.implementations.adapters">HeadAdapter</a></dt>
 <dd>&nbsp;</dd>
 <dt><a href="com/moyskleytech/obsidian/material/implementations/adapters/ItemsAdderAdapter.html#tryParse(java.lang.String)" class="member-name-link">tryParse(String)</a> - Method in class com.moyskleytech.obsidian.material.implementations.adapters.<a href="com/moyskleytech/obsidian/material/implementations/adapters/ItemsAdderAdapter.html" title="class in com.moyskleytech.obsidian.material.implementations.adapters">ItemsAdderAdapter</a></dt>
-<dd>&nbsp;</dd>
-<dt><a href="com/moyskleytech/obsidian/material/implementations/adapters/OraxenAdapter.html#tryParse(java.lang.String)" class="member-name-link">tryParse(String)</a> - Method in class com.moyskleytech.obsidian.material.implementations.adapters.<a href="com/moyskleytech/obsidian/material/implementations/adapters/OraxenAdapter.html" title="class in com.moyskleytech.obsidian.material.implementations.adapters">OraxenAdapter</a></dt>
 <dd>&nbsp;</dd>
 <dt><a href="com/moyskleytech/obsidian/material/implementations/adapters/PotionAdapter.html#tryParse(java.lang.String)" class="member-name-link">tryParse(String)</a> - Method in class com.moyskleytech.obsidian.material.implementations.adapters.<a href="com/moyskleytech/obsidian/material/implementations/adapters/PotionAdapter.html" title="class in com.moyskleytech.obsidian.material.implementations.adapters">PotionAdapter</a></dt>
 <dd>&nbsp;</dd>
@@ -632,6 +616,14 @@ loadScripts(document, 'script');</script>
 </dl>
 <h2 class="title" id="I:W">W</h2>
 <dl class="index">
+<dt><a href="com/moyskleytech/obsidian/material/implementations/HeadMaterial.html#with(java.lang.String)" class="member-name-link">with(String)</a> - Method in class com.moyskleytech.obsidian.material.implementations.<a href="com/moyskleytech/obsidian/material/implementations/HeadMaterial.html" title="class in com.moyskleytech.obsidian.material.implementations">HeadMaterial</a></dt>
+<dd>&nbsp;</dd>
+<dt><a href="com/moyskleytech/obsidian/material/implementations/HeadMaterial.html#with(org.bukkit.OfflinePlayer)" class="member-name-link">with(OfflinePlayer)</a> - Method in class com.moyskleytech.obsidian.material.implementations.<a href="com/moyskleytech/obsidian/material/implementations/HeadMaterial.html" title="class in com.moyskleytech.obsidian.material.implementations">HeadMaterial</a></dt>
+<dd>&nbsp;</dd>
+<dt><a href="com/moyskleytech/obsidian/material/ObsidianItemTemplate.html#withHeadOwner(java.lang.String)" class="member-name-link">withHeadOwner(String)</a> - Method in class com.moyskleytech.obsidian.material.<a href="com/moyskleytech/obsidian/material/ObsidianItemTemplate.html" title="class in com.moyskleytech.obsidian.material">ObsidianItemTemplate</a></dt>
+<dd>&nbsp;</dd>
+<dt><a href="com/moyskleytech/obsidian/material/ObsidianItemTemplate.html#withHeadOwner(org.bukkit.OfflinePlayer)" class="member-name-link">withHeadOwner(OfflinePlayer)</a> - Method in class com.moyskleytech.obsidian.material.<a href="com/moyskleytech/obsidian/material/ObsidianItemTemplate.html" title="class in com.moyskleytech.obsidian.material">ObsidianItemTemplate</a></dt>
+<dd>&nbsp;</dd>
 <dt><a href="com/moyskleytech/obsidian/material/ObsidianMaterial.html#wrap(com.cryptomorin.xseries.XMaterial)" class="member-name-link">wrap(XMaterial)</a> - Static method in class com.moyskleytech.obsidian.material.<a href="com/moyskleytech/obsidian/material/ObsidianMaterial.html" title="class in com.moyskleytech.obsidian.material">ObsidianMaterial</a></dt>
 <dd>
 <div class="block">Wrap a XMaterial into a ObsidianMaterial</div>
