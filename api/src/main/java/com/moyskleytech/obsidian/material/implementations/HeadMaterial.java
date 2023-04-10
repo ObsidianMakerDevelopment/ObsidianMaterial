@@ -2,14 +2,15 @@ package com.moyskleytech.obsidian.material.implementations;
 
 import java.util.Optional;
 
+import org.bukkit.Bukkit;
 import org.bukkit.Material;
+import org.bukkit.OfflinePlayer;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 import org.bukkit.inventory.meta.PotionMeta;
 import org.bukkit.inventory.meta.SkullMeta;
 import org.bukkit.potion.PotionData;
 import org.bukkit.potion.PotionType;
-
 import com.cryptomorin.xseries.XMaterial;
 import com.moyskleytech.obsidian.material.ObsidianMaterial;
 
@@ -19,8 +20,24 @@ import lombok.Getter;
  * Special implementation allowing heads to be stored as material
  */
 public class HeadMaterial extends ObsidianMaterial {
-    @Getter
-    String owner;
+    OfflinePlayer ownerPlayer;
+
+    public HeadMaterial with(OfflinePlayer p) {
+        return new HeadMaterial(p.getName() + "_HEAD", p);
+    }
+
+    public HeadMaterial with(String p) {
+        return new HeadMaterial(p + "_HEAD", p);
+    }
+
+    public String getOwner() {
+        return ownerPlayer.getName();
+    }
+
+    public OfflinePlayer getPlayer() {
+        return ownerPlayer;
+    }
+
     Material mat;
 
     private static Optional<Boolean> support = Optional.empty();
@@ -51,7 +68,19 @@ public class HeadMaterial extends ObsidianMaterial {
     public HeadMaterial(String key, String owner) {
         super(key);
         mat = ObsidianMaterial.valueOf("PLAYER_HEAD").toMaterial();
-        this.owner = owner;
+        this.ownerPlayer = Bukkit.getOfflinePlayer(owner);
+    }
+
+    /**
+     * Build a Head material for a specified owner
+     * 
+     * @param key   The unique key
+     * @param owner The owner of the head
+     */
+    public HeadMaterial(String key, OfflinePlayer owner) {
+        super(key);
+        mat = ObsidianMaterial.valueOf("PLAYER_HEAD").toMaterial();
+        this.ownerPlayer = owner;
     }
 
     @Override
@@ -68,11 +97,20 @@ public class HeadMaterial extends ObsidianMaterial {
         if (!(itemMeta instanceof SkullMeta))
             return itemStack;
         SkullMeta pm = (SkullMeta) itemMeta;
-        pm.setOwner(owner);
+
+        try {
+            m113setOwner(pm);
+        } catch (Throwable t) {
+            pm.setOwner(getOwner());
+        }
 
         itemStack.setItemMeta(itemMeta);
 
         return itemStack;
+    }
+
+    private void m113setOwner(SkullMeta pm) {
+        pm.setOwningPlayer(ownerPlayer);
     }
 
     /**

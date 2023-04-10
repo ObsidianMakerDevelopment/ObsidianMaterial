@@ -8,6 +8,7 @@ import java.util.Map;
 import java.util.Map.Entry;
 
 import org.bukkit.Material;
+import org.bukkit.OfflinePlayer;
 import org.bukkit.enchantments.Enchantment;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
@@ -17,6 +18,7 @@ import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import com.moyskleytech.obsidian.material.ItemParser.Part;
 import com.moyskleytech.obsidian.material.ItemParser.Part.PartType;
+import com.moyskleytech.obsidian.material.implementations.HeadMaterial;
 import com.moyskleytech.obsidian.material.implementations.PotionMaterial;
 import com.moyskleytech.obsidian.material.implementations.SpawnerMaterial;
 import com.moyskleytech.obsidian.material.parsers.ObsidianItemTemplateDeserialize;
@@ -167,6 +169,24 @@ public class ObsidianItemTemplate {
             meta = template.meta.clone();
     }
 
+    public ObsidianItemTemplate withHeadOwner(OfflinePlayer player)
+    {
+        ObsidianItemTemplate ws = new ObsidianItemTemplate(this);
+        if(ws.material instanceof HeadMaterial)
+        {
+            ws.material = ((HeadMaterial)ws.material).with(player);
+        }
+        return ws;
+    }
+    public ObsidianItemTemplate withHeadOwner(String player)
+    {
+        ObsidianItemTemplate ws = new ObsidianItemTemplate(this);
+        if(ws.material instanceof HeadMaterial)
+        {
+            ws.material = ((HeadMaterial)ws.material).with(player);
+        }
+        return ws;
+    }
     /**
      * Modify the lore
      * 

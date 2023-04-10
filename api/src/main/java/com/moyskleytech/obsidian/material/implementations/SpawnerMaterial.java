@@ -70,7 +70,7 @@ public class SpawnerMaterial extends ObsidianMaterial {
         try {
             creatureSpawner.setSpawnedType(entity);
             } catch (Throwable t) {
-
+                t.printStackTrace();
         }
         blockStateMeta.setDisplayName(creatureSpawner.getSpawnedType()+" Spawner");
         blockStateMeta.setBlockState(creatureSpawner);
