@@ -1,43 +1,43 @@
-package com.moyskleytech.obsidian.material.implementations.adapters;
+// package com.moyskleytech.obsidian.material.implementations.adapters;
 
-import java.util.Optional;
+// import java.util.Optional;
 
-import org.bukkit.inventory.ItemStack;
+// import org.bukkit.inventory.ItemStack;
 
-import com.moyskleytech.obsidian.material.ObsidianMaterial;
-import com.moyskleytech.obsidian.material.implementations.OraxenMaterial;
+// import com.moyskleytech.obsidian.material.ObsidianMaterial;
+// import com.moyskleytech.obsidian.material.implementations.OraxenMaterial;
 
-import io.th0rgal.oraxen.items.ItemBuilder;
-import io.th0rgal.oraxen.items.OraxenItems;
+// import io.th0rgal.oraxen.api.ItemBuilder;
+// import io.th0rgal.oraxen.api.OraxenItems;
 
-/**
- * Adapter for OraxenAPI
- */
-public class OraxenAdapter implements Adapter{
+// /**
+//  * Adapter for OraxenAPI
+//  */
+// public class OraxenAdapter implements Adapter{
 
-    /**
-     * Required constructor that throws if Oraxen is missing
-     */
-    public OraxenAdapter()
-    {
-        OraxenItems.getItems().forEach((ib)->{
-            ObsidianMaterial.add(new OraxenMaterial(ib));
-        });
-    }
-    @Override
-    public Optional<ObsidianMaterial> tryParse(String materialString) {
+//     /**
+//      * Required constructor that throws if Oraxen is missing
+//      */
+//     public OraxenAdapter()
+//     {
+//         OraxenItems.getItems().forEach((ib)->{
+//             ObsidianMaterial.add(new OraxenMaterial(ib));
+//         });
+//     }
+//     @Override
+//     public Optional<ObsidianMaterial> tryParse(String materialString) {
         
-        ItemBuilder ib = OraxenItems.getItemById(materialString);
-        if(ib!=null)
-        {
-            return Optional.of(new OraxenMaterial(ib));
-        }
+//         ItemBuilder ib = OraxenItems.getItemById(materialString);
+//         if(ib!=null)
+//         {
+//             return Optional.of(new OraxenMaterial(ib));
+//         }
 
-        return Optional.empty();
-    }
-    @Override
-    public Optional<ObsidianMaterial> tryMatch(ItemStack stack) {
-        return tryParse(OraxenItems.getIdByItem(stack));
-    }
+//         return Optional.empty();
+//     }
+//     @Override
+//     public Optional<ObsidianMaterial> tryMatch(ItemStack stack) {
+//         return tryParse(OraxenItems.getIdByItem(stack));
+//     }
     
-}
+// }

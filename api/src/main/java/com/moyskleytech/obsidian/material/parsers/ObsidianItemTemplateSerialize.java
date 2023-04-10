@@ -47,8 +47,9 @@ public class ObsidianItemTemplateSerialize extends JsonSerializer<ObsidianItemTe
             if (template.getMeta() != null) {
                 Map<String, Object> s = metaSerialize(template.getMeta());
                 if (!(template.getMaterial() instanceof SpawnerMaterial) &&
-                        s.size() >= 2 &&
-                        !"UNSPECIFIC".equals(s.get("meta-type"))) {
+                        s.size() >= 2
+                // !"UNSPECIFIC".equals(s.get("meta-type")
+                ) {
                     gen.writeFieldName("meta");
                     gen.writeObject(s);
                 }

@@ -61,9 +61,8 @@ tasks.withType<Jar> {
 }
 
 tasks {
-    jar {
+    assemble {
         dependsOn("shadowJar")
-        enabled = true
     }
 
     shadowJar {
