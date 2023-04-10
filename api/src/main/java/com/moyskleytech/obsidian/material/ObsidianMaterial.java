@@ -186,7 +186,6 @@ public abstract class ObsidianMaterial implements Comparable<ObsidianMaterial> {
                 
             }
         }
-
         return null;
     }
 

@@ -2,6 +2,7 @@ package com.moyskleytech.obsidian.material.implementations.adapters;
 
 import java.util.Optional;
 
+import org.bukkit.block.Block;
 import org.bukkit.inventory.ItemStack;
 
 import com.moyskleytech.obsidian.material.ObsidianMaterial;
@@ -39,4 +40,8 @@ public class SlimeFunAdapter implements Adapter {
         }
     }
 
+    @Override
+    public Optional<ObsidianMaterial> tryMatch(Block stack) {
+        return Optional.empty();
+    }
 }

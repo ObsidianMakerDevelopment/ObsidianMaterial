@@ -4,6 +4,7 @@ import java.lang.StackWalker.Option;
 import java.util.Optional;
 
 import org.bukkit.Material;
+import org.bukkit.block.Block;
 import org.bukkit.inventory.ItemStack;
 
 import com.moyskleytech.obsidian.material.ObsidianMaterial;
@@ -31,5 +32,9 @@ public class BukkitAdapter implements Adapter {
         return Optional.of(ObsidianMaterial.valueOf(stack.getType()));
     }
 
+    @Override
+    public Optional<ObsidianMaterial> tryMatch(Block stack) {
+        return Optional.of(ObsidianMaterial.valueOf(stack.getType()));
+    }
     
 }

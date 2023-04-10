@@ -2,6 +2,7 @@ package com.moyskleytech.obsidian.material.implementations.adapters;
 
 import java.util.Optional;
 
+import org.bukkit.block.Block;
 import org.bukkit.inventory.ItemStack;
 
 import com.moyskleytech.obsidian.material.ObsidianMaterial;
@@ -53,5 +54,16 @@ public class ItemsAdderAdapter implements Adapter {
             return Optional.empty();
         }
     }
+
+    @Override
+    public Optional<ObsidianMaterial> tryMatch(Block stack) {
+        try {
+            CustomStack cs = CustomBlock.byAlreadyPlaced(stack);
+            return Optional.of(new ItemsAdderMaterial(cs));
+        } catch (Throwable t) {
+            return Optional.empty();
+        }
+    }
+
 
 }

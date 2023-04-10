@@ -4,6 +4,7 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Optional;
 
+import org.bukkit.block.Block;
 import org.bukkit.enchantments.Enchantment;
 import org.bukkit.inventory.ItemStack;
 
@@ -61,6 +62,11 @@ public class BookAdapter implements Adapter {
         } catch (Throwable t) {
             return Optional.empty();
         }
+    }
+
+    @Override
+    public Optional<ObsidianMaterial> tryMatch(Block stack) {
+        return Optional.empty();
     }
 
 }

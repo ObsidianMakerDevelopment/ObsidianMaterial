@@ -20,7 +20,7 @@ repositories {
     maven("https://moyskleytech.com/debian/m2")
 }
 dependencies {
-    implementation("com.moyskleytech:ObsidianMaterialAPI:1.0.2")
+    implementation("com.moyskleytech:ObsidianMaterialAPI:1.0.4")
 }
 //Some features require XSeries and FasterXML, such features are marked in Javadoc, you can also depends on the ObsidianMaterial plugin
 dependencies {
@@ -32,7 +32,7 @@ dependencies {
 You can also use the plugin based with XSeries and Jackson FasterXML included, simply add ObsidianMaterial as a depends on your plugin
 ```gradle
 dependencies {
-    compileOnly("com.moyskleytech:ObsidianMaterial:1.0.2")
+    compileOnly("com.moyskleytech:ObsidianMaterial:1.0.4")
 }
 ```
 # Hooks

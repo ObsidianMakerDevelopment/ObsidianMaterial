@@ -5,7 +5,7 @@ plugins {
 }
 
 group = "com.moyskleytech"
-version = "1.0.3-SNAPSHOT"
+version = "1.0.4"
 description = "ObsidianMaterial"
 java.sourceCompatibility = JavaVersion.VERSION_1_8
 
@@ -32,7 +32,7 @@ dependencies {
     compileOnly("com.fasterxml.jackson.core:jackson-core:2.13.1")
     compileOnly("com.github.SkriptLang:Skript:2.6.1")
     compileOnly("org.spigotmc:spigot-api:1.13-R0.1-SNAPSHOT")
-    compileOnly("com.github.oraxen:oraxen:-SNAPSHOT")
+    compileOnly("com.github.oraxen:oraxen:1.155.0")
     compileOnly("com.github.LoneDev6:api-itemsadder:3.0.0")
     compileOnly("com.github.slimefun:Slimefun4:RC-27")
 

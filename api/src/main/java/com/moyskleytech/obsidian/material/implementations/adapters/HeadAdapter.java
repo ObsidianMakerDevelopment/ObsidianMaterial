@@ -2,6 +2,7 @@ package com.moyskleytech.obsidian.material.implementations.adapters;
 
 import java.util.Optional;
 
+import org.bukkit.block.Block;
 import org.bukkit.inventory.ItemStack;
 
 import com.moyskleytech.obsidian.material.ObsidianMaterial;
@@ -44,4 +45,11 @@ public class HeadAdapter implements Adapter {
         }
         return Optional.empty();
     }
+
+    @Override
+    public Optional<ObsidianMaterial> tryMatch(Block stack) {
+        //TODO: technically you can place a head
+        return Optional.empty();
+    }
+
 }

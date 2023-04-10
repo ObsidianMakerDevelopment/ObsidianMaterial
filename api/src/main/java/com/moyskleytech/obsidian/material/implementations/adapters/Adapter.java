@@ -2,6 +2,7 @@ package com.moyskleytech.obsidian.material.implementations.adapters;
 
 import java.util.Optional;
 
+import org.bukkit.block.Block;
 import org.bukkit.inventory.ItemStack;
 
 import com.moyskleytech.obsidian.material.ObsidianMaterial;
@@ -17,4 +18,5 @@ public interface Adapter {
      */
     Optional<ObsidianMaterial> tryParse(String materialString);
     Optional<ObsidianMaterial> tryMatch(ItemStack stack);
+    Optional<ObsidianMaterial> tryMatch(Block stack);
 }

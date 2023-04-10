@@ -2,6 +2,9 @@ package com.moyskleytech.obsidian.material.implementations.adapters;
 
 import java.util.Optional;
 
+import org.bukkit.block.Block;
+import org.bukkit.block.BlockState;
+import org.bukkit.block.CreatureSpawner;
 import org.bukkit.entity.EntityType;
 import org.bukkit.inventory.ItemStack;
 
@@ -48,6 +51,22 @@ public class SpawnerAdapter implements Adapter {
         } catch (Throwable t) {
             return Optional.empty();
         }
+    }
+
+    @Override
+    public Optional<ObsidianMaterial> tryMatch(Block stack) {
+        BlockState bs = stack.getState();
+        if (bs != null) {
+            try {
+                if (bs instanceof CreatureSpawner) {
+                    CreatureSpawner spawner = (CreatureSpawner) bs;
+                    return Optional.of(ObsidianMaterial.valueOf(spawner.getSpawnedType() + "_SPAWNER"));
+                }
+            } catch (Throwable t) {
+                return Optional.empty();
+            }
+        }
+        return Optional.empty();
     }
 
 }

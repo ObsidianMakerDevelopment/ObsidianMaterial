@@ -2,6 +2,7 @@ package com.moyskleytech.obsidian.material.implementations.adapters;
 
 import java.util.Optional;
 
+import org.bukkit.block.Block;
 import org.bukkit.inventory.ItemStack;
 
 import com.cryptomorin.xseries.XMaterial;
@@ -50,7 +51,13 @@ public class XMaterialAdapter implements Adapter {
         } catch (Throwable t) {
             return Optional.empty();
         }
-
     }
-
+    @Override
+    public Optional<ObsidianMaterial> tryMatch(Block stack) {
+        try {
+            return Optional.of(ObsidianMaterial.wrap(stack.getType()));
+        } catch (Throwable t) {
+            return Optional.empty();
+        }
+    }
 }
