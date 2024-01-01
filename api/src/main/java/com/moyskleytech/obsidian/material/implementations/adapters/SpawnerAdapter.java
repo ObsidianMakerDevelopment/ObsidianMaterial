@@ -5,6 +5,7 @@ import java.util.Optional;
 import org.bukkit.block.Block;
 import org.bukkit.block.BlockState;
 import org.bukkit.block.CreatureSpawner;
+import org.bukkit.block.data.BlockData;
 import org.bukkit.entity.EntityType;
 import org.bukkit.inventory.ItemStack;
 
@@ -67,6 +68,10 @@ public class SpawnerAdapter implements Adapter {
             }
         }
         return Optional.empty();
+    }
+    @Override
+    public Optional<ObsidianMaterial> tryMatch(BlockData stack) {
+       return Optional.empty();
     }
 
 }

@@ -3,6 +3,7 @@ package com.moyskleytech.obsidian.material.implementations.adapters;
 import java.util.Optional;
 
 import org.bukkit.block.Block;
+import org.bukkit.block.data.BlockData;
 import org.bukkit.inventory.ItemStack;
 
 import com.moyskleytech.obsidian.material.ObsidianMaterial;
@@ -45,6 +46,10 @@ public class OraxenAdapter implements Adapter{
     @Override
     public Optional<ObsidianMaterial> tryMatch(Block stack) {
         return tryParse(OraxenBlocks.getOraxenBlock(stack.getLocation()).getItemID());
+    }
+    @Override
+    public Optional<ObsidianMaterial> tryMatch(BlockData stack) {
+        return tryParse(OraxenBlocks.getOraxenBlock(stack).getItemID());
     }
     
 }

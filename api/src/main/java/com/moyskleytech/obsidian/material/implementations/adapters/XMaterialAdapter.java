@@ -3,6 +3,7 @@ package com.moyskleytech.obsidian.material.implementations.adapters;
 import java.util.Optional;
 
 import org.bukkit.block.Block;
+import org.bukkit.block.data.BlockData;
 import org.bukkit.inventory.ItemStack;
 
 import com.cryptomorin.xseries.XMaterial;
@@ -52,6 +53,7 @@ public class XMaterialAdapter implements Adapter {
             return Optional.empty();
         }
     }
+
     @Override
     public Optional<ObsidianMaterial> tryMatch(Block stack) {
         try {
@@ -59,5 +61,15 @@ public class XMaterialAdapter implements Adapter {
         } catch (Throwable t) {
             return Optional.empty();
         }
+    }
+
+    @Override
+    public Optional<ObsidianMaterial> tryMatch(BlockData stack) {
+        try {
+            return Optional.of(ObsidianMaterial.wrap(XMaterial.matchXMaterial(stack.getMaterial())));
+        } catch (Throwable t) {
+            return Optional.empty();
+        }
+
     }
 }

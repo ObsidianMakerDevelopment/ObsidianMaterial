@@ -1,10 +1,10 @@
 package com.moyskleytech.obsidian.material.implementations.adapters;
 
-import java.lang.StackWalker.Option;
 import java.util.Optional;
 
 import org.bukkit.Material;
 import org.bukkit.block.Block;
+import org.bukkit.block.data.BlockData;
 import org.bukkit.inventory.ItemStack;
 
 import com.moyskleytech.obsidian.material.ObsidianMaterial;
@@ -21,10 +21,10 @@ public class BukkitAdapter implements Adapter {
 
         Material mat = Material.getMaterial(materialString);
         if (mat != null) {
-           return Optional.of(new BukkitMaterial(mat, materialString));
+            return Optional.of(new BukkitMaterial(mat, materialString));
         }
         return Optional.empty();
-        
+
     }
 
     @Override
@@ -36,5 +36,10 @@ public class BukkitAdapter implements Adapter {
     public Optional<ObsidianMaterial> tryMatch(Block stack) {
         return Optional.of(ObsidianMaterial.valueOf(stack.getType()));
     }
-    
+
+    @Override
+    public Optional<ObsidianMaterial> tryMatch(BlockData stack) {
+        return Optional.of(ObsidianMaterial.valueOf(stack.getMaterial()));
+    }
+
 }

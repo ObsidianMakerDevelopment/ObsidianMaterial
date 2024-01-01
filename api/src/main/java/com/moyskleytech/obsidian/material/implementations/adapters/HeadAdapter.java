@@ -2,7 +2,11 @@ package com.moyskleytech.obsidian.material.implementations.adapters;
 
 import java.util.Optional;
 
+import org.bukkit.Material;
 import org.bukkit.block.Block;
+import org.bukkit.block.BlockState;
+import org.bukkit.block.Skull;
+import org.bukkit.block.data.BlockData;
 import org.bukkit.inventory.ItemStack;
 
 import com.moyskleytech.obsidian.material.ObsidianMaterial;
@@ -48,7 +52,24 @@ public class HeadAdapter implements Adapter {
 
     @Override
     public Optional<ObsidianMaterial> tryMatch(Block stack) {
-        //TODO: technically you can place a head
+        if(stack.getType() == Material.PLAYER_HEAD)
+        {
+            BlockState bs = stack.getState();
+            Skull skull = (Skull)bs;
+            return Optional.of(new HeadMaterial(stack.getType().toString(),skull.getOwningPlayer()));
+        }
+        if(stack.getType() == Material.PLAYER_WALL_HEAD)
+        {
+            BlockState bs = stack.getState();
+            Skull skull = (Skull)bs;
+            return Optional.of(new HeadMaterial(stack.getType().toString(),skull.getOwningPlayer()));
+        }
+        // TODO: technically you can place a head
+        return Optional.empty();
+    }
+
+    @Override
+    public Optional<ObsidianMaterial> tryMatch(BlockData stack) {
         return Optional.empty();
     }
 

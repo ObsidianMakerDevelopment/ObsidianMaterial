@@ -4,6 +4,7 @@ import java.util.Optional;
 
 import org.bukkit.Bukkit;
 import org.bukkit.block.Block;
+import org.bukkit.block.data.BlockData;
 import org.bukkit.inventory.ItemStack;
 
 import com.moyskleytech.obsidian.material.ObsidianMaterial;
@@ -50,4 +51,8 @@ public class SkriptAdapter implements Adapter {
         }
     }
 
+    @Override
+    public Optional<ObsidianMaterial> tryMatch(BlockData stack) {
+        return Optional.empty();
+    }
 }

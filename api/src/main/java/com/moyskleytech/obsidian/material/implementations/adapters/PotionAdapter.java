@@ -3,6 +3,7 @@ package com.moyskleytech.obsidian.material.implementations.adapters;
 import java.util.Optional;
 
 import org.bukkit.block.Block;
+import org.bukkit.block.data.BlockData;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.potion.PotionType;
 
@@ -56,6 +57,10 @@ public class PotionAdapter implements Adapter {
 
     @Override
     public Optional<ObsidianMaterial> tryMatch(Block stack) {
+        return Optional.empty();
+    }
+     @Override
+    public Optional<ObsidianMaterial> tryMatch(BlockData stack) {
         return Optional.empty();
     }
 

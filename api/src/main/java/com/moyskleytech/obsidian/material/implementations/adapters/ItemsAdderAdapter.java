@@ -3,6 +3,7 @@ package com.moyskleytech.obsidian.material.implementations.adapters;
 import java.util.Optional;
 
 import org.bukkit.block.Block;
+import org.bukkit.block.data.BlockData;
 import org.bukkit.inventory.ItemStack;
 
 import com.moyskleytech.obsidian.material.ObsidianMaterial;
@@ -65,5 +66,10 @@ public class ItemsAdderAdapter implements Adapter {
         }
     }
 
+    @Override
+    public Optional<ObsidianMaterial> tryMatch(BlockData stack) {
+        
+        return Optional.empty();
+    }
 
 }
