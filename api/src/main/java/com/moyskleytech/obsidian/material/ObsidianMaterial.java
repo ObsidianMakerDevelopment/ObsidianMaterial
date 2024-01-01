@@ -10,6 +10,7 @@ import java.util.Optional;
 
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
+import org.bukkit.block.Block;
 import org.bukkit.enchantments.Enchantment;
 import org.bukkit.entity.EntityType;
 import org.bukkit.inventory.ItemStack;
@@ -174,6 +175,29 @@ public abstract class ObsidianMaterial implements Comparable<ObsidianMaterial> {
      * @return Corresponding material of null if nothing match
      */
     public static final ObsidianMaterial match(ItemStack materialString) {
+        if (materialString == null)
+            return null;
+        List<Adapter> m = new ArrayList<>(adapters);
+        for (Adapter adap : m) {
+            try {
+                Optional<ObsidianMaterial> mat = adap.tryMatch(materialString);
+                if (mat.isPresent())
+                    return mat.get();
+            } catch (Throwable t) {
+                
+            }
+        }
+        return null;
+    }
+      /**
+     * Parse a material from a string, currently supports BookMaterial,
+     * HeadMaterial, BukkitMaterials, PotionMaterial, SpawnerMaterial and XMaterial,
+     * custom implementations use .add()
+     * 
+     * @param materialString the string to parse
+     * @return Corresponding material of null if nothing match
+     */
+    public static final ObsidianMaterial match(Block materialString) {
         if (materialString == null)
             return null;
         List<Adapter> m = new ArrayList<>(adapters);
