@@ -30,6 +30,7 @@ import com.moyskleytech.obsidian.material.implementations.adapters.BookAdapter;
 import com.moyskleytech.obsidian.material.implementations.adapters.BukkitAdapter;
 import com.moyskleytech.obsidian.material.implementations.adapters.HeadAdapter;
 import com.moyskleytech.obsidian.material.implementations.adapters.ItemsAdderAdapter;
+import com.moyskleytech.obsidian.material.implementations.adapters.OraxenAdapter;
 //import com.moyskleytech.obsidian.material.implementations.adapters.OraxenAdapter;
 import com.moyskleytech.obsidian.material.implementations.adapters.PotionAdapter;
 import com.moyskleytech.obsidian.material.implementations.adapters.SkriptAdapter;
@@ -52,16 +53,26 @@ public abstract class ObsidianMaterial implements Comparable<ObsidianMaterial> {
     private static List<Adapter> adapters = new ArrayList<>();
     @Getter
     private String key;
+    private static boolean need_lazy = true;
+    static boolean need_later = true;
 
-    static {
-        registerAdapter(BookAdapter.class);
-        registerAdapter(PotionAdapter.class);
-        registerAdapter(SpawnerAdapter.class);
-        registerAdapter(BukkitAdapter.class);
-        registerAdapter(HeadAdapter.class);
-        registerAdapter(XMaterialAdapter.class);
+    static void lazy() {
+        if (need_lazy) {
+            need_lazy = false;
+            registerAdapter(BookAdapter.class);
+            registerAdapter(PotionAdapter.class);
+            registerAdapter(SpawnerAdapter.class);
+
+            registerAdapter(BukkitAdapter.class);
+            registerAdapter(HeadAdapter.class);
+
+            registerAdapter(XMaterialAdapter.class);
+        }
+    }
+
+    static public void registerPluginAdapters() {
+        registerAdapter(OraxenAdapter.class);
         registerAdapter(SkriptAdapter.class);
-        //registerAdapter(OraxenAdapter.class);
         registerAdapter(ItemsAdderAdapter.class);
         registerAdapter(SlimeFunAdapter.class);
     }
@@ -73,8 +84,10 @@ public abstract class ObsidianMaterial implements Comparable<ObsidianMaterial> {
      *              constructor
      */
     public static void registerAdapter(Class<? extends Adapter> clazz) {
+        lazy();
         try {
             adapters.add(clazz.getDeclaredConstructor().newInstance());
+            System.err.println("Registered " + clazz.getSimpleName());
         } catch (Throwable ignored) {
             // TODO: handle exception
             System.err.println("Could not register " + clazz.getSimpleName());
@@ -88,6 +101,7 @@ public abstract class ObsidianMaterial implements Comparable<ObsidianMaterial> {
      * @return the removed value or null
      */
     public static final ObsidianMaterial remove(String s) {
+        lazy();
         ObsidianMaterial im = materials.get(s);
         materials.remove(s);
         return im;
@@ -101,6 +115,7 @@ public abstract class ObsidianMaterial implements Comparable<ObsidianMaterial> {
      *         BukkitMaterial
      */
     public static final ObsidianMaterial wrap(Material mat) {
+        lazy();
         return valueOf(mat.name());
     }
 
@@ -112,6 +127,7 @@ public abstract class ObsidianMaterial implements Comparable<ObsidianMaterial> {
      *         BukkitMaterial or XMaterial
      */
     public static final ObsidianMaterial wrap(XMaterial mat) {
+        lazy();
         return valueOf(mat.name());
     }
 
@@ -123,6 +139,7 @@ public abstract class ObsidianMaterial implements Comparable<ObsidianMaterial> {
      * @return The registered material
      */
     public static final ObsidianMaterial add(ObsidianMaterial im) {
+        lazy();
         materials.put(im.getKey(), im);
         return im;
     }
@@ -134,6 +151,7 @@ public abstract class ObsidianMaterial implements Comparable<ObsidianMaterial> {
      * @return The ObsidianMaterial associated with it
      */
     public static final ObsidianMaterial valueOf(Material materialString) {
+        lazy();
         return valueOf(materialString.name());
     }
 
@@ -146,6 +164,7 @@ public abstract class ObsidianMaterial implements Comparable<ObsidianMaterial> {
      * @return Corresponding material of null if nothing match
      */
     public static final ObsidianMaterial valueOf(String materialString) {
+        lazy();
         if (materialString == null)
             return null;
         if (materials.containsKey(materialString)) {
@@ -176,21 +195,24 @@ public abstract class ObsidianMaterial implements Comparable<ObsidianMaterial> {
      * @return Corresponding material of null if nothing match
      */
     public static final ObsidianMaterial match(ItemStack materialString) {
+        lazy();
         if (materialString == null)
             return null;
         List<Adapter> m = new ArrayList<>(adapters);
+        Collections.reverse(m);
         for (Adapter adap : m) {
             try {
                 Optional<ObsidianMaterial> mat = adap.tryMatch(materialString);
                 if (mat.isPresent())
                     return mat.get();
             } catch (Throwable t) {
-                
+
             }
         }
         return null;
     }
-      /**
+
+    /**
      * Parse a material from a string, currently supports BookMaterial,
      * HeadMaterial, BukkitMaterials, PotionMaterial, SpawnerMaterial and XMaterial,
      * custom implementations use .add()
@@ -199,21 +221,25 @@ public abstract class ObsidianMaterial implements Comparable<ObsidianMaterial> {
      * @return Corresponding material of null if nothing match
      */
     public static final ObsidianMaterial match(Block materialString) {
+        lazy();
         if (materialString == null)
             return null;
         List<Adapter> m = new ArrayList<>(adapters);
+        Collections.reverse(m);
+
         for (Adapter adap : m) {
             try {
                 Optional<ObsidianMaterial> mat = adap.tryMatch(materialString);
                 if (mat.isPresent())
                     return mat.get();
             } catch (Throwable t) {
-                
+
             }
         }
         return null;
     }
-      /**
+
+    /**
      * Parse a material from a string, currently supports BookMaterial,
      * HeadMaterial, BukkitMaterials, PotionMaterial, SpawnerMaterial and XMaterial,
      * custom implementations use .add()
@@ -222,16 +248,19 @@ public abstract class ObsidianMaterial implements Comparable<ObsidianMaterial> {
      * @return Corresponding material of null if nothing match
      */
     public static final ObsidianMaterial match(BlockData materialString) {
+        lazy();
         if (materialString == null)
             return null;
         List<Adapter> m = new ArrayList<>(adapters);
+        Collections.reverse(m);
+
         for (Adapter adap : m) {
             try {
                 Optional<ObsidianMaterial> mat = adap.tryMatch(materialString);
                 if (mat.isPresent())
                     return mat.get();
             } catch (Throwable t) {
-                
+                t.printStackTrace();
             }
         }
         return null;
@@ -244,6 +273,7 @@ public abstract class ObsidianMaterial implements Comparable<ObsidianMaterial> {
      * @return All the materials in the cache
      */
     public static List<ObsidianMaterial> values() {
+        lazy();
         return new ArrayList<>(materials.values());
     }
 
@@ -251,6 +281,7 @@ public abstract class ObsidianMaterial implements Comparable<ObsidianMaterial> {
      * Force all bukkit materials into the cache
      */
     public static void registerAllBukkitMaterials() {
+        lazy();
         for (Material mat : Material.values()) {
             valueOf(mat.name());
         }
