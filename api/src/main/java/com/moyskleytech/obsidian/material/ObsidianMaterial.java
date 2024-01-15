@@ -1,6 +1,5 @@
 package com.moyskleytech.obsidian.material;
 
-import java.lang.StackWalker.Option;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
@@ -28,10 +27,9 @@ import com.moyskleytech.obsidian.material.implementations.*;
 import com.moyskleytech.obsidian.material.implementations.adapters.Adapter;
 import com.moyskleytech.obsidian.material.implementations.adapters.BookAdapter;
 import com.moyskleytech.obsidian.material.implementations.adapters.BukkitAdapter;
+import com.moyskleytech.obsidian.material.implementations.adapters.BukkitRegistryAdapter;
 import com.moyskleytech.obsidian.material.implementations.adapters.HeadAdapter;
-import com.moyskleytech.obsidian.material.implementations.adapters.ItemsAdderAdapter;
 import com.moyskleytech.obsidian.material.implementations.adapters.OraxenAdapter;
-//import com.moyskleytech.obsidian.material.implementations.adapters.OraxenAdapter;
 import com.moyskleytech.obsidian.material.implementations.adapters.PotionAdapter;
 import com.moyskleytech.obsidian.material.implementations.adapters.SkriptAdapter;
 import com.moyskleytech.obsidian.material.implementations.adapters.SlimeFunAdapter;
@@ -64,6 +62,7 @@ public abstract class ObsidianMaterial implements Comparable<ObsidianMaterial> {
             registerAdapter(SpawnerAdapter.class);
 
             registerAdapter(BukkitAdapter.class);
+            registerAdapter(BukkitRegistryAdapter.class);
             registerAdapter(HeadAdapter.class);
 
             registerAdapter(XMaterialAdapter.class);
@@ -73,7 +72,6 @@ public abstract class ObsidianMaterial implements Comparable<ObsidianMaterial> {
     static public void registerPluginAdapters() {
         registerAdapter(OraxenAdapter.class);
         registerAdapter(SkriptAdapter.class);
-        registerAdapter(ItemsAdderAdapter.class);
         registerAdapter(SlimeFunAdapter.class);
     }
 
@@ -87,10 +85,10 @@ public abstract class ObsidianMaterial implements Comparable<ObsidianMaterial> {
         lazy();
         try {
             adapters.add(clazz.getDeclaredConstructor().newInstance());
-            System.err.println("Registered " + clazz.getSimpleName());
+            Bukkit.getLogger().info("[ObsidianMaterial] Registered " + clazz.getSimpleName());
         } catch (Throwable ignored) {
             // TODO: handle exception
-            System.err.println("Could not register " + clazz.getSimpleName());
+            Bukkit.getLogger().warning("Could not register " + clazz.getSimpleName()+"::"+ignored.getMessage());
         }
     }
 
@@ -145,6 +143,20 @@ public abstract class ObsidianMaterial implements Comparable<ObsidianMaterial> {
     }
 
     /**
+     * Add a custom material into the cache that could be later used with valueOf,
+     * should be called for all subclasses
+     * 
+     * @param im The new material to register
+     * @return The registered material
+     */
+    public static final ObsidianMaterial add(ObsidianMaterial im, String alternateKey) {
+        lazy();
+        materials.put(alternateKey, im);
+        return im;
+    }
+
+
+    /**
      * Wrap a Material into a ObsidianMaterial, same as wrap(org.bukkit.Material)
      * 
      * @param materialString The material to represents
@@ -152,7 +164,7 @@ public abstract class ObsidianMaterial implements Comparable<ObsidianMaterial> {
      */
     public static final ObsidianMaterial valueOf(Material materialString) {
         lazy();
-        return valueOf(materialString.name());
+        return valueOf(materialString.getKey().toString());
     }
 
     /**

@@ -18,7 +18,7 @@ public class OraxenMaterial extends ObsidianMaterial {
      * @param ib Oraxen format
      */
     public OraxenMaterial(ItemBuilder ib) {
-        super(OraxenItems.getIdByItem(ib));
+        super("oraxen:"+OraxenItems.getIdByItem(ib));
         oraxenItem=ib;
     }
 

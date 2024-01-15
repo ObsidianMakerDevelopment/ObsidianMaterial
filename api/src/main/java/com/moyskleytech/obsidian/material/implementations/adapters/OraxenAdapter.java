@@ -10,6 +10,7 @@ import org.bukkit.scheduler.BukkitRunnable;
 import com.moyskleytech.obsidian.material.ObsidianMaterial;
 import com.moyskleytech.obsidian.material.implementations.OraxenMaterial;
 
+import ch.njol.skript.config.Option;
 import io.th0rgal.oraxen.items.ItemBuilder;
 import io.th0rgal.oraxen.api.OraxenItems;
 import io.th0rgal.oraxen.api.OraxenBlocks;
@@ -24,8 +25,9 @@ public class OraxenAdapter implements Adapter {
      */
     public OraxenAdapter() {
         OraxenItems.getItems().forEach((ib) -> {
-            System.err.println("Registered Oraxen :: " + ib);
-            ObsidianMaterial.add(new OraxenMaterial(ib));
+            OraxenMaterial oraxenMat = new OraxenMaterial(ib);
+            ObsidianMaterial.add(oraxenMat);
+            ObsidianMaterial.add(oraxenMat, OraxenItems.getIdByItem(ib));
         });
     }
 
@@ -42,17 +44,17 @@ public class OraxenAdapter implements Adapter {
 
     @Override
     public Optional<ObsidianMaterial> tryMatch(ItemStack stack) {
-        return tryParse(OraxenItems.getIdByItem(stack));
+        return Optional.ofNullable(ObsidianMaterial.valueOf(OraxenItems.getIdByItem(stack)));
     }
 
     @Override
     public Optional<ObsidianMaterial> tryMatch(Block stack) {
-        return tryParse(OraxenBlocks.getOraxenBlock(stack.getLocation()).getItemID());
+        return Optional.ofNullable(ObsidianMaterial.valueOf(OraxenBlocks.getOraxenBlock(stack.getLocation()).getItemID()));
     }
 
     @Override
     public Optional<ObsidianMaterial> tryMatch(BlockData stack) {
-        return tryParse(OraxenBlocks.getOraxenBlock(stack).getItemID());
+        return Optional.ofNullable(ObsidianMaterial.valueOf(OraxenBlocks.getOraxenBlock(stack).getItemID()));
     }
 
 }
