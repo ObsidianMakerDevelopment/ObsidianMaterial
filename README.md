@@ -11,7 +11,7 @@ Maven repository
 <dependency>
     <groupId>com.moyskleytech</groupId>
     <artifactId>ObsidianMaterial</artifactId>
-    <version>1.0.1</version>
+    <version>1.0.7</version>
 </dependency>
 ```
 To use in gradle
@@ -20,7 +20,7 @@ repositories {
     maven("https://moyskleytech.com/debian/m2")
 }
 dependencies {
-    implementation("com.moyskleytech:ObsidianMaterialAPI:1.0.4")
+    implementation("com.moyskleytech:ObsidianMaterialAPI:1.0.7")
 }
 //Some features require XSeries and FasterXML, such features are marked in Javadoc, you can also depends on the ObsidianMaterial plugin
 dependencies {
@@ -32,7 +32,7 @@ dependencies {
 You can also use the plugin based with XSeries and Jackson FasterXML included, simply add ObsidianMaterial as a depends on your plugin
 ```gradle
 dependencies {
-    compileOnly("com.moyskleytech:ObsidianMaterial:1.0.4")
+    compileOnly("com.moyskleytech:ObsidianMaterial:1.0.7")
 }
 ```
 # Hooks
