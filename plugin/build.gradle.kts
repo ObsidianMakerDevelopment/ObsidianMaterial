@@ -5,7 +5,7 @@ plugins {
 }
 
 group = "com.moyskleytech"
-version = "1.0.6"
+version = "1.0.7"
 description = "ObsidianMaterial"
 java.sourceCompatibility = JavaVersion.VERSION_1_8
 
@@ -54,8 +54,12 @@ dependencies {
 
 publishing {
     publications.create<MavenPublication>("maven") {
-        from(components["java"])
+        setGroupId("com.moyskleytech")
+        setArtifactId("ObsidianMaterial")
+        setVersion(version)
+        artifact(tasks["shadowJar"])
     }
+    
 }
 
 tasks.withType<Jar> {
@@ -64,8 +68,19 @@ tasks.withType<Jar> {
         from(tasks["javadoc"]).into("/javadoc")
     }
 }
+task<Exec>("publishToM2") {
+    dependsOn("publishToMavenLocal")
+
+    commandLine("bash", "-c", "scp -r ~/.m2/repository/com/moyskleytech/ObsidianMaterial/"+version+" moyskleytech.cloud:/opt/deb/m2/com/moyskleytech/ObsidianMaterial")
+}
 
 tasks {
+    publish{
+        dependsOn("shadowJar")
+    }
+    publishToMavenLocal{
+        dependsOn("shadowJar")
+    }
     assemble {
         dependsOn("shadowJar")
     }
