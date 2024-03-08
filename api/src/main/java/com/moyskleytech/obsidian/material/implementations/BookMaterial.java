@@ -7,6 +7,7 @@ import java.util.Map.Entry;
 import java.util.concurrent.atomic.AtomicReference;
 
 import org.bukkit.Material;
+import org.bukkit.block.Block;
 import org.bukkit.enchantments.Enchantment;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.EnchantmentStorageMeta;
@@ -101,5 +102,9 @@ public class BookMaterial extends ObsidianMaterial {
             return ObsidianMaterial.valueOf(sb.toString());
         }
         return null;
+    }
+    @Override
+    public void setBlock(Block b) {
+        
     }
 }

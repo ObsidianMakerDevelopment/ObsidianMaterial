@@ -5,6 +5,11 @@ import java.util.Optional;
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
 import org.bukkit.OfflinePlayer;
+import org.bukkit.SkullType;
+import org.bukkit.block.Block;
+import org.bukkit.block.BlockFace;
+import org.bukkit.block.BlockState;
+import org.bukkit.block.Skull;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 import org.bukkit.inventory.meta.PotionMeta;
@@ -127,5 +132,18 @@ public class HeadMaterial extends ObsidianMaterial {
             return ObsidianMaterial.valueOf("PLAYER_HEAD");
         SkullMeta pm = (SkullMeta) itemMeta;
         return ObsidianMaterial.valueOf(pm.getOwner() + "_HEAD");
+    }
+
+    @Override
+    public void setBlock(Block b) {
+        b.setType(Material.PLAYER_HEAD);
+        BlockState state = b.getState();
+
+        if (state instanceof Skull) {
+            Skull skull = (Skull) state;
+
+            skull.setOwningPlayer(ownerPlayer);
+            skull.update();
+        }
     }
 }

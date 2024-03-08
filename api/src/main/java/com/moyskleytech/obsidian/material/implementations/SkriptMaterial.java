@@ -6,6 +6,7 @@ import java.util.Optional;
 import java.util.Map.Entry;
 
 import org.bukkit.Material;
+import org.bukkit.block.Block;
 import org.bukkit.enchantments.Enchantment;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.EnchantmentStorageMeta;
@@ -62,5 +63,10 @@ public class SkriptMaterial extends ObsidianMaterial {
 
     public boolean isSimilar(ItemStack item) {
        return type.isOfType(item);
+    }
+
+    @Override
+    public void setBlock(Block b) {
+       type.getBlock().setBlock(b, true);
     }
 }

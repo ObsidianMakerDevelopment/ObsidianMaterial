@@ -1,6 +1,7 @@
 package com.moyskleytech.obsidian.material.implementations;
 
 import org.bukkit.Material;
+import org.bukkit.block.Block;
 import org.bukkit.inventory.ItemStack;
 
 import com.moyskleytech.obsidian.material.ObsidianMaterial;
@@ -34,5 +35,8 @@ public class BukkitMaterial extends ObsidianMaterial {
         ItemStack is = new ItemStack(mat);
         return is;
     }
-
+    @Override
+    public void setBlock(Block b) {
+        b.setType(mat);
+    }
 }

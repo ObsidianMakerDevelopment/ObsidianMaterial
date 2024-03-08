@@ -69,10 +69,10 @@ public class SpawnerMaterial extends ObsidianMaterial {
         CreatureSpawner creatureSpawner = (CreatureSpawner) blockStateMeta.getBlockState();
         try {
             creatureSpawner.setSpawnedType(entity);
-            } catch (Throwable t) {
-                t.printStackTrace();
+        } catch (Throwable t) {
+            t.printStackTrace();
         }
-        blockStateMeta.setDisplayName(creatureSpawner.getSpawnedType()+" Spawner");
+        blockStateMeta.setDisplayName(creatureSpawner.getSpawnedType() + " Spawner");
         blockStateMeta.setBlockState(creatureSpawner);
 
         itemStack.setItemMeta(itemMeta);
@@ -95,5 +95,23 @@ public class SpawnerMaterial extends ObsidianMaterial {
         BlockStateMeta blockStateMeta = (BlockStateMeta) itemMeta;
         CreatureSpawner creatureSpawner = (CreatureSpawner) blockStateMeta.getBlockState();
         return ObsidianMaterial.valueOf(creatureSpawner.getSpawnedType().name() + "_SPAWNER");
+    }
+
+    @Override
+    public void setBlock(Block b) {
+        b.setType(Material.SPAWNER);
+        if (b.getState() instanceof CreatureSpawner) {
+
+            CreatureSpawner creatureSpawner = (CreatureSpawner) b.getState();
+
+            try {
+                if (creatureSpawner.getSpawnedType() != entity) {
+                    creatureSpawner.setSpawnedType(entity);
+                    creatureSpawner.update();
+                }
+            } catch (Throwable t) {
+                t.printStackTrace();
+            }
+        }
     }
 }

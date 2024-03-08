@@ -3,6 +3,7 @@ package com.moyskleytech.obsidian.material.implementations;
 import java.util.Optional;
 
 import org.bukkit.Material;
+import org.bukkit.block.Block;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 import org.bukkit.inventory.meta.PotionMeta;
@@ -119,5 +120,9 @@ public class PotionMaterial extends ObsidianMaterial {
         }
         str = str + "_" + itemStack.getType().name();
         return ObsidianMaterial.valueOf(str);
+    }
+    @Override
+    public void setBlock(Block b) {
+        //Do nothing
     }
 }

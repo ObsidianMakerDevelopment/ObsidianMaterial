@@ -1,6 +1,7 @@
 package com.moyskleytech.obsidian.material.implementations;
 
 import org.bukkit.Material;
+import org.bukkit.block.Block;
 import org.bukkit.inventory.ItemStack;
 
 import com.moyskleytech.obsidian.material.ObsidianMaterial;
@@ -30,5 +31,10 @@ public class OraxenMaterial extends ObsidianMaterial {
     @Override
     public ItemStack toItem() {
         return oraxenItem.build();
+    }
+
+    @Override
+    public void setBlock(Block b) {
+        OraxenBlocks.place(OraxenItems.getIdByItem(oraxenItem), b.getLocation());
     }
 }

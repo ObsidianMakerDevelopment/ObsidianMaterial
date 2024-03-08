@@ -345,6 +345,11 @@ public abstract class ObsidianMaterial implements Comparable<ObsidianMaterial> {
      * @return new ItemStack
      */
     public abstract ItemStack toItem();
+    /**
+     * Set the block to the specified material, useful for plugin that need placement
+     * 
+     */
+    public abstract void setBlock(Block b);
 
     @Override
     protected Object clone() throws CloneNotSupportedException {
