@@ -1,5 +1,6 @@
 package com.moyskleytech.obsidian.material.implementations.adapters;
 
+import java.util.Arrays;
 import java.util.Optional;
 
 import org.bukkit.block.Block;
@@ -22,6 +23,11 @@ public class SpawnerAdapter implements Adapter {
     public SpawnerAdapter() {
         if (!SpawnerMaterial.isSupported())
             throw new UnsupportedOperationException("SpawnerMaterial isn't available on this server");
+        Arrays.stream(EntityType.values()).forEach(x->{
+            ObsidianMaterial mat = tryParse(x.name()+"_SPAWNER").get();
+            ObsidianMaterial.add(mat, "spawner:" + x);
+            ObsidianMaterial.add(mat, x.name()+"_SPAWNER");
+        });
     }
 
     @Override

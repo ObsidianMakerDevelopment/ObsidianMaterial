@@ -23,7 +23,7 @@ public class SlimefunMaterial extends ObsidianMaterial {
      * @param item Slimefun format
      */
     public SlimefunMaterial(SlimefunItem item) {
-        super(item.getId());
+        super("slimefun:"+item.getId());
         sfi = item;
     }
 

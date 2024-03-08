@@ -1,5 +1,6 @@
 package com.moyskleytech.obsidian.material.implementations.adapters;
 
+import java.util.Arrays;
 import java.util.Optional;
 
 import org.bukkit.block.Block;
@@ -19,6 +20,15 @@ public class XMaterialAdapter implements Adapter {
     public XMaterialAdapter() {
         if (!isSupported())
             throw new UnsupportedOperationException("XMaterialAdapter isn't available on this server");
+
+        Arrays.stream(XMaterial.values()).forEach(xMat -> {
+            ObsidianMaterial mat = tryParse(xMat.name()).get();
+            if(mat instanceof com.moyskleytech.obsidian.material.implementations.XMaterial)
+            {
+                ObsidianMaterial.add(mat);
+                ObsidianMaterial.add(mat, "xmaterial:"+xMat.name().toLowerCase());
+            }
+        });
     }
 
     /**
@@ -29,6 +39,7 @@ public class XMaterialAdapter implements Adapter {
     public static boolean isSupported() {
         try {
             com.moyskleytech.obsidian.material.implementations.XMaterial.isSupported();
+
             return true;
         } catch (Throwable e) {
             return false;

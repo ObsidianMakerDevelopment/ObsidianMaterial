@@ -8,6 +8,7 @@ public class App extends JavaPlugin {
         getLogger().warning("AIR = "+ObsidianMaterial.wrap(Material.AIR).name());
         getLogger().warning("minecraft:air = "+ObsidianMaterial.valueOf("minecraft:air").name());
         
+        ObsidianMaterial.registerAllBukkitMaterials();
         ObsidianMaterial.registerPluginAdapters();
     }
 }
