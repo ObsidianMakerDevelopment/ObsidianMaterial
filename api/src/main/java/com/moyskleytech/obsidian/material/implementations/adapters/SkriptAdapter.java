@@ -6,10 +6,12 @@ import org.bukkit.Bukkit;
 import org.bukkit.block.Block;
 import org.bukkit.block.data.BlockData;
 import org.bukkit.inventory.ItemStack;
+import org.bukkit.plugin.Plugin;
 
 import com.moyskleytech.obsidian.material.ObsidianMaterial;
 import com.moyskleytech.obsidian.material.implementations.SkriptMaterial;
 
+import ch.njol.skript.Skript;
 import ch.njol.skript.aliases.Aliases;
 import ch.njol.skript.aliases.ItemType;
 
@@ -18,6 +20,9 @@ import ch.njol.skript.aliases.ItemType;
  */
 public class SkriptAdapter implements Adapter {
 
+    public SkriptAdapter(Plugin pl){
+
+    }
     @Override
     public Optional<ObsidianMaterial> tryParse(String materialString) {
         try {

@@ -5,6 +5,7 @@ import java.util.Optional;
 import org.bukkit.block.Block;
 import org.bukkit.block.data.BlockData;
 import org.bukkit.inventory.ItemStack;
+import org.bukkit.plugin.Plugin;
 import org.bukkit.scheduler.BukkitRunnable;
 
 import com.moyskleytech.obsidian.material.ObsidianMaterial;
@@ -23,7 +24,7 @@ public class OraxenAdapter implements Adapter {
     /**
      * Required constructor that throws if Oraxen is missing
      */
-    public OraxenAdapter() {
+    public OraxenAdapter(Plugin pl) {
         OraxenItems.getItems().forEach((ib) -> {
             OraxenMaterial oraxenMat = new OraxenMaterial(ib);
             ObsidianMaterial.add(oraxenMat);
@@ -33,6 +34,7 @@ public class OraxenAdapter implements Adapter {
 
     @Override
     public Optional<ObsidianMaterial> tryParse(String materialString) {
+        if(materialString.startsWith("oraxen:")) materialString = materialString.replace("oraxen:", "");
 
         ItemBuilder ib = OraxenItems.getItemById(materialString);
         if (ib != null) {

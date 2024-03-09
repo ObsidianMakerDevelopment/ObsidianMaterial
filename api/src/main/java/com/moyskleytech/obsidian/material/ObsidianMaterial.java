@@ -14,6 +14,7 @@ import org.bukkit.block.data.BlockData;
 import org.bukkit.enchantments.Enchantment;
 import org.bukkit.entity.EntityType;
 import org.bukkit.inventory.ItemStack;
+import org.bukkit.plugin.Plugin;
 import org.bukkit.potion.PotionType;
 
 import lombok.AllArgsConstructor;
@@ -69,10 +70,26 @@ public abstract class ObsidianMaterial implements Comparable<ObsidianMaterial> {
         }
     }
 
-    static public void registerPluginAdapters() {
-        registerAdapter(OraxenAdapter.class);
-        registerAdapter(SkriptAdapter.class);
-        registerAdapter(SlimeFunAdapter.class);
+    static public void registerPluginAdapters(Plugin pl) {
+        registerAdapter(OraxenAdapter.class, pl);
+        registerAdapter(SkriptAdapter.class, pl);
+        registerAdapter(SlimeFunAdapter.class, pl);
+    }
+
+    /**
+     * Class for registering adapters for parsing
+     * 
+     * @param clazz The class of the adapter, will auto call the parameterless
+     *              constructor
+     */
+    public static void registerAdapter(Class<? extends Adapter> clazz, Plugin pl) {
+        lazy();
+        try {
+            adapters.add(clazz.getDeclaredConstructor(Plugin.class).newInstance(pl));
+            Bukkit.getLogger().info("[ObsidianMaterial] Registered " + clazz.getSimpleName());
+        } catch (Throwable ignored) {
+            Bukkit.getLogger().warning("Could not register " + clazz.getSimpleName() + "::" + ignored.getCause().getMessage());
+        }
     }
 
     /**
@@ -87,8 +104,7 @@ public abstract class ObsidianMaterial implements Comparable<ObsidianMaterial> {
             adapters.add(clazz.getDeclaredConstructor().newInstance());
             Bukkit.getLogger().info("[ObsidianMaterial] Registered " + clazz.getSimpleName());
         } catch (Throwable ignored) {
-            // TODO: handle exception
-            Bukkit.getLogger().warning("Could not register " + clazz.getSimpleName()+"::"+ignored.getMessage());
+            Bukkit.getLogger().warning("Could not register " + clazz.getSimpleName() + "::" + ignored.getCause().getMessage());
         }
     }
 
@@ -154,7 +170,6 @@ public abstract class ObsidianMaterial implements Comparable<ObsidianMaterial> {
         materials.put(alternateKey, im);
         return im;
     }
-
 
     /**
      * Wrap a Material into a ObsidianMaterial, same as wrap(org.bukkit.Material)
@@ -294,12 +309,7 @@ public abstract class ObsidianMaterial implements Comparable<ObsidianMaterial> {
      */
     public static void registerAllBukkitMaterials() {
         lazy();
-        for (Material mat : Material.values()) {
-            valueOf(mat.name());
-        }
-        for (EntityType entity : EntityType.values()) {
-            valueOf(entity.name() + "_SPAWNER");
-        }
+       
         for (PotionType potion : PotionType.values()) {
             valueOf(potion.name() + "_POTION");
             valueOf("EXTENTED_" + potion.name() + "_POTION");
@@ -320,6 +330,20 @@ public abstract class ObsidianMaterial implements Comparable<ObsidianMaterial> {
      */
     public String name() {
         return key;
+    }
+
+    /**
+     * Since ObsidianMaterial can have multiple name for a single material, use the
+     * normalized name when requiring unique
+     * 
+     * @return normalized unique key of the material, might differ from name
+     */
+    public String normalizedName() {
+        ObsidianMaterial normalized = ObsidianMaterial.match(toItem());
+        if (normalized != null)
+            return normalized.name();
+        else
+            return name();
     }
 
     /**
@@ -345,8 +369,10 @@ public abstract class ObsidianMaterial implements Comparable<ObsidianMaterial> {
      * @return new ItemStack
      */
     public abstract ItemStack toItem();
+
     /**
-     * Set the block to the specified material, useful for plugin that need placement
+     * Set the block to the specified material, useful for plugin that need
+     * placement
      * 
      */
     public abstract void setBlock(Block b);

@@ -19,6 +19,7 @@ public class BukkitRegistryAdapter implements Adapter {
 
     public BukkitRegistryAdapter() {
         Registry.MATERIAL.forEach(material -> {
+            ObsidianMaterial.add(new BukkitMaterial(material, material.name().toString()));
             ObsidianMaterial.add(new BukkitMaterial(material, material.getKey().toString()));
         });
     }
@@ -26,8 +27,13 @@ public class BukkitRegistryAdapter implements Adapter {
     @Override
     public Optional<ObsidianMaterial> tryParse(String materialString) {
         materialString = materialString.toUpperCase();
-
-        Material mat = Registry.MATERIAL.get(NamespacedKey.fromString(materialString));
+        NamespacedKey key = null;
+        if (materialString.contains(":")) {
+            String[] elements = materialString.split(":");
+            key = new NamespacedKey(elements[0], elements[1]);
+        } else
+            return Optional.empty();
+        Material mat = Registry.MATERIAL.get(key);
         if (mat != null) {
             return Optional.of(new BukkitMaterial(mat, materialString));
         }

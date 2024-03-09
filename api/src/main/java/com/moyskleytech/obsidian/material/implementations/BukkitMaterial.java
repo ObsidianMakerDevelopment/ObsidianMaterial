@@ -39,4 +39,15 @@ public class BukkitMaterial extends ObsidianMaterial {
     public void setBlock(Block b) {
         b.setType(mat);
     }
+
+    @Override
+    public String normalizedName() {
+        try{
+            return mat.getKey().toString();
+        }
+        catch(Throwable t)
+        {
+            return super.normalizedName();
+        }
+    }
 }

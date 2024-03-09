@@ -16,6 +16,7 @@ repositories {
     maven("https://hub.spigotmc.org/nexus/content/repositories/snapshots/")
     maven("https://repo.skriptlang.org/releases")
     maven("https://jitpack.io")
+    maven("https://hub.spigotmc.org/nexus/content/repositories/snapshots/")
     mavenCentral()
 }
 
@@ -39,12 +40,12 @@ dependencies {
     testImplementation(platform("org.junit:junit-bom:5.7.0"))
     testImplementation("org.junit.jupiter:junit-jupiter:5.8.2")
     testImplementation("junit:junit:4.12")
-    testImplementation("com.github.seeseemelk:MockBukkit-v1.16:1.0.0")
+    testImplementation("com.github.seeseemelk:MockBukkit-v1.20:3.9.0")
     //testImplementation("com.github.cryptomorin:XSeries:8.8.0")
     //testImplementation("com.fasterxml.jackson.core:jackson-databind:2.13.1")
     //testImplementation("com.fasterxml.jackson.core:jackson-core:2.13.1")
     testImplementation("commons-lang:commons-lang:2.4")
-    compileOnly("com.github.seeseemelk:MockBukkit-v1.16:1.0.0")
+    compileOnly("org.spigotmc:spigot-api:1.20.2-R0.1-SNAPSHOT")
 }
 
 publishing {
@@ -88,7 +89,7 @@ tasks {
 
     test {
         useJUnitPlatform()
-        //java.sourceCompatibility = JavaVersion.VERSION_17
+        java.sourceCompatibility = JavaVersion.VERSION_17
     }
 
     compileJava {

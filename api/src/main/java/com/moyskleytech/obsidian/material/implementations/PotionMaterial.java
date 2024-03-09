@@ -57,6 +57,7 @@ public class PotionMaterial extends ObsidianMaterial {
         this.extended = extended;
         this.tier2 = tier2;
         mat = splash ? Material.SPLASH_POTION : Material.POTION;
+        toItem();
     }
 
     @Override

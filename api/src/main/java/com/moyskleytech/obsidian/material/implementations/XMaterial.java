@@ -32,7 +32,7 @@ public class XMaterial extends ObsidianMaterial {
      * @param key the String representing it
      */
     public XMaterial(com.cryptomorin.xseries.XMaterial x,String key) {
-        super(key);
+        super("xmaterial:"+x.name().toLowerCase());
         this.mat = x;
     }
 

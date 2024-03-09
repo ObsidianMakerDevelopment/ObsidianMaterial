@@ -26,7 +26,6 @@ public class XMaterialAdapter implements Adapter {
             if(mat instanceof com.moyskleytech.obsidian.material.implementations.XMaterial)
             {
                 ObsidianMaterial.add(mat);
-                ObsidianMaterial.add(mat, "xmaterial:"+xMat.name().toLowerCase());
             }
         });
     }

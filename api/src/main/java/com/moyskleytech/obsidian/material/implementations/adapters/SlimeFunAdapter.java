@@ -25,31 +25,37 @@ public class SlimeFunAdapter implements Adapter {
     /**
      * Required constructor that throws if Slimefun is missing
      */
-    public SlimeFunAdapter() {
-        if (Bukkit.getPluginManager().isPluginEnabled("Slimefun")) {
-            Bukkit.getLogger().info("[ObsidianMaterial] Slimefun found");
-        }
+    public SlimeFunAdapter(Plugin pl) {
 
-        Plugin pl = Stream.of(Bukkit.getPluginManager().getPlugins()).filter(x -> x.isEnabled()).findAny().orElse(null);
         if (pl != null) {
             Bukkit.getScheduler().runTaskLater(pl, new Runnable() {
 
                 @Override
                 public void run() {
-                    Slimefun.getRegistry().getSlimefunItemIds().forEach((key, item) -> {
-                        SlimefunMaterial itm = new SlimefunMaterial(item);
-                        ObsidianMaterial.add(itm, "slimefun:" + key);
-                        ObsidianMaterial.add(itm, key);
-                    });
+                    if (Bukkit.getPluginManager().isPluginEnabled("Slimefun")) {
+                        Bukkit.getLogger().info("[ObsidianMaterial] Slimefun found");
+
+                        try {
+                            Slimefun.getRegistry().getSlimefunItemIds().forEach((key, item) -> {
+                                SlimefunMaterial itm = new SlimefunMaterial(item);
+                                ObsidianMaterial.add(itm);
+                            });
+                        } catch (Throwable t) {
+                            Bukkit.getLogger().warning("[ObsidianMaterial] Slimefun error" + t.getMessage());
+                        }
+                    }
                 }
 
             }, 20);
 
         }
+
     }
 
     @Override
     public Optional<ObsidianMaterial> tryParse(String materialString) {
+        if (materialString.startsWith("slimefun:"))
+            materialString = materialString.replace("slimefun:", "");
         SlimefunItem item = SlimefunItem.getById(materialString);
         if (item != null) {
             return Optional.of(new SlimefunMaterial(item));

@@ -5,6 +5,7 @@ import java.util.Optional;
 import org.bukkit.Material;
 import org.bukkit.block.Block;
 import org.bukkit.block.data.BlockData;
+import org.bukkit.entity.EntityType;
 import org.bukkit.inventory.ItemStack;
 
 import com.moyskleytech.obsidian.material.ObsidianMaterial;
@@ -15,16 +16,22 @@ import com.moyskleytech.obsidian.material.implementations.BukkitMaterial;
  */
 public class BukkitAdapter implements Adapter {
 
+    public BukkitAdapter() {
+        for (Material mat : Material.values()) {
+            ObsidianMaterial.add(new BukkitMaterial(mat, mat.name()));
+            ObsidianMaterial.add(new BukkitMaterial(mat, "minecraft:"+mat.name().toLowerCase()));
+        }
+    }
+
     @Override
     public Optional<ObsidianMaterial> tryParse(String materialString) {
         materialString = materialString.toUpperCase();
 
         Material mat = Material.getMaterial(materialString);
         if (mat != null) {
-            return Optional.of(new BukkitMaterial(mat, materialString));
+            return Optional.of(new BukkitMaterial(mat, "minecraft:"+materialString.toLowerCase()));
         }
         return Optional.empty();
-
     }
 
     @Override

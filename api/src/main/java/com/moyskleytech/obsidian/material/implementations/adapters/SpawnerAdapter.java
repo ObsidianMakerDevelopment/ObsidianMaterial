@@ -24,24 +24,27 @@ public class SpawnerAdapter implements Adapter {
         if (!SpawnerMaterial.isSupported())
             throw new UnsupportedOperationException("SpawnerMaterial isn't available on this server");
         Arrays.stream(EntityType.values()).forEach(x->{
-            ObsidianMaterial mat = tryParse(x.name()+"_SPAWNER").get();
-            ObsidianMaterial.add(mat, "spawner:" + x);
-            ObsidianMaterial.add(mat, x.name()+"_SPAWNER");
+            tryParse("spawner:"+x.name()).ifPresent((mat)->{
+                ObsidianMaterial.add(mat, "spawner:" + x.name());
+                ObsidianMaterial.add(mat, x.name()+"_SPAWNER");
+            });
         });
     }
 
     @Override
     public Optional<ObsidianMaterial> tryParse(String materialString) {
+
         materialString = materialString.toUpperCase();
 
-        if (materialString.endsWith("_SPAWNER") && SpawnerMaterial.isSupported()) {
-            String entityString = materialString.replaceAll("_SPAWNER", "");
+        if (materialString.startsWith("SPAWNER:") && SpawnerMaterial.isSupported()) {
+            String entityString = materialString.replaceAll("SPAWNER:", "");
             try {
                 EntityType t = EntityType.valueOf(entityString);
                 if (t != null) {
                     return Optional.of(new SpawnerMaterial(t, materialString));
                 }
             } catch (IllegalArgumentException noEntityException) {
+                noEntityException.printStackTrace();
                 // Just ignore it and try parsing it with XMaterial instead
             }
         }
@@ -56,6 +59,7 @@ public class SpawnerAdapter implements Adapter {
             }
             return Optional.empty();
         } catch (Throwable t) {
+            t.printStackTrace();
             return Optional.empty();
         }
     }
@@ -75,9 +79,10 @@ public class SpawnerAdapter implements Adapter {
         }
         return Optional.empty();
     }
+
     @Override
     public Optional<ObsidianMaterial> tryMatch(BlockData stack) {
-       return Optional.empty();
+        return Optional.empty();
     }
 
 }

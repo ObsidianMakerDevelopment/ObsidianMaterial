@@ -4,6 +4,9 @@ import java.util.concurrent.atomic.AtomicInteger;
 
 import org.bukkit.Material;
 import org.bukkit.enchantments.Enchantment;
+import org.bukkit.inventory.ItemStack;
+import org.bukkit.inventory.meta.BlockStateMeta;
+import org.bukkit.inventory.meta.ItemMeta;
 import org.bukkit.plugin.Plugin;
 import org.bukkit.potion.PotionEffectType;
 import org.bukkit.potion.PotionType;
@@ -34,6 +37,8 @@ public class MaterialTests {
     public void setup() {
         server = MockBukkit.mock();
         plugin = MockBukkit.createMockPlugin();
+
+        ObsidianMaterial.registerAllBukkitMaterials();
     }
 
     @AfterEach
@@ -50,18 +55,47 @@ public class MaterialTests {
         assert (ObsidianMaterial.valueOf("RABBIT").toMaterial() == Material.RABBIT);
         assert (ObsidianMaterial.valueOf("COW_SPAWN_EGG").toMaterial() == Material.COW_SPAWN_EGG);
     }
+    @Test
+    public void namespacedMaterial() {
+        assert (ObsidianMaterial.valueOf("minecraft:stone").toMaterial() == Material.STONE);
+    }
+
+    @Test
+    public void normalizedMaterial() {
+        assertEquals ("minecraft:air",ObsidianMaterial.valueOf("AIR").normalizedName() );
+        assertEquals ("minecraft:stone",ObsidianMaterial.valueOf("minecraft:stone").normalizedName());
+        assertEquals ("minecraft:stone",ObsidianMaterial.valueOf("STONE").normalizedName() );
+        assertEquals ("minecraft:zombie_head",ObsidianMaterial.valueOf("ZOMBIE_HEAD").normalizedName() );
+        assertEquals ("minecraft:ladder",ObsidianMaterial.valueOf("LADDER").normalizedName() );
+        assertEquals ("minecraft:rabbit",ObsidianMaterial.valueOf("RABBIT").normalizedName() );
+        assertEquals ("minecraft:cow_spawn_egg",ObsidianMaterial.valueOf("COW_SPAWN_EGG").normalizedName());
+    }
+
+    @Test
+    public void normalizedMaterial2() {
+        assertEquals ("minecraft:stone",ObsidianMaterial.match(ObsidianMaterial.valueOf("STONE").toItem()).normalizedName() );
+        assertEquals ("minecraft:ladder",ObsidianMaterial.match(ObsidianMaterial.valueOf("LADDER").toItem()).normalizedName() );
+        assertEquals ("minecraft:rabbit",ObsidianMaterial.match(ObsidianMaterial.valueOf("RABBIT").toItem()).normalizedName() );
+        assertEquals ("minecraft:cow_spawn_egg",ObsidianMaterial.match(ObsidianMaterial.valueOf("COW_SPAWN_EGG").toItem()).normalizedName());
+    }
+
+    @Test
+    public void spawner() {
+        ItemStack item = ObsidianMaterial.valueOf("COW_SPAWNER").toItem();
+        ItemMeta itemMeta = item.getItemMeta();
+
+        assert(itemMeta!=null);
+        //assertEquals(BlockStateMeta.class,itemMeta.getClass());
+    }
 
     @Test
     public void spawners() {
-        // Mock bukkit doesn't implement ItemMeta Correctly cannot test those
-
-        /*assertEquals("COW_SPAWNER",
-                SpawnerMaterial.getMaterial(ObsidianMaterial.valueOf("COW_SPAWNER").toItem()).name());
-        assertEquals("PIG_SPAWNER",
-                SpawnerMaterial.getMaterial(ObsidianMaterial.valueOf("PIG_SPAWNER").toItem()).name());
-        assertEquals("OCELOT_SPAWNER",
-                SpawnerMaterial.getMaterial(ObsidianMaterial.valueOf("OCELOT_SPAWNER").toItem()).name());*/
-
+        // assertEquals("spawner:cow",
+        //         SpawnerMaterial.getMaterial(ObsidianMaterial.valueOf("COW_SPAWNER").toItem()).normalizedName());
+        // assertEquals("spawner:pig",
+        //         SpawnerMaterial.getMaterial(ObsidianMaterial.valueOf("PIG_SPAWNER").toItem()).normalizedName());
+        // assertEquals("spawner:ocelot",
+        //         SpawnerMaterial.getMaterial(ObsidianMaterial.valueOf("OCELOT_SPAWNER").toItem()).normalizedName());
     }
 
     @Test

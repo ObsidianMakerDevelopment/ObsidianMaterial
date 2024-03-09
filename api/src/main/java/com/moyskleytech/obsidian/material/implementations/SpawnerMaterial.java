@@ -87,6 +87,7 @@ public class SpawnerMaterial extends ObsidianMaterial {
      * @return The correct Material for it
      */
     public static ObsidianMaterial getMaterial(ItemStack itemStack) {
+
         ItemMeta itemMeta = itemStack.getItemMeta();
         if (itemMeta == null)
             return ObsidianMaterial.valueOf(itemStack.getType().name());
@@ -94,7 +95,7 @@ public class SpawnerMaterial extends ObsidianMaterial {
             return ObsidianMaterial.valueOf(itemStack.getType().name());
         BlockStateMeta blockStateMeta = (BlockStateMeta) itemMeta;
         CreatureSpawner creatureSpawner = (CreatureSpawner) blockStateMeta.getBlockState();
-        return ObsidianMaterial.valueOf(creatureSpawner.getSpawnedType().name() + "_SPAWNER");
+        return ObsidianMaterial.valueOf("spawner:"+creatureSpawner.getSpawnedType().name());
     }
 
     @Override
@@ -113,5 +114,9 @@ public class SpawnerMaterial extends ObsidianMaterial {
                 t.printStackTrace();
             }
         }
+    }
+    @Override
+    public String normalizedName() {
+        return "spawner:"+entity;
     }
 }

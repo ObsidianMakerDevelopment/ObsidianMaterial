@@ -37,6 +37,7 @@ public class PotionAdapter implements Adapter {
                 if (t != null) {
                     return Optional.of(new PotionMaterial(t, materialString, isExtented, isTier2, isSplash));
                 }
+                
             } catch (IllegalArgumentException noPotionException) {
                 // Just ignore it and try parsing it with XMaterial instead
             }
