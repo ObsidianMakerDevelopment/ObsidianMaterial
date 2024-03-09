@@ -320,6 +320,15 @@ loadScripts(document, 'script');</script>
 <dd>
 <div class="block">Modify the display name</div>
 </dd>
+<dt><a href="com/moyskleytech/obsidian/material/implementations/BukkitMaterial.html#normalizedName()" class="member-name-link">normalizedName()</a> - Method in class com.moyskleytech.obsidian.material.implementations.<a href="com/moyskleytech/obsidian/material/implementations/BukkitMaterial.html" title="class in com.moyskleytech.obsidian.material.implementations">BukkitMaterial</a></dt>
+<dd>&nbsp;</dd>
+<dt><a href="com/moyskleytech/obsidian/material/implementations/SpawnerMaterial.html#normalizedName()" class="member-name-link">normalizedName()</a> - Method in class com.moyskleytech.obsidian.material.implementations.<a href="com/moyskleytech/obsidian/material/implementations/SpawnerMaterial.html" title="class in com.moyskleytech.obsidian.material.implementations">SpawnerMaterial</a></dt>
+<dd>&nbsp;</dd>
+<dt><a href="com/moyskleytech/obsidian/material/ObsidianMaterial.html#normalizedName()" class="member-name-link">normalizedName()</a> - Method in class com.moyskleytech.obsidian.material.<a href="com/moyskleytech/obsidian/material/ObsidianMaterial.html" title="class in com.moyskleytech.obsidian.material">ObsidianMaterial</a></dt>
+<dd>
+<div class="block">Since ObsidianMaterial can have multiple name for a single material, use the
+ normalized name when requiring unique</div>
+</dd>
 </dl>
 <h2 class="title" id="I:O">O</h2>
 <dl class="index">
@@ -389,7 +398,7 @@ loadScripts(document, 'script');</script>
 <dd>
 <div class="block">Adapter for OraxenAPI</div>
 </dd>
-<dt><a href="com/moyskleytech/obsidian/material/implementations/adapters/OraxenAdapter.html#%3Cinit%3E()" class="member-name-link">OraxenAdapter()</a> - Constructor for class com.moyskleytech.obsidian.material.implementations.adapters.<a href="com/moyskleytech/obsidian/material/implementations/adapters/OraxenAdapter.html" title="class in com.moyskleytech.obsidian.material.implementations.adapters">OraxenAdapter</a></dt>
+<dt><a href="com/moyskleytech/obsidian/material/implementations/adapters/OraxenAdapter.html#%3Cinit%3E(org.bukkit.plugin.Plugin)" class="member-name-link">OraxenAdapter(Plugin)</a> - Constructor for class com.moyskleytech.obsidian.material.implementations.adapters.<a href="com/moyskleytech/obsidian/material/implementations/adapters/OraxenAdapter.html" title="class in com.moyskleytech.obsidian.material.implementations.adapters">OraxenAdapter</a></dt>
 <dd>
 <div class="block">Required constructor that throws if Oraxen is missing</div>
 </dd>
@@ -427,6 +436,10 @@ loadScripts(document, 'script');</script>
 <dd>
 <div class="block">Class for registering adapters for parsing</div>
 </dd>
+<dt><a href="com/moyskleytech/obsidian/material/ObsidianMaterial.html#registerAdapter(java.lang.Class,org.bukkit.plugin.Plugin)" class="member-name-link">registerAdapter(Class&lt;? extends Adapter&gt;, Plugin)</a> - Static method in class com.moyskleytech.obsidian.material.<a href="com/moyskleytech/obsidian/material/ObsidianMaterial.html" title="class in com.moyskleytech.obsidian.material">ObsidianMaterial</a></dt>
+<dd>
+<div class="block">Class for registering adapters for parsing</div>
+</dd>
 <dt><a href="com/moyskleytech/obsidian/material/ObsidianMaterial.html#registerAllBukkitMaterials()" class="member-name-link">registerAllBukkitMaterials()</a> - Static method in class com.moyskleytech.obsidian.material.<a href="com/moyskleytech/obsidian/material/ObsidianMaterial.html" title="class in com.moyskleytech.obsidian.material">ObsidianMaterial</a></dt>
 <dd>
 <div class="block">Force all bukkit materials into the cache</div>
@@ -435,7 +448,7 @@ loadScripts(document, 'script');</script>
 <dd>
 <div class="block">Register the deserializer with the specified object mapper</div>
 </dd>
-<dt><a href="com/moyskleytech/obsidian/material/ObsidianMaterial.html#registerPluginAdapters()" class="member-name-link">registerPluginAdapters()</a> - Static method in class com.moyskleytech.obsidian.material.<a href="com/moyskleytech/obsidian/material/ObsidianMaterial.html" title="class in com.moyskleytech.obsidian.material">ObsidianMaterial</a></dt>
+<dt><a href="com/moyskleytech/obsidian/material/ObsidianMaterial.html#registerPluginAdapters(org.bukkit.plugin.Plugin)" class="member-name-link">registerPluginAdapters(Plugin)</a> - Static method in class com.moyskleytech.obsidian.material.<a href="com/moyskleytech/obsidian/material/ObsidianMaterial.html" title="class in com.moyskleytech.obsidian.material">ObsidianMaterial</a></dt>
 <dd>&nbsp;</dd>
 <dt><a href="com/moyskleytech/obsidian/material/ObsidianMaterial.html#remove(java.lang.String)" class="member-name-link">remove(String)</a> - Static method in class com.moyskleytech.obsidian.material.<a href="com/moyskleytech/obsidian/material/ObsidianMaterial.html" title="class in com.moyskleytech.obsidian.material">ObsidianMaterial</a></dt>
 <dd>
@@ -477,13 +490,14 @@ loadScripts(document, 'script');</script>
 <dd>&nbsp;</dd>
 <dt><a href="com/moyskleytech/obsidian/material/ObsidianMaterial.html#setBlock(org.bukkit.block.Block)" class="member-name-link">setBlock(Block)</a> - Method in class com.moyskleytech.obsidian.material.<a href="com/moyskleytech/obsidian/material/ObsidianMaterial.html" title="class in com.moyskleytech.obsidian.material">ObsidianMaterial</a></dt>
 <dd>
-<div class="block">Set the block to the specified material, useful for plugin that need placement</div>
+<div class="block">Set the block to the specified material, useful for plugin that need
+ placement</div>
 </dd>
 <dt><a href="com/moyskleytech/obsidian/material/implementations/adapters/SkriptAdapter.html" class="type-name-link" title="class in com.moyskleytech.obsidian.material.implementations.adapters">SkriptAdapter</a> - Class in <a href="com/moyskleytech/obsidian/material/implementations/adapters/package-summary.html">com.moyskleytech.obsidian.material.implementations.adapters</a></dt>
 <dd>
 <div class="block">Adapter for Skript item names</div>
 </dd>
-<dt><a href="com/moyskleytech/obsidian/material/implementations/adapters/SkriptAdapter.html#%3Cinit%3E()" class="member-name-link">SkriptAdapter()</a> - Constructor for class com.moyskleytech.obsidian.material.implementations.adapters.<a href="com/moyskleytech/obsidian/material/implementations/adapters/SkriptAdapter.html" title="class in com.moyskleytech.obsidian.material.implementations.adapters">SkriptAdapter</a></dt>
+<dt><a href="com/moyskleytech/obsidian/material/implementations/adapters/SkriptAdapter.html#%3Cinit%3E(org.bukkit.plugin.Plugin)" class="member-name-link">SkriptAdapter(Plugin)</a> - Constructor for class com.moyskleytech.obsidian.material.implementations.adapters.<a href="com/moyskleytech/obsidian/material/implementations/adapters/SkriptAdapter.html" title="class in com.moyskleytech.obsidian.material.implementations.adapters">SkriptAdapter</a></dt>
 <dd>&nbsp;</dd>
 <dt><a href="com/moyskleytech/obsidian/material/implementations/SkriptMaterial.html" class="type-name-link" title="class in com.moyskleytech.obsidian.material.implementations">SkriptMaterial</a> - Class in <a href="com/moyskleytech/obsidian/material/implementations/package-summary.html">com.moyskleytech.obsidian.material.implementations</a></dt>
 <dd>
@@ -497,7 +511,7 @@ loadScripts(document, 'script');</script>
 <dd>
 <div class="block">Adapter for Slimefun support</div>
 </dd>
-<dt><a href="com/moyskleytech/obsidian/material/implementations/adapters/SlimeFunAdapter.html#%3Cinit%3E()" class="member-name-link">SlimeFunAdapter()</a> - Constructor for class com.moyskleytech.obsidian.material.implementations.adapters.<a href="com/moyskleytech/obsidian/material/implementations/adapters/SlimeFunAdapter.html" title="class in com.moyskleytech.obsidian.material.implementations.adapters">SlimeFunAdapter</a></dt>
+<dt><a href="com/moyskleytech/obsidian/material/implementations/adapters/SlimeFunAdapter.html#%3Cinit%3E(org.bukkit.plugin.Plugin)" class="member-name-link">SlimeFunAdapter(Plugin)</a> - Constructor for class com.moyskleytech.obsidian.material.implementations.adapters.<a href="com/moyskleytech/obsidian/material/implementations/adapters/SlimeFunAdapter.html" title="class in com.moyskleytech.obsidian.material.implementations.adapters">SlimeFunAdapter</a></dt>
 <dd>
 <div class="block">Required constructor that throws if Slimefun is missing</div>
 </dd>

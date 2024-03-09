@@ -125,19 +125,26 @@ loadScripts(document, 'script');</script>
 <div class="col-last odd-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4">
 <div class="block">Validate that the enchant meta data exists on the version of bukkit used</div>
 </div>
-<div class="col-first even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code>void</code></div>
-<div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#setBlock(org.bukkit.block.Block)" class="member-name-link">setBlock</a><wbr>(org.bukkit.block.Block&nbsp;b)</code></div>
+<div class="col-first even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a></code></div>
+<div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#normalizedName()" class="member-name-link">normalizedName</a>()</code></div>
 <div class="col-last even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
-<div class="block">Set the block to the specified material, useful for plugin that need placement</div>
+<div class="block">Since ObsidianMaterial can have multiple name for a single material, use the
+ normalized name when requiring unique</div>
 </div>
-<div class="col-first odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code>org.bukkit.inventory.ItemStack</code></div>
-<div class="col-second odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#toItem()" class="member-name-link">toItem</a>()</code></div>
+<div class="col-first odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code>void</code></div>
+<div class="col-second odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#setBlock(org.bukkit.block.Block)" class="member-name-link">setBlock</a><wbr>(org.bukkit.block.Block&nbsp;b)</code></div>
 <div class="col-last odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
+<div class="block">Set the block to the specified material, useful for plugin that need
+ placement</div>
+</div>
+<div class="col-first even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code>org.bukkit.inventory.ItemStack</code></div>
+<div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#toItem()" class="member-name-link">toItem</a>()</code></div>
+<div class="col-last even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
 <div class="block">Object a ItemStack of the desired material</div>
 </div>
-<div class="col-first even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code>org.bukkit.Material</code></div>
-<div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#toMaterial()" class="member-name-link">toMaterial</a>()</code></div>
-<div class="col-last even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
+<div class="col-first odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code>org.bukkit.Material</code></div>
+<div class="col-second odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#toMaterial()" class="member-name-link">toMaterial</a>()</code></div>
+<div class="col-last odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
 <div class="block">Obtain the bukkit material associated with this material</div>
 </div>
 </div>
@@ -145,7 +152,7 @@ loadScripts(document, 'script');</script>
 </div>
 <div class="inherited-list">
 <h3 id="methods-inherited-from-class-com.moyskleytech.obsidian.material.ObsidianMaterial">Methods inherited from class&nbsp;com.moyskleytech.obsidian.material.<a href="../ObsidianMaterial.html" title="class in com.moyskleytech.obsidian.material">ObsidianMaterial</a></h3>
-<code><a href="../ObsidianMaterial.html#add(com.moyskleytech.obsidian.material.ObsidianMaterial)">add</a>, <a href="../ObsidianMaterial.html#add(com.moyskleytech.obsidian.material.ObsidianMaterial,java.lang.String)">add</a>, <a href="../ObsidianMaterial.html#clone()">clone</a>, <a href="../ObsidianMaterial.html#compareTo(com.moyskleytech.obsidian.material.ObsidianMaterial)">compareTo</a>, <a href="../ObsidianMaterial.html#equals(java.lang.Object)">equals</a>, <a href="../ObsidianMaterial.html#hashCode()">hashCode</a>, <a href="../ObsidianMaterial.html#isSimilar(org.bukkit.inventory.ItemStack)">isSimilar</a>, <a href="../ObsidianMaterial.html#match(org.bukkit.block.Block)">match</a>, <a href="../ObsidianMaterial.html#match(org.bukkit.block.data.BlockData)">match</a>, <a href="../ObsidianMaterial.html#match(org.bukkit.inventory.ItemStack)">match</a>, <a href="../ObsidianMaterial.html#name()">name</a>, <a href="../ObsidianMaterial.html#registerAdapter(java.lang.Class)">registerAdapter</a>, <a href="../ObsidianMaterial.html#registerAllBukkitMaterials()">registerAllBukkitMaterials</a>, <a href="../ObsidianMaterial.html#registerPluginAdapters()">registerPluginAdapters</a>, <a href="../ObsidianMaterial.html#remove(java.lang.String)">remove</a>, <a href="../ObsidianMaterial.html#toString()">toString</a>, <a href="../ObsidianMaterial.html#valueOf(java.lang.String)">valueOf</a>, <a href="../ObsidianMaterial.html#valueOf(org.bukkit.Material)">valueOf</a>, <a href="../ObsidianMaterial.html#values()">values</a>, <a href="../ObsidianMaterial.html#wrap(com.cryptomorin.xseries.XMaterial)">wrap</a>, <a href="../ObsidianMaterial.html#wrap(org.bukkit.Material)">wrap</a></code></div>
+<code><a href="../ObsidianMaterial.html#add(com.moyskleytech.obsidian.material.ObsidianMaterial)">add</a>, <a href="../ObsidianMaterial.html#add(com.moyskleytech.obsidian.material.ObsidianMaterial,java.lang.String)">add</a>, <a href="../ObsidianMaterial.html#clone()">clone</a>, <a href="../ObsidianMaterial.html#compareTo(com.moyskleytech.obsidian.material.ObsidianMaterial)">compareTo</a>, <a href="../ObsidianMaterial.html#equals(java.lang.Object)">equals</a>, <a href="../ObsidianMaterial.html#hashCode()">hashCode</a>, <a href="../ObsidianMaterial.html#isSimilar(org.bukkit.inventory.ItemStack)">isSimilar</a>, <a href="../ObsidianMaterial.html#match(org.bukkit.block.Block)">match</a>, <a href="../ObsidianMaterial.html#match(org.bukkit.block.data.BlockData)">match</a>, <a href="../ObsidianMaterial.html#match(org.bukkit.inventory.ItemStack)">match</a>, <a href="../ObsidianMaterial.html#name()">name</a>, <a href="../ObsidianMaterial.html#registerAdapter(java.lang.Class)">registerAdapter</a>, <a href="../ObsidianMaterial.html#registerAdapter(java.lang.Class,org.bukkit.plugin.Plugin)">registerAdapter</a>, <a href="../ObsidianMaterial.html#registerAllBukkitMaterials()">registerAllBukkitMaterials</a>, <a href="../ObsidianMaterial.html#registerPluginAdapters(org.bukkit.plugin.Plugin)">registerPluginAdapters</a>, <a href="../ObsidianMaterial.html#remove(java.lang.String)">remove</a>, <a href="../ObsidianMaterial.html#toString()">toString</a>, <a href="../ObsidianMaterial.html#valueOf(java.lang.String)">valueOf</a>, <a href="../ObsidianMaterial.html#valueOf(org.bukkit.Material)">valueOf</a>, <a href="../ObsidianMaterial.html#values()">values</a>, <a href="../ObsidianMaterial.html#wrap(com.cryptomorin.xseries.XMaterial)">wrap</a>, <a href="../ObsidianMaterial.html#wrap(org.bukkit.Material)">wrap</a></code></div>
 <div class="inherited-list">
 <h3 id="methods-inherited-from-class-java.lang.Object">Methods inherited from class&nbsp;java.lang.<a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/Object.html" title="class or interface in java.lang" class="external-link">Object</a></h3>
 <code><a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/Object.html#finalize()" title="class or interface in java.lang" class="external-link">finalize</a>, <a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/Object.html#getClass()" title="class or interface in java.lang" class="external-link">getClass</a>, <a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/Object.html#notify()" title="class or interface in java.lang" class="external-link">notify</a>, <a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/Object.html#notifyAll()" title="class or interface in java.lang" class="external-link">notifyAll</a>, <a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/Object.html#wait()" title="class or interface in java.lang" class="external-link">wait</a>, <a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/Object.html#wait(long)" title="class or interface in java.lang" class="external-link">wait</a>, <a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/Object.html#wait(long,int)" title="class or interface in java.lang" class="external-link">wait</a></code></div>
@@ -238,10 +245,26 @@ loadScripts(document, 'script');</script>
 <h3>setBlock</h3>
 <div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type">void</span>&nbsp;<span class="element-name">setBlock</span><wbr><span class="parameters">(org.bukkit.block.Block&nbsp;b)</span></div>
 <div class="block"><span class="descfrm-type-label">Description copied from class:&nbsp;<code><a href="../ObsidianMaterial.html#setBlock(org.bukkit.block.Block)">ObsidianMaterial</a></code></span></div>
-<div class="block">Set the block to the specified material, useful for plugin that need placement</div>
+<div class="block">Set the block to the specified material, useful for plugin that need
+ placement</div>
 <dl class="notes">
 <dt>Specified by:</dt>
 <dd><code><a href="../ObsidianMaterial.html#setBlock(org.bukkit.block.Block)">setBlock</a></code>&nbsp;in class&nbsp;<code><a href="../ObsidianMaterial.html" title="class in com.moyskleytech.obsidian.material">ObsidianMaterial</a></code></dd>
+</dl>
+</section>
+</li>
+<li>
+<section class="detail" id="normalizedName()">
+<h3>normalizedName</h3>
+<div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type"><a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a></span>&nbsp;<span class="element-name">normalizedName</span>()</div>
+<div class="block"><span class="descfrm-type-label">Description copied from class:&nbsp;<code><a href="../ObsidianMaterial.html#normalizedName()">ObsidianMaterial</a></code></span></div>
+<div class="block">Since ObsidianMaterial can have multiple name for a single material, use the
+ normalized name when requiring unique</div>
+<dl class="notes">
+<dt>Overrides:</dt>
+<dd><code><a href="../ObsidianMaterial.html#normalizedName()">normalizedName</a></code>&nbsp;in class&nbsp;<code><a href="../ObsidianMaterial.html" title="class in com.moyskleytech.obsidian.material">ObsidianMaterial</a></code></dd>
+<dt>Returns:</dt>
+<dd>normalized unique key of the material, might differ from name</dd>
 </dl>
 </section>
 </li>
