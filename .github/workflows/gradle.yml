@@ -23,17 +23,7 @@ jobs:
     - name: Test with Gradle
       run: ./gradlew test
     - name: Build with Gradle
-      run: ./gradlew build
-    - name: Upload artifacts
-      uses: "actions/upload-artifact@v2.2.3"
-      with:
-        name: "ObsidianMaterialAPI"
-        path: "api/build/libs/ObsidianMaterialAPI-*.jar"
-    - name: Upload artifacts
-      uses: "actions/upload-artifact@v2.2.3"
-      with:
-        name: "ObsidianMaterial"
-        path: "plugin/build/libs/ObsidianMaterial-*.jar"
+      run: ./gradlew test
     - name: Deploy 🚀
       uses: JamesIves/github-pages-deploy-action@v4.2.3
       with:
