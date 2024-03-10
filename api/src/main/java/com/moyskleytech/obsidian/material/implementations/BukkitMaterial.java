@@ -47,6 +47,7 @@ public class BukkitMaterial extends ObsidianMaterial {
         }
         catch(Throwable t)
         {
+            
             return super.normalizedName();
         }
     }

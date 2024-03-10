@@ -58,7 +58,7 @@ public class XMaterialAdapter implements Adapter {
     @Override
     public Optional<ObsidianMaterial> tryMatch(ItemStack stack) {
         try {
-            return Optional.of(ObsidianMaterial.wrap(XMaterial.matchXMaterial(stack)));
+            return Optional.of(ObsidianMaterial.valueOf(XMaterial.matchXMaterial(stack).name()));
         } catch (Throwable t) {
             return Optional.empty();
         }
@@ -76,7 +76,7 @@ public class XMaterialAdapter implements Adapter {
     @Override
     public Optional<ObsidianMaterial> tryMatch(BlockData stack) {
         try {
-            return Optional.of(ObsidianMaterial.wrap(XMaterial.matchXMaterial(stack.getMaterial())));
+            return Optional.of(ObsidianMaterial.wrap(stack.getMaterial()));
         } catch (Throwable t) {
             return Optional.empty();
         }

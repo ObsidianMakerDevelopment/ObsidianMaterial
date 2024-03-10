@@ -134,18 +134,6 @@ public abstract class ObsidianMaterial implements Comparable<ObsidianMaterial> {
     }
 
     /**
-     * Wrap a XMaterial into a ObsidianMaterial
-     * 
-     * @param mat the XMaterial object
-     * @return a ObsidianMaterial representing the object could be instance of
-     *         BukkitMaterial or XMaterial
-     */
-    public static final ObsidianMaterial wrap(XMaterial mat) {
-        lazy();
-        return valueOf(mat.name());
-    }
-
-    /**
      * Add a custom material into the cache that could be later used with valueOf,
      * should be called for all subclasses
      * 
@@ -287,7 +275,7 @@ public abstract class ObsidianMaterial implements Comparable<ObsidianMaterial> {
                 if (mat.isPresent())
                     return mat.get();
             } catch (Throwable t) {
-                t.printStackTrace();
+
             }
         }
         return null;

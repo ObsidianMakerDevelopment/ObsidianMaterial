@@ -1,5 +1,6 @@
 package com.moyskleytech.obsidian.material.implementations.adapters;
 
+import java.lang.reflect.Method;
 import java.util.Optional;
 
 import org.bukkit.Material;
@@ -17,10 +18,25 @@ import com.moyskleytech.obsidian.material.implementations.BukkitMaterial;
 public class BukkitAdapter implements Adapter {
 
     public BukkitAdapter() {
+        boolean hasGetKey = methodExists(Material.class, "getKey");
         for (Material mat : Material.values()) {
             ObsidianMaterial.add(new BukkitMaterial(mat, mat.name()));
-            ObsidianMaterial.add(new BukkitMaterial(mat, "minecraft:"+mat.name().toLowerCase()));
+            if(hasGetKey)
+                ObsidianMaterial.add(new BukkitMaterial(mat, mat.getKey().toString()));
+            else
+                ObsidianMaterial.add(new BukkitMaterial(mat, "minecraft:"+mat.name().toLowerCase()));
         }
+        
+    }
+    public static boolean methodExists(Class clazz, String methodName) {
+        boolean result = false;
+        for (Method method : clazz.getDeclaredMethods()) {
+            if (method.getName().equals(methodName)) {
+                result = true;
+                break;
+            }
+        }
+        return result;
     }
 
     @Override

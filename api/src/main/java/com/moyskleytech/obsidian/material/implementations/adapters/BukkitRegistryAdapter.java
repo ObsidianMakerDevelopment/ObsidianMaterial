@@ -43,17 +43,17 @@ public class BukkitRegistryAdapter implements Adapter {
 
     @Override
     public Optional<ObsidianMaterial> tryMatch(ItemStack stack) {
-        return Optional.of(ObsidianMaterial.valueOf(stack.getType()));
+        return Optional.of(ObsidianMaterial.valueOf(stack.getType().getKey().toString()));
     }
 
     @Override
     public Optional<ObsidianMaterial> tryMatch(Block stack) {
-        return Optional.of(ObsidianMaterial.valueOf(stack.getType()));
+        return Optional.of(ObsidianMaterial.valueOf(stack.getType().getKey().toString()));
     }
 
     @Override
     public Optional<ObsidianMaterial> tryMatch(BlockData stack) {
-        return Optional.of(ObsidianMaterial.valueOf(stack.getMaterial()));
+        return Optional.of(ObsidianMaterial.valueOf(stack.getMaterial().getKey().toString()));
     }
 
 }
